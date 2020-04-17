@@ -9,5 +9,5 @@ addons:
 before_install:
   - chmod +x mvnw
 script:
-- maven build
+- mvn build
 - sonar-scanner
