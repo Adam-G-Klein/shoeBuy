@@ -9,5 +9,5 @@ addons:
 before_install:
   - chmod +x mvnw
 script:
-- mvn spring-boot:run
+- mvn clean install -B
 - sonar-scanner
