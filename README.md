@@ -1,7 +1,6 @@
 # shoeBuy
-### Alright team here's how this works
-- first you clone it. yuh.
-- Then you run `./mvnw spring-boot:run`. This will probably error, keep reading.
+### Alright here's how this works
+- Run `./mvnw spring-boot:run`. This will probably error, keep reading.
 - You might run into issues with it not finding your JAVA_HOME or M2_HOME. These need to point to the place where your jdk are and the place on your machine [this](https://maven.apache.org/download.cgi) is located (respectively). Here's a screencap of my environment variables:
 [Env Variables](readmefiles/env.png)
 - You may also run into issues with the `./mnvw` script not finding your mvn binary file, you'll have to add it to your path: [My Path](readmefiles/path.png)

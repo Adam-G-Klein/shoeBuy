@@ -13,22 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.greglturnquist.payroll;
+package com.shoeBuy;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * @author Greg Turnquist
  */
 // tag::code[]
-@Controller
-public class HomeController {
+@SpringBootApplication
+public class ReactAndSpringDataRestApplication {
 
-	@RequestMapping(value = "/")
-	public String index() {
-		return "index";
-	}///src/main/etmpaltes
-
+	public static void main(String[] args) {
+		SpringApplication.run(ReactAndSpringDataRestApplication.class, args);
+	}
 }
 // end::code[]

@@ -5,6 +5,7 @@ target/
 !**/src/test/**
 src/main/resources/static/built/
 bin/
+.metadata/*
 
 ### STS ###
 .apt_generated
