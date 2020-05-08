@@ -1,19 +1,28 @@
-const React = require('react');
-const ReactDOM = require('react-dom');
+//const React = require('react');
+//const ReactDOM = require('react-dom');
 
-class Index extends React.Component {
-	render() {
-		return (
-		    <div>
-		    <h1> Login to find your perfect fit! </h1>
-		    <h3> this is the login page </h3>
-		    </div>
-		)
-	}
-}
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import Home from './Home';
+import Login from './Login';
+
+const routes  = (
+	<Router>
+		<Switch>
+			<Route exact path = '/'>
+				<Home />
+			</Route>
+			<Route exact path = '/login'>
+				<Login />
+			</Route>
+		</Switch>
+	</Router>
+)
+	
 
 
 ReactDOM.render(
-	<Index /> ,
+	routes,
 	document.getElementById('Index')
 );
