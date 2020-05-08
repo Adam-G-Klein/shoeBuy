@@ -1,7 +1,7 @@
 import React from 'react';
-import PillButtonLink from '@rakuten-rex/button/PillButton/PillButtonLink';
+import "../resources/static/button.css";
 
-class Home extends React.Component {
+class Search extends React.Component {
 	render() {
 		return (
 		    <div style = {{
@@ -20,15 +20,14 @@ class Home extends React.Component {
 					fontSize: '80px',
 					color: 'white'}}>
 					TrueSize</h1>
-					<PillButtonLink href='/login' style={{
-						borderColor: 'red', 
-						backgroundColor:'red',
-						marginTop: '50px',
-						width: '100px'}}>
-					Sign In</PillButtonLink> 
+                <a
+                    href = '/SearchResults' 
+                    className = 'button'>
+                    Seach for your dream shoe    
+                </a>
 		    </div>
 		)
 	}
 }
 
-export default Home;
+export default Search;

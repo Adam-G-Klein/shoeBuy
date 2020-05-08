@@ -1,7 +1,12 @@
 import React from 'react';
-import PillButtonLink from '@rakuten-rex/button/PillButton/PillButtonLink';
+import SelectSearch from 'massimo-select-search';
 
-class Home extends React.Component {
+const options = [
+    {name: 'Swedish', value: 'sv'},
+    {name: 'English', value: 'en'}
+];
+
+class SizeRecommender extends React.Component {
 	render() {
 		return (
 		    <div style = {{
@@ -20,15 +25,10 @@ class Home extends React.Component {
 					fontSize: '80px',
 					color: 'white'}}>
 					TrueSize</h1>
-					<PillButtonLink href='/login' style={{
-						borderColor: 'red', 
-						backgroundColor:'red',
-						marginTop: '50px',
-						width: '100px'}}>
-					Sign In</PillButtonLink> 
-		    </div>
+				<SelectSearch options={options} value="sv" name="language" placeholder="Choose your language" />
+			</div>
 		)
 	}
 }
 
-export default Home;
+export default SizeRecommender;

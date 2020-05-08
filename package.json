@@ -20,21 +20,35 @@
   },
   "homepage": "https://github.com/spring-guides/tut-react-and-spring-data-rest",
   "dependencies": {
+    "@rakuten-rex/button": "^1.3.0",
+    "bootstrap": "^4.4.1",
+    "massimo-select-search": "^0.10.9",
     "react": "^16.5.2",
+    "react-autosuggest": "^10.0.2",
+    "react-bootstrap": "^1.0.1",
     "react-dom": "^16.5.2",
+    "react-novice-button": "^1.0.6",
     "react-router-dom": "^5.1.2",
     "rest": "^1.3.1",
     "sockjs-client": "^1.0.3",
-    "stompjs": "^2.3.3"
+    "stompjs": "^2.3.3",
+    "studio-auto-complete": "0.0.9",
+    "style-loader": "^1.2.1",
+    "url-loader": "^4.1.0"
   },
   "scripts": {
     "watch": "webpack --watch -d"
   },
   "devDependencies": {
     "@babel/core": "^7.1.0",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.2",
+    "bootstrap-btn-outline-rounded": "0.0.1",
+    "css-loader": "^3.5.3",
+    "file-loader": "^6.0.0",
+    "image-webpack-loader": "^6.0.0",
     "webpack": "^4.19.1",
     "webpack-cli": "^3.1.0"
   }
