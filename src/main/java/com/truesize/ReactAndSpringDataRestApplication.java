@@ -13,10 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.shoeBuy;
+package com.truesize;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
 /**
  * @author Greg Turnquist
@@ -24,6 +27,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 // tag::code[]
 @SpringBootApplication
 public class ReactAndSpringDataRestApplication {
+
+	@Bean
+	public Logger loggerFactory(){
+		return LoggerFactory.getLogger(ReactAndSpringDataRestApplication.class);
+	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(ReactAndSpringDataRestApplication.class, args);

@@ -13,8 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.shoeBuy;
+package com.truesize;
 
+import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -25,9 +27,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class HomeController {
 
+	@Autowired
+	private Logger logger;
+
 	@RequestMapping(value = "/*")
 	public String index() {
-		System.out.println("hit the controller!");
+		logger.info("hit the controller!");
 		return "index";
 	}///src/main/etmpaltes
 
