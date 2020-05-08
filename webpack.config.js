@@ -11,6 +11,7 @@ module.exports = {
     },
     module: {
         rules: [
+            
             {
                 test: path.join(__dirname, '.'),
                 exclude: /(node_modules)/,

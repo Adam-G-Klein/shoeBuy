@@ -1,18 +1,23 @@
 import React from 'react';
-import NavBar from 'react-bootstrap/Navbar';
+import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
+import {Button} from 'react-bootstrap';
 
 
-class NavBar extends React.Component {
+const headerStyle = { 'marginLeft': 20 }
+
+
+class Header extends React.Component {
 	render() {
 		return (
             <>
             <Navbar bg="dark" variant="dark">
-                <Navbar.Brand href="#home">Navbar</Navbar.Brand>
-                <Nav className="mr-auto">
-                <Nav.Link href="#home">Home</Nav.Link>
-                <Nav.Link href="#features">Features</Nav.Link>
-                <Nav.Link href="#pricing">Pricing</Nav.Link>
+                <Navbar.Brand href="/">TrueSize</Navbar.Brand>
+                <Nav  className="ml-auto">
+                <Nav.Link style={headerStyle} href="/shoeRecommender">Find a Shoe</Nav.Link>
+                <Nav.Link style={headerStyle} href="/">Find a Size</Nav.Link>
+                <Nav.Link style={headerStyle} href="/profile">Profile</Nav.Link>
+                <Nav.Link style={headerStyle} href="/login">Login</Nav.Link>
                 </Nav>
             </Navbar>
             </>
@@ -20,4 +25,4 @@ class NavBar extends React.Component {
 	}
 }
 
-export default NavBar;
+export default Header;
