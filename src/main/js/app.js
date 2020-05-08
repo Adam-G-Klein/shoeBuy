@@ -5,8 +5,6 @@ import ReactDOM from 'react-dom';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import Home from './Home';
 import Login from './Login';
-import AllShoeViewer from './AllShoeViewer/AllShoeViewer.js';
-import NavBar from './NavBar';
 import Header from './NavBar';
 import Profile from './Profile';
 import SizeRecommender from './SizeRecommender';
@@ -30,8 +28,6 @@ const routes  = (
 			<Route exact path = '/login'>
 				<Login />
 			</Route>
-			<Route exact path = '/allshoes'>
-			    <AllShoeViewer />
 			<Route exact path = '/profile'>
 				<Profile />
 			</Route>
