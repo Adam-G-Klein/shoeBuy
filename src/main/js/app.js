@@ -6,9 +6,11 @@ import ReactDOM from 'react-dom';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import Home from './Home';
 import Login from './Login';
+import NavBar from './NavBar';
 
 const routes  = (
 	<Router>
+		<NavBar />
 		<Switch>
 			<Route exact path = '/'>
 				<Home />
