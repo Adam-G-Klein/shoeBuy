@@ -1,5 +1,8 @@
 package com.truesize;
 
+import com.truesize.shoegraph.AllShoeRepository;
+import com.truesize.shoegraph.ShoeNode;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -16,9 +19,11 @@ public class DatabasePreloader implements CommandLineRunner {
 
     @Override
     public void run(String... strings) throws Exception{
-        this.allShoeRepository.save(new UserShoe("NikeKD8", 17.0));
-        this.allShoeRepository.save(new UserShoe("NikeKD9", 17.5));
+        ShoeNode testNode = new ShoeNode("KD8", "Nike", "m", 7.0);
+        ShoeNode testNode2 = new ShoeNode("KD9", "Nike", "m", 10.0);
+        testNode.addEdge(testNode2, 3.0, false);
+        this.allShoeRepository.save(testNode);
+        this.allShoeRepository.save(testNode2);
     }
-
 
 }

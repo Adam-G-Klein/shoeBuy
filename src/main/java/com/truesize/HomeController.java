@@ -33,6 +33,7 @@ public class HomeController {
 	@RequestMapping(value = "/{path:?:(^(?!api)).*$}")
 	public String index() {
 		logger.info("hit the controller!");
+		System.out.println("contorller");
 		return "index";
 	}///src/main/etmpaltes
 
