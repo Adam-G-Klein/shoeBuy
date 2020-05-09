@@ -1,4 +1,7 @@
 package com.truesize;
 
-public interface AllShoeRepository {
+import org.springframework.data.repository.CrudRepository;
+
+public interface AllShoeRepository extends CrudRepository<UserShoe, Long> {
+
 }

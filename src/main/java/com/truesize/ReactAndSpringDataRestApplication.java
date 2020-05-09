@@ -30,7 +30,7 @@ public class ReactAndSpringDataRestApplication {
 
 	@Bean
 	public Logger loggerFactory(){
-		return LoggerFactory.getLogger(ReactAndSpringDataRestApplication.class);
+		return LoggerFactory.getLogger(HomeController.class);
 	}
 
 	public static void main(String[] args) {
