@@ -17,10 +17,10 @@ import backgroundImage from '../resources/static/backgroundImage.jpg';
 const routes  = (
 	<Router>
 		<Header />
-		<Image style = {{
+		{/* <Image style = {{
 			backgroundRepeat: 'no-repeat',
 			backgroundSize: 'cover'
-			}} src= {backgroundImage}/>		
+			}} src= {backgroundImage}/>		 */}
 		<Switch>
 			<Route exact path = '/'>
 				<Home />
