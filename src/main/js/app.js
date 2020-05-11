@@ -9,11 +9,18 @@ import Header from './NavBar';
 import Profile from './Profile';
 import SizeRecommender from './SizeRecommender';
 import ShoeRecommender from './ShoeRecommender';
+import Container from 'react-bootstrap/Container';
+import Image from 'react-bootstrap/Image';
 //import 'bootstrap/dist/css/bootstrap.min.css';
+import backgroundImage from '../resources/static/backgroundImage.jpg';
 
 const routes  = (
 	<Router>
 		<Header />
+		<Image style = {{
+			backgroundRepeat: 'no-repeat',
+			backgroundSize: 'cover'
+			}} src= {backgroundImage}/>		
 		<Switch>
 			<Route exact path = '/'>
 				<Home />

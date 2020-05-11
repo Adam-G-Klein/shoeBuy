@@ -10,8 +10,7 @@ module.exports = {
         filename: './src/main/resources/static/built/bundle.js'
     },
     module: {
-        rules: [
-            
+        rules: [            
             {
                 test: path.join(__dirname, '.'),
                 exclude: /(node_modules)/,
@@ -21,6 +20,11 @@ module.exports = {
                         presets: ["@babel/preset-env", "@babel/preset-react"]
                     }
                 }]
+            },
+            {
+                test: /\.(jpe?g|png|gif|svg)$/i, 
+                loader: "url-loader?name=app/images/[name].[ext]"
+
             }
         ]
     }
