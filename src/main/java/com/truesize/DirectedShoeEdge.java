@@ -1,9 +1,10 @@
 package com.truesize;
 
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
 import java.util.Objects;
 
 @Entity
@@ -13,10 +14,15 @@ public class DirectedShoeEdge {
     @GeneratedValue long id;
 
     public int connectionMultiplicity;
-	public double sizeDifference;
-	public ShoeNode startShoeNode;
+    public double sizeDifference;
+    
+    @ManyToOne
+    public ShoeNode startShoeNode;
+    
+    @ManyToOne
     public ShoeNode endShoeNode;
 
+    private DirectedShoeEdge() {}
 
     public DirectedShoeEdge(int connectionMultiplicity, double sizeDifference,
                             ShoeNode startShoeNode, ShoeNode endShoeNode){
