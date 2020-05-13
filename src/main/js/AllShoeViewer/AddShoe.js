@@ -8,7 +8,8 @@ class AddShoe extends React.Component {
 		this.state = {model: "initName", size: -1.0 };
 	}
 
-    postShoe(){
+    postShoe(event){
+        event.preventDefault();
         const newShoe = {modelName: this.state.model,
         size: this.state.size};
         restClient({method: "POST",
@@ -18,10 +19,12 @@ class AddShoe extends React.Component {
 
     }
     handleModelChange(event){
+        event.preventDefault();
         this.setState({model: event.target.value});
     }
 
     handleSizeChange(event){
+        event.preventDefault();
         this.setState({size: event.target.value});
     }
 	render() {
@@ -35,7 +38,7 @@ class AddShoe extends React.Component {
                     <p>Size:</p>
                     <input name="size" onChange={(event) => this.handleSizeChange(event)} />
 		        </div>
-		        <button onClick={this.postShoe()}> Add Shoe </button>
+		        <button onClick={(event) => this.postShoe(event)}> Add Shoe </button>
 			</div>
 		)
 	}
