@@ -1,10 +1,4 @@
 import React from 'react';
-import SelectSearch from 'massimo-select-search';
-
-const options = [
-    {name: 'Swedish', value: 'sv'},
-    {name: 'English', value: 'en'}
-];
 
 class SizeRecommender extends React.Component {
 	render() {
@@ -25,7 +19,6 @@ class SizeRecommender extends React.Component {
 					fontSize: '80px',
 					color: 'white'}}>
 					TrueSize</h1>
-				<SelectSearch options={options} value="sv" name="language" placeholder="Choose your language" />
 			</div>
 		)
 	}
