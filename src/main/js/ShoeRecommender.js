@@ -4,7 +4,7 @@ class ShoeRecommender extends React.Component {
 	render() {
 		return (
 		    <div>
-		    <h1> Shoe Recommender </h1>
+		    <h1> ShoeRecommender </h1>
 		    </div>
 		)
 	}

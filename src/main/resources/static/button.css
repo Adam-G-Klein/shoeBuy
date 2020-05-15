@@ -1,0 +1,31 @@
+.button {
+    position: relative;
+    margin-top: 50px;
+    width: 500px;
+    height: 50px;
+    padding: 10px 20px;
+    font-family: Helvetica, sans-serif;
+    color: black;
+    font-weight: 300;
+    font-size: 24px;
+    background-color: #fff;
+    border: 2px solid #aaa;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+  }
+  .button:hover {
+    text-decoration: none;
+    background-color: #fff;
+    border: 2px solid #aaa;
+    color: grey;
+  }
+  .button:active {
+    text-decoration: none;
+    background-color: #fff;
+    border: 2px solid #aaa;
+    color: grey;  
+  }

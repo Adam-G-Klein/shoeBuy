@@ -9,18 +9,18 @@ import Header from './NavBar';
 import Profile from './Profile';
 import SizeRecommender from './SizeRecommender';
 import ShoeRecommender from './ShoeRecommender';
+import Search from './Search';
+import SearchResults from './SearchResults';
 import Container from 'react-bootstrap/Container';
 import Image from 'react-bootstrap/Image';
+import '../resources/static/backgroundImage.css';
 //import 'bootstrap/dist/css/bootstrap.min.css';
-import backgroundImage from '../resources/static/backgroundImage.jpg';
+
+var BackgroundImage = require('../resources/static/backgroundImage.jpg')
 
 const routes  = (
 	<Router>
 		<Header />
-		{/* <Image style = {{
-			backgroundRepeat: 'no-repeat',
-			backgroundSize: 'cover'
-			}} src= {backgroundImage}/>		 */}
 		<Switch>
 			<Route exact path = '/'>
 				<Home />
@@ -36,6 +36,12 @@ const routes  = (
 			</Route>
 			<Route exact path = '/shoeRecommender'>
 				<ShoeRecommender />
+			</Route>
+			<Route exact path = '/search'>
+				<Search />
+			</Route>
+			<Route exact path = '/searchResults'>
+				<SearchResults />
 			</Route>
 		</Switch>
 	</Router>

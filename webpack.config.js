@@ -17,15 +17,19 @@ module.exports = {
                 use: [{
                     loader: 'babel-loader',
                     options: {
-                        presets: ["@babel/preset-env", "@babel/preset-react"]
+                        presets: ["@babel/preset-env", "@babel/preset-react",
+                            {'plugins': ['@babel/plugin-proposal-class-properties']}]
                     }
                 }]
             },
             {
                 test: /\.(jpe?g|png|gif|svg)$/i, 
                 loader: "url-loader?name=app/images/[name].[ext]"
-
-            }
+            },
+            {
+                test: /\.css$/i,
+                use: ['style-loader', 'css-loader'],
+            },
         ]
     }
 };
