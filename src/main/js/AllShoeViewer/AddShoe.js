@@ -13,7 +13,7 @@ class AddShoe extends React.Component {
         const newShoe = {modelName: this.state.model,
         size: this.state.size};
         restClient({method: "POST",
-            path: "/api/userShoes",
+            path: "/api/userShoes?uname=" + this.state.uname,
             entity: newShoe,
             headers: {'Content-Type': 'application/json'} });
 

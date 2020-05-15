@@ -7,6 +7,7 @@ import Home from './Home';
 import Login from './Login';
 import Header from './NavBar';
 import Profile from './Profile';
+import AllShoeViewer from './AllShoeViewer/AllShoeViewer.js';
 import SizeRecommender from './SizeRecommender';
 import ShoeRecommender from './ShoeRecommender';
 import Search from './Search';
@@ -42,6 +43,9 @@ const routes  = (
 			</Route>
 			<Route exact path = '/searchResults'>
 				<SearchResults />
+			</Route>
+			<Route exact path = '/allShoes'>
+				<AllShoeViewer />
 			</Route>
 		</Switch>
 	</Router>
