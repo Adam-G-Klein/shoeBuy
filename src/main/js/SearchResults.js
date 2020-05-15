@@ -1,151 +1,235 @@
 import React from 'react';
 import Autosuggest from 'react-autosuggest';
 import "../resources/static/theme.css";
+import ResultCard from './ResultCard';
+import restClient from './restClient.js';
+import { Container, Row, Col, Button } from 'react-bootstrap';
 
-// Imagine you have a list of languages that you'd like to autosuggest.
-const languages = [
-	{
-	  name: 'C',
-	  year: 1972
-	},
-	{
-	  name: 'C#',
-	  year: 2000
-	},
-	{
-	  name: 'C++',
-	  year: 1983
-	},
-	{
-	  name: 'Clojure',
-	  year: 2007
-	},
-	{
-	  name: 'Elm',
-	  year: 2012
-	},
-	{
-	  name: 'Go',
-	  year: 2009
-	},
-	{
-	  name: 'Haskell',
-	  year: 1990
-	},
-	{
-	  name: 'Java',
-	  year: 1995
-	},
-	{
-	  name: 'Javascript',
-	  year: 1995
-	},
-	{
-	  name: 'Perl',
-	  year: 1987
-	},
-	{
-	  name: 'PHP',
-	  year: 1995
-	},
-	{
-	  name: 'Python',
-	  year: 1991
-	},
-	{
-	  name: 'Ruby',
-	  year: 1995
-	},
-	{
-	  name: 'Scala',
-	  year: 2003
-	}
-  ];
- 
-// Teach Autosuggest how to calculate suggestions for any given input value.
-const getSuggestions = value => {
-  const inputValue = value.trim().toLowerCase();
-  const inputLength = inputValue.length;
- 
-  return inputLength === 0 ? [] : languages.filter(lang =>
-    lang.name.toLowerCase().slice(0, inputLength) === inputValue
-  );
-};
- 
-// When suggestion is clicked, Autosuggest needs to populate the input
-// based on the clicked suggestion. Teach Autosuggest how to calculate the
-// input value for every given suggestion.
-const getSuggestionValue = suggestion => suggestion.name;
- 
-// Use your imagination to render suggestions.
-const renderSuggestion = suggestion => (
-  <div> 
-    {suggestion.name}
-  </div>
-);
- 
+
 class SearchResults extends React.Component {
   constructor() {
     super();
- 
-    // Autosuggest is a controlled component.
-    // This means that you need to provide an input value
-    // and an onChange handler that updates this value (see below).
-    // Suggestions also need to be provided to the Autosuggest,
-    // and they are initially empty because the Autosuggest is closed.
+
     this.state = {
       value: '',
-      suggestions: []
+      suggestions: [],
+      shoes: [],
+      testData: [
+        {name: 'one',
+        brand: 'nike',
+        id: 1},
+        {name: 'two',
+        brand: 'adidas',
+        id: 2},
+        {name: 'three',
+        brand: 'something',
+        id:3},
+        {name: 'four',
+        brand: 'another',
+        id:4},
+        {name: 'five',
+        brand: 'another one',
+        id:5},
+        {name: 'six',
+        brand: 'nike',
+        id: 6},
+        {name: 'seven',
+        brand: 'adidas',
+        id: 7},
+        {name: 'eight',
+        brand: 'something',
+        id:8},
+        {name: 'nine',
+        brand: 'something 1',
+        id:9},
+        {name: 'nine',
+        brand: 'something 2',
+        id:9},
+        {name: 'nine',
+        brand: 'something 3',
+        id:9},
+        {name: 'nine',
+        brand: 'something 4',
+        id:9},
+        {name: 'nine',
+        brand: 'something 5',
+        id:9}
+      ],
+      currPageIndex: 0,
+      pages: []
     };
   }
 
   componentDidMount(){
-    
     document.querySelector('.react-autosuggest__input').focus();
-    }
- 
-  onChange = (event, { newValue }) => {
-    this.setState({
-      value: newValue
+    restClient({method: 'GET', path: '/api/userShoes'}).done(response => {
+      // this.setState({shoes: response.entity._embedded.userShoes});
+      this.setState({shoes: this.state.testData});
+      this.sectionResultPages(this.state.shoes);
+
     });
-  };
- 
-  // Autosuggest will call this function every time you need to update suggestions.
-  // You already implemented this logic above, so just use it.
+    }
+
+    getSuggestions = value => {
+      var inputValue = value.trim().toLowerCase();
+      var inputLength = inputValue.length;
+
+      return inputLength === 0 ? [] : this.state.shoes.filter(shoes =>
+        shoes.name.toLowerCase().slice(0, inputLength) === inputValue
+      );
+    };
+
+    getSuggestionValue = suggestion => suggestion.name;
+
+    renderSuggestion = suggestion => (
+      <div>
+        {suggestion.name}
+      </div>
+    );
+
+    onChange = (event, { newValue }) => {
+      this.setState({
+        value: newValue
+      });
+
+    };
+
   onSuggestionsFetchRequested = ({ value }) => {
     this.setState({
-      suggestions: getSuggestions(value)
+      suggestions: this.getSuggestions(value)
     });
+    let s = this.getSuggestions(value);
+    this.sectionResultPages(s);
   };
- 
-  // Autosuggest will call this function every time you need to clear suggestions.
+
+
   onSuggestionsClearRequested = () => {
     this.setState({
       suggestions: []
     });
+    this.sectionResultPages(this.state.shoes)
   };
- 
+
+  sectionResultPages = (suggestions) => {
+    if(suggestions.length == 0){
+      let emptyMessage =
+          (<div>
+          <div style={{margin: '40px'}}/>
+          <Container>
+          <Row>
+            <Col>
+              <h1 style={{color: 'white', textAlign: 'center'}}>Sorry, no shoes found :(</h1>
+            </Col>
+          </Row>
+          </Container>
+        </div>);
+
+      this.setState({pages: [emptyMessage]})
+      return;
+    }
+    let sections = [];
+    for(var i = 0; i < suggestions.length; i=i+4){
+      var section = suggestions.slice(i, i+4)
+      sections.push(section)
+    }
+
+    let rows = sections.map((sec) =>{
+        let row = sec.map((content) =>{
+          return (
+            <Col>
+              <ResultCard shoeInfo={content}/>
+            </Col>
+          )
+        })
+
+      if(row.length < 4){
+        for(var k = row.length-1; k < 4; k++){
+          row.push(
+            <Col>
+              <div style={{ width: '12rem'}}></div>
+            </Col>
+          )
+        }
+      }
+      return(
+       <Row>
+          {row}
+        </Row>
+      )
+    })
+
+    let pageRows = []
+    for(var j = 0; j < rows.length; j = j+2){
+      var pageRow;
+      if(j+2 > rows.length){
+        pageRow = rows.slice(j, j+1)
+      }
+      else{
+        pageRow = rows.slice(j, j+2)
+      }
+      pageRows.push(pageRow)
+    }
+
+    let pages = pageRows.map((content, index) =>{
+      return(
+        <div>
+          <div style={{margin: '40px'}}/>
+          <Container>
+            {content[0]}
+            <div style={{margin: '20px'}}/>
+            {content[1]}
+          </Container>
+        </div>
+      )
+    })
+    this.setState({pages: pages})
+  }
+
+  handlePreviousPage() {
+    this.setState({currPageIndex: this.state.currPageIndex-1})
+  }
+
+  handleNextPage() {
+    this.setState({currPageIndex: this.state.currPageIndex+1})
+  }
+
   render() {
     const { value, suggestions } = this.state;
- 
-    // Autosuggest will pass through all these props to the input.
+
     const inputProps = {
-      placeholder: 'Seach for your dream shoe',
+      placeholder: 'Seach for your dream shoes',
       value,
       onChange: this.onChange
     };
- 
-    // Finally, render it!
+
     return (
+      <div>
       <Autosuggest
         autoFocus
         suggestions={suggestions}
         onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
         onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-        getSuggestionValue={getSuggestionValue}
-        renderSuggestion={renderSuggestion}
+        getSuggestionValue={this.getSuggestionValue}
+        renderSuggestion={this.renderSuggestion}
         inputProps={inputProps}
       />
+      {this.state.pages[this.state.currPageIndex]}
+
+      <div style={{margin: '40px'}}/>
+      <Container>
+        <Row>
+          <Col />
+            <Button style={{backgroundColor: 'red', outline: 'none', boxShadow: 'none'}} disabled={this.state.currPageIndex === 0 ? true : false}
+              onClick={() => this.handlePreviousPage()}>Previous
+            </Button>
+            <Button style={{backgroundColor: 'red', outline: 'none', boxShadow: 'none'}} disabled={this.state.currPageIndex +1 === this.state.pages.length ? true : false}
+              onClick={() => this.handleNextPage()}>Next
+            </Button>
+          <Col />
+        </Row>
+      </Container>
+
+      </div>
     );
   }
 }

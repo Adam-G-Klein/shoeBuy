@@ -6,6 +6,8 @@ addons:
     sonarcloud:
         organization: adam-g-klein
         token: 92ea6894152e1658a51bf7f26fe39e74c57cdcc5
+git:
+  quiet: true
 before_install:
   - chmod +x mvnw
 script:
