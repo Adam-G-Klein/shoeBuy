@@ -1,12 +1,7 @@
 import React from 'react';
-import SelectSearch from 'massimo-select-search';
+import "../resources/static/button.css";
 
-const options = [
-    {name: 'Swedish', value: 'sv'},
-    {name: 'English', value: 'en'}
-];
-
-class SizeRecommender extends React.Component {
+class Search extends React.Component {
 	render() {
 		return (
 		    <div style = {{
@@ -25,10 +20,14 @@ class SizeRecommender extends React.Component {
 					fontSize: '80px',
 					color: 'white'}}>
 					TrueSize</h1>
-				<SelectSearch options={options} value="sv" name="language" placeholder="Choose your language" />
-			</div>
+                <a
+                    href = '/SearchResults' 
+                    className = 'button'>
+                    Seach for your dream shoe    
+                </a>
+		    </div>
 		)
 	}
 }
 
-export default SizeRecommender;
+export default Search;

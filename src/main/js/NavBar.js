@@ -15,7 +15,7 @@ class Header extends React.Component {
                 <Navbar.Brand href="/">TrueSize</Navbar.Brand>
                 <Nav  className="ml-auto">
                 <Nav.Link style={headerStyle} href="/shoeRecommender">Find a Shoe</Nav.Link>
-                <Nav.Link style={headerStyle} href="/">Find a Size</Nav.Link>
+                <Nav.Link style={headerStyle} href="/search">Find a Size</Nav.Link>
                 <Nav.Link style={headerStyle} href="/profile">Profile</Nav.Link>
                 <Nav.Link style={headerStyle} href="/login">Login</Nav.Link>
                 </Nav>
