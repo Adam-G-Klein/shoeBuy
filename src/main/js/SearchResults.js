@@ -1,6 +1,7 @@
 import React from 'react';
 import Autosuggest from 'react-autosuggest';
 import "../resources/static/theme.css";
+import ResultCard from './ResultCard';
 
 // Imagine you have a list of languages that you'd like to autosuggest.
 const languages = [
@@ -137,6 +138,7 @@ class SearchResults extends React.Component {
  
     // Finally, render it!
     return (
+      <div>
       <Autosuggest
         autoFocus
         suggestions={suggestions}
@@ -146,6 +148,8 @@ class SearchResults extends React.Component {
         renderSuggestion={renderSuggestion}
         inputProps={inputProps}
       />
+      <ResultCard />
+      </div>
     );
   }
 }
