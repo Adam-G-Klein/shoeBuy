@@ -13,6 +13,7 @@ import Container from 'react-bootstrap/Container';
 import Image from 'react-bootstrap/Image';
 //import 'bootstrap/dist/css/bootstrap.min.css';
 import backgroundImage from '../resources/static/backgroundImage.jpg';
+import Search from './SearchResults';
 
 const routes  = (
 	<Router>
@@ -36,6 +37,9 @@ const routes  = (
 			</Route>
 			<Route exact path = '/shoeRecommender'>
 				<ShoeRecommender />
+			</Route>
+			<Route exact path = '/search'>
+				<Search />
 			</Route>
 		</Switch>
 	</Router>
