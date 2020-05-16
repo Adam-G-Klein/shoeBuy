@@ -32,9 +32,9 @@ const routes  = (
 			<Route exact path = '/profile'>
 				<Profile />
 			</Route>
-			<Route exact path = '/sizeRecommender'>
-				<SizeRecommender />
-			</Route>
+			<Route exact path = '/sizeRecommender' render={
+				(props) => <SizeRecommender {...props} />
+			} />
 			<Route exact path = '/shoeRecommender'>
 				<ShoeRecommender />
 			</Route>

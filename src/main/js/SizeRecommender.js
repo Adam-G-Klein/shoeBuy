@@ -1,7 +1,10 @@
 import React from 'react';
 
 class SizeRecommender extends React.Component {
+	
+
 	render() {
+		console.log("props: ", this.props.location)
 		return (
 		    <div style = {{
 				height: 'calc(90vh)',
