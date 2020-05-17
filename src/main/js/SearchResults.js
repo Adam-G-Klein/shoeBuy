@@ -2,12 +2,9 @@ import React from 'react';
 import Autosuggest from 'react-autosuggest';
 import "../resources/static/theme.css";
 import ResultCard from './ResultCard';
-<<<<<<< HEAD
 import restClient from './restClient.js';
-=======
 // import { Col } from 'react-bootstrap';
 import { Container, Row, Col, Button } from 'react-bootstrap';
->>>>>>> 834b3520563baa586034ba0653b78518ef78f4de
 
 // Imagine you have a list of languages that you'd like to autosuggest.
 const languages = [
