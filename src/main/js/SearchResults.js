@@ -2,7 +2,12 @@ import React from 'react';
 import Autosuggest from 'react-autosuggest';
 import "../resources/static/theme.css";
 import ResultCard from './ResultCard';
+<<<<<<< HEAD
 import restClient from './restClient.js';
+=======
+// import { Col } from 'react-bootstrap';
+import { Container, Row, Col, Button } from 'react-bootstrap';
+>>>>>>> 834b3520563baa586034ba0653b78518ef78f4de
 
 // Imagine you have a list of languages that you'd like to autosuggest.
 const languages = [
@@ -85,7 +90,38 @@ class SearchResults extends React.Component {
     this.state = {
       value: '',
       suggestions: [],
-      shoes: []
+      shoes: [],
+      testData: [
+        {name: 'one',
+        brand: 'nike',
+        id: 1},
+        {name: 'two',
+        brand: 'adidas',
+        id: 2},
+        {name: 'three',
+        brand: 'something',
+        id:3},
+        {name: 'four',
+        brand: 'another',
+        id:4},
+        {name: 'five',
+        brand: 'another one',
+        id:5},
+        {name: 'six',
+        brand: 'nike',
+        id: 6},
+        {name: 'seven',
+        brand: 'adidas',
+        id: 7},
+        {name: 'eight',
+        brand: 'something',
+        id:8},
+        {name: 'nine',
+        brand: 'something',
+        id:9}
+      ],
+      currPageIndex: 0,
+      pages: []
     };
   }
 
@@ -94,6 +130,7 @@ class SearchResults extends React.Component {
     restClient({method: 'GET', path: '/api/userShoes'}).done(response => {
 			this.setState({shoes: response.entity._embedded.userShoes});
 		});
+    this.sectionResultPages()
     }
     
     getSuggestions = value => {
@@ -134,8 +171,77 @@ class SearchResults extends React.Component {
     });
   };
  
+
+  sectionResultPages = () => {
+    let sections = [];
+    for(var i = 0; i < this.state.testData.length; i=i+4){
+      var section = this.state.testData.slice(i, i+4)
+      console.log("section: ", section);
+      sections.push(section)
+    }
+
+    let rows = sections.map((section, index) =>{
+        let row = section.map((content, i) =>{
+          console.log("section content: ", content)
+          return (
+            <Col>
+              <ResultCard shoeInfo={content}/>
+            </Col>
+          )
+        })
+
+      return(
+       <Row>
+          {row}
+        </Row>
+      )
+    })
+
+    console.log(rows.length)
+    let pageRows = []
+    for(var j = 0; j < rows.length; j = j+2){
+      var pageRow;
+      if(j+2 > rows.length){
+        console.log("in if")
+        pageRow = rows.slice(j, j+1)
+        console.log("pagerow: ", pageRow)
+      }
+      else{
+        pageRow = rows.slice(j, j+2)
+      }
+      pageRows.push(pageRow)
+    }
+
+    console.log("pageRows: ", pageRows)
+
+    let pages = pageRows.map((content, index) =>{
+      console.log("content: ", content)
+      return(
+        <div>
+          <div style={{margin: '40px'}}/>
+          <Container>
+            {content[0]}
+            <div style={{margin: '20px'}}/>
+            {content[1]}
+          </Container>
+        </div>
+      )
+    })
+    this.setState({pages: pages})
+    // return (pages);
+  }
+
+  handlePreviousPage() {
+    this.setState({currPageIndex: this.state.currPageIndex-1})
+  }
+
+  handleNextPage() {
+    this.setState({currPageIndex: this.state.currPageIndex+1})
+  }
+
   render() {
     const { value, suggestions } = this.state;
+    console.log("state pages: ", this.state.pages)
  
     // Autosuggest will pass through all these props to the input.
     const inputProps = {
@@ -156,7 +262,22 @@ class SearchResults extends React.Component {
         renderSuggestion={this.renderSuggestion}
         inputProps={inputProps}
       />
-      <ResultCard />
+      {this.state.pages[this.state.currPageIndex]}
+
+      <div style={{margin: '40px'}}/>
+      <Container>
+        <Row>
+          <Col />
+            <Button style={{backgroundColor: 'red', outline: 'none', boxShadow: 'none'}} disabled={this.state.currPageIndex === 0 ? true : false} 
+              onClick={() => this.handlePreviousPage()}>Previous
+            </Button>
+            <Button style={{backgroundColor: 'red', outline: 'none', boxShadow: 'none'}} disabled={this.state.currPageIndex +1 === this.state.pages.length ? true : false} 
+              onClick={() => this.handleNextPage()}>Next
+            </Button>
+          <Col />
+        </Row>
+      </Container>
+      
       </div>
     );
   }

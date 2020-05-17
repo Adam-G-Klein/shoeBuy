@@ -4,13 +4,13 @@ import {Card, Button} from 'react-bootstrap';
 import shoeImage from '../resources/static/exampleShoe.jpg';
 
 class ResultCard extends React.Component {
+
     state = {
         redirect: false,
-        shoesList: [
-                {id: 1,
-                brand: 'Nike',
-                name: 'Shoe One'}
-        ]
+        shoeInfo: 
+            {id: 1,
+            brand: 'Nike',
+            name: 'Shoe One'}
     }
 
     setRedirect() {
@@ -21,7 +21,10 @@ class ResultCard extends React.Component {
 
     performRedirect = () => {
         if(this.state.redirect == true){
-            return (<Redirect to='/sizeRecommender'/>)
+            return (<Redirect to={{
+                pathname: "/sizeRecommender",
+                shoeInfo: this.props.shoeInfo
+          }}/>)
         }
     }
 
@@ -30,11 +33,11 @@ class ResultCard extends React.Component {
             <div>
             {this.performRedirect()}
             <Button onClick={() => this.setRedirect()} variant="light" style={{padding: '0px'}}>
-            <Card style={{ width: '18rem'}}>
+            <Card style={{ width: '12rem'}}>
                 <Card.Img variant="top" src={shoeImage} />
-                <Card.Body>
-                    <Card.Title>BRAND NAME</Card.Title>
-                    <Card.Text>Shoe Name</Card.Text>
+                <Card.Body style={{padding: '10px'}}>
+                    <Card.Title>{(this.props.shoeInfo.brand).toUpperCase() }</Card.Title>
+                    <Card.Text>{this.props.shoeInfo.name}</Card.Text>
                 </Card.Body>
             </Card>
             </Button>
