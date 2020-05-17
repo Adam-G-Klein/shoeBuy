@@ -2,6 +2,7 @@ import React from 'react';
 import Autosuggest from 'react-autosuggest';
 import "../resources/static/theme.css";
 import ResultCard from './ResultCard';
+import restClient from './restClient.js';
 
 // Imagine you have a list of languages that you'd like to autosuggest.
 const languages = [
@@ -64,26 +65,13 @@ const languages = [
   ];
  
 // Teach Autosuggest how to calculate suggestions for any given input value.
-const getSuggestions = value => {
-  const inputValue = value.trim().toLowerCase();
-  const inputLength = inputValue.length;
- 
-  return inputLength === 0 ? [] : languages.filter(lang =>
-    lang.name.toLowerCase().slice(0, inputLength) === inputValue
-  );
-};
  
 // When suggestion is clicked, Autosuggest needs to populate the input
 // based on the clicked suggestion. Teach Autosuggest how to calculate the
 // input value for every given suggestion.
-const getSuggestionValue = suggestion => suggestion.name;
  
 // Use your imagination to render suggestions.
-const renderSuggestion = suggestion => (
-  <div> 
-    {suggestion.name}
-  </div>
-);
+
  
 class SearchResults extends React.Component {
   constructor() {
@@ -96,26 +84,46 @@ class SearchResults extends React.Component {
     // and they are initially empty because the Autosuggest is closed.
     this.state = {
       value: '',
-      suggestions: []
+      suggestions: [],
+      shoes: []
     };
   }
 
   componentDidMount(){
-    
     document.querySelector('.react-autosuggest__input').focus();
+    restClient({method: 'GET', path: '/api/userShoes'}).done(response => {
+			this.setState({shoes: response.entity._embedded.userShoes});
+		});
     }
- 
-  onChange = (event, { newValue }) => {
-    this.setState({
-      value: newValue
-    });
-  };
+    
+    getSuggestions = value => {
+      var inputValue = value.trim().toLowerCase();
+      var inputLength = inputValue.length;
+     
+      return inputLength === 0 ? [] : this.state.shoes.filter(shoes =>
+        shoes.modelName.toLowerCase().slice(0, inputLength) === inputValue
+      );
+    };
+
+    getSuggestionValue = suggestion => suggestion.modelName;
+
+    renderSuggestion = suggestion => (
+      <div> 
+        {suggestion.modelName}
+      </div>
+    );
+
+    onChange = (event, { newValue }) => {
+      this.setState({
+        value: newValue
+      });
+    };
  
   // Autosuggest will call this function every time you need to update suggestions.
   // You already implemented this logic above, so just use it.
   onSuggestionsFetchRequested = ({ value }) => {
     this.setState({
-      suggestions: getSuggestions(value)
+      suggestions: this.getSuggestions(value)
     });
   };
  
@@ -144,8 +152,8 @@ class SearchResults extends React.Component {
         suggestions={suggestions}
         onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
         onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-        getSuggestionValue={getSuggestionValue}
-        renderSuggestion={renderSuggestion}
+        getSuggestionValue={this.getSuggestionValue}
+        renderSuggestion={this.renderSuggestion}
         inputProps={inputProps}
       />
       <ResultCard />
