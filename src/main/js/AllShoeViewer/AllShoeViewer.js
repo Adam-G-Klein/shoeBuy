@@ -2,6 +2,7 @@ import React from 'react';
 import ShoeList from './ShoeList.js';
 import Shoe from './Shoe.js';
 import AddShoe from './AddShoe.js';
+import GetSizeRecommendation from './GetSizeRecommendation.js';
 import restClient from '../restClient.js';
 
 class AllShoeViewer extends React.Component {
@@ -12,17 +13,22 @@ class AllShoeViewer extends React.Component {
 	}
 
 	componentDidMount() {
-		restClient({method: 'GET', path: '/api/userShoes'}).done(response => {
-			this.setState({shoes: response.entity._embedded.userShoes});
+		restClient({method: 'GET', path: '/api/shoenodes'}).done(response => {
+			this.setState({shoes: response.entity._embedded.shoeNodes});
 		});
 	}
 
 	render() {
 		return (
-		    <div>
-                <h1> All Shoes in the DataBase: </h1>
-                <ShoeList shoes={this.state.shoes}/>
-                <AddShoe />
+		    <div style={{display: 'flex',flexDirection: 'row'}}>
+		        <div>
+                    <h1 style={{color: 'white'}}> All Shoes in the DataBase: </h1>
+                    <ShoeList shoes={this.state.shoes}/>
+                    <AddShoe />
+                </div>
+		        <div>
+		            <GetSizeRecommendation />
+                </div>
 			</div>
 		)
 	}

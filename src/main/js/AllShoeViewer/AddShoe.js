@@ -15,7 +15,9 @@ class AddShoe extends React.Component {
         restClient({method: "POST",
             path: "/api/userShoes",
             entity: newShoe,
-            headers: {'Content-Type': 'application/json'} });
+            headers: {'Content-Type': 'application/json'}
+             });
+        window.location.reload(true);
 
     }
     handleModelChange(event){
@@ -31,14 +33,14 @@ class AddShoe extends React.Component {
 		return (
 		    <div>
 		        <div>
-                    <p>New Shoe Model Name:</p>
+                    <p style={{color: 'white'}}>New Shoe Model Name:</p>
                     <input name="model" onChange={(event) => this.handleModelChange(event)} />
 		        </div>
 		        <div>
-                    <p>Size:</p>
+                    <p style={{color: 'white'}}>Size:</p>
                     <input name="size" onChange={(event) => this.handleSizeChange(event)} />
 		        </div>
-		        <button onClick={(event) => this.postShoe(event)}> Add Shoe </button>
+		        <button style={{position: 'relative', top: '10px'}} onClick={(event) => this.postShoe(event)}> Add Shoe </button>
 			</div>
 		)
 	}
