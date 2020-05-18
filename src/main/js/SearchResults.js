@@ -242,7 +242,7 @@ class SearchResults extends React.Component {
  
     // Autosuggest will pass through all these props to the input.
     const inputProps = {
-      placeholder: 'Seach for your dream shoe',
+      placeholder: 'Seach for your dream shoes',
       value,
       onChange: this.onChange
     };
