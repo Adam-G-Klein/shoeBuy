@@ -6,18 +6,27 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class ShoeSizeRecommendController {
+    private final AllShoeRepository allShoeRepository;
 
-    //TODO use factory method to get a size recommendor, either using dfs or bfs
+    public ShoeSizeRecommendController(AllShoeRepository repo){
+        this.allShoeRepository = repo;
+    }
+    //params are the model and brand of shoe the user is searching for
     @GetMapping("/api/sizeRecommend")
-    String getSize(@RequestParam(name="model", required = true) String modelName){
-        String usersShoeModelName = "Nike KD-8";
+    String getSize(@RequestParam(name="model", required = true) String modelName,
+                   @RequestParam(name="brand", required = true) String brandName){
+        
+        //the 
         double usersSize = 8.5;
 
-        return modelName + ", at size " + getSizeReccomendation(usersShoeModelName, usersSize, modelName);
+        Shoe shoeLookingFor = new Shoe("KD9", "Nike", "m");
+        Shoe currentShoe = new Shoe("KD8", "Nike", "m");
+
+        return modelName + ", at size " + getSizeReccomendation(currentShoe, usersSize, shoeLookingFor);
     }
 
-    private double getSizeReccomendation(String usersShoeModel, double usersSize, String desiredModel) {
-        return 9.0;
+    private double getSizeReccomendation(Shoe usersShoe, double usersSize, Shoe desiredShoe) {
+        return this.allShoeRepository.findByModel(usersShoe.model).tester();
     }
 
 }

@@ -1,8 +1,10 @@
 package com.truesize;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import java.util.Objects;
@@ -16,10 +18,12 @@ public class DirectedShoeEdge {
     public int connectionMultiplicity;
     public double sizeDifference;
     
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "start_shoenode_id", referencedColumnName = "id")
     public ShoeNode startShoeNode;
     
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "end_shoenode_id", referencedColumnName = "id")
     public ShoeNode endShoeNode;
 
     private DirectedShoeEdge() {}
@@ -36,7 +40,7 @@ public class DirectedShoeEdge {
     public int hashCode() {
 
         return Objects.hash(id, connectionMultiplicity, sizeDifference, startShoeNode, endShoeNode);
-    }
+    }   
 
     @Override
     public String toString() {
