@@ -1,14 +1,12 @@
 import React from 'react';
 import ShoeList from './ShoeList.js';
-import Shoe from './Shoe.js';
-import AddShoe from './AddShoe.js';
 import restClient from '../restClient.js';
 
-class AllShoeViewer extends React.Component {
+class GetSizeRecommendation extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {shoes: []};
+		this.state = {};
 	}
 
 	componentDidMount() {
