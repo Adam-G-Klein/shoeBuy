@@ -8,7 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import java.util.ArrayList;
@@ -25,10 +24,12 @@ public class ShoeNode {
     private Long id;
 
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "shoe_id", referencedColumnName = "id")
-    private Shoe shoe;
-    private String model;
+    public String sex;
+    public String model;
+    public String brand;
+
+    //the uniqueShoeCode is a string combining the model + brand + sex of the show (lowercase, no spaces)
+    public String uniqueShoeCode;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "edges", referencedColumnName = "id")
@@ -37,44 +38,35 @@ public class ShoeNode {
     private ShoeNode() { }
 
     public ShoeNode(String model, String brand, String sex, double size){
-        this.model = model;
-        this.shoe = new Shoe(model, brand, sex);
+        this.model = model.toLowerCase();
+        this.brand = brand.toLowerCase();
+        this.sex = sex.toLowerCase();
+        this.uniqueShoeCode = this.model + this.brand + this.sex;
         this.edges = new ArrayList();
     }
-    public String getModel(){
-        return model;
-    }
-    public Shoe getShoe() {
-        return shoe;
-    }
+
+    //when calling 'addEdge' from anywhere, 'endShoe' should always be false in order to add edge in both directions  
     public void addEdge(ShoeNode shoeConnection, double sizeDifference, boolean endShoe) {
 
         DirectedShoeEdge edge = new DirectedShoeEdge(1, sizeDifference, this, shoeConnection);
-        if(!endShoe){
-            shoeConnection.addEdge(this, sizeDifference * -1, true);
-        }
-        
+
+        //prevent addEdge from infinitly looping back and forth from start to end Node
+        if(!endShoe){ shoeConnection.addEdge(this, sizeDifference * -1, true); }
+
         this.edges.add(edge);
     }
-    public double getImmediateSizeDiff(Shoe shoe){
-        String model = shoe.model;
-        String brand = shoe.brand;
-        String sex = shoe.sex;
+
+    //returns null if shoe isn't found, otherwise the size difference
+    public Double getImmediateSizeDiff(String shoeCode){
+
         for(DirectedShoeEdge e : this.edges) {
-            Shoe endShoeNodeShoe = e.endShoeNode.shoe;
-            if(endShoeNodeShoe.model.equals(model) && endShoeNodeShoe.brand.equals(brand) && endShoeNodeShoe.sex.equals(sex)){
+            String endShoeCode = e.endShoeNode.uniqueShoeCode;
+            if(endShoeCode.equals(shoeCode)){
                 return e.sizeDifference;
             }
         }
-        return 0.0;
+        return null;
     }
-    public double tester(){
-        return 5.9;
-    }
-
-    //public List<DirectedShoeEdge> getEdges(){
-     //   return edges;
-    //}
 
     @Override
     public int hashCode() {
