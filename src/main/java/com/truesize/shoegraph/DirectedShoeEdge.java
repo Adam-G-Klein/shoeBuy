@@ -1,4 +1,4 @@
-package com.truesize;
+package com.truesize.shoegraph;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;

@@ -1,4 +1,4 @@
-package com.truesize;
+package com.truesize.shoegraph;
 
 import org.springframework.data.repository.CrudRepository;
 

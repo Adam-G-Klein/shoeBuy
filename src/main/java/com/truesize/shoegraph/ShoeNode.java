@@ -1,4 +1,4 @@
-package com.truesize;
+package com.truesize.shoegraph;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -41,8 +41,12 @@ public class ShoeNode {
         this.model = model.toLowerCase();
         this.brand = brand.toLowerCase();
         this.sex = sex.toLowerCase();
-        this.uniqueShoeCode = this.model + this.brand + this.sex;
+        this.uniqueShoeCode = generateUniqueCode(this.model, this.brand, this.sex);
         this.edges = new ArrayList();
+    }
+
+    public static String generateUniqueCode(String model, String brand, String sex) {
+        return model.toLowerCase() + brand.toLowerCase() + sex.toLowerCase();
     }
 
     //when calling 'addEdge' from anywhere, 'endShoe' should always be false in order to add edge in both directions  

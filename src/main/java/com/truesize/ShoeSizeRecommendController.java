@@ -1,5 +1,9 @@
 package com.truesize;
 
+import com.truesize.shoegraph.AllShoeRepository;
+import com.truesize.shoegraph.ShoeNode;
+import com.truesize.shoegraph.ShoeSearchFactory;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,27 +21,7 @@ public class ShoeSizeRecommendController {
                    @RequestParam(name="brand", required = true) String brandName,
                    @RequestParam(name="sex", required = true) String sex){
         
-        //---- the users data, will need to pull this from Ted's database -----
-        double usersSize = 8.5;
-        String usersShoe = "kd9nikem";
-        //---- ---------------------------------------------------------- -----
-
-        String shoeLookingFor = modelName.toLowerCase() + brandName.toLowerCase() + sex.toLowerCase();
-        
-        return modelName + ", at size " + getSizeReccomendation(usersShoe, usersSize, shoeLookingFor);
+        String shoeLookingFor = ShoeNode.generateUniqueCode(modelName, brandName, sex);
+        return ShoeSearchFactory.createSearcher("ShoeSizeRecommendSearcherBFS").getSizeRecc(shoeLookingFor, allShoeRepository);
     }
-
-    //TODO create a factory method to actually give me the bfs or dfs options
-    private String getSizeReccomendation(String usersShoe, double usersSize, String shoeLookingFor) {
-        Double sizeRecc = this.allShoeRepository.findByUniqueShoeCode(usersShoe).getImmediateSizeDiff(shoeLookingFor);
-        if(sizeRecc == null){
-            return "Shoe Not Found";
-        }
-        else {
-            return sizeRecc + "";
-        }
-    }
-
-
-
 }
