@@ -3,87 +3,13 @@ import Autosuggest from 'react-autosuggest';
 import "../resources/static/theme.css";
 import ResultCard from './ResultCard';
 import restClient from './restClient.js';
-// import { Col } from 'react-bootstrap';
 import { Container, Row, Col, Button } from 'react-bootstrap';
-
-// Imagine you have a list of languages that you'd like to autosuggest.
-const languages = [
-	{
-	  name: 'C',
-	  year: 1972
-	},
-	{
-	  name: 'C#',
-	  year: 2000
-	},
-	{
-	  name: 'C++',
-	  year: 1983
-	},
-	{
-	  name: 'Clojure',
-	  year: 2007
-	},
-	{
-	  name: 'Elm',
-	  year: 2012
-	},
-	{
-	  name: 'Go',
-	  year: 2009
-	},
-	{
-	  name: 'Haskell',
-	  year: 1990
-	},
-	{
-	  name: 'Java',
-	  year: 1995
-	},
-	{
-	  name: 'Javascript',
-	  year: 1995
-	},
-	{
-	  name: 'Perl',
-	  year: 1987
-	},
-	{
-	  name: 'PHP',
-	  year: 1995
-	},
-	{
-	  name: 'Python',
-	  year: 1991
-	},
-	{
-	  name: 'Ruby',
-	  year: 1995
-	},
-	{
-	  name: 'Scala',
-	  year: 2003
-	}
-  ];
- 
-// Teach Autosuggest how to calculate suggestions for any given input value.
- 
-// When suggestion is clicked, Autosuggest needs to populate the input
-// based on the clicked suggestion. Teach Autosuggest how to calculate the
-// input value for every given suggestion.
- 
-// Use your imagination to render suggestions.
 
  
 class SearchResults extends React.Component {
   constructor() {
     super();
- 
-    // Autosuggest is a controlled component.
-    // This means that you need to provide an input value
-    // and an onChange handler that updates this value (see below).
-    // Suggestions also need to be provided to the Autosuggest,
-    // and they are initially empty because the Autosuggest is closed.
+
     this.state = {
       value: '',
       suggestions: [],
@@ -114,7 +40,19 @@ class SearchResults extends React.Component {
         brand: 'something',
         id:8},
         {name: 'nine',
-        brand: 'something',
+        brand: 'something 1',
+        id:9},
+        {name: 'nine',
+        brand: 'something 2',
+        id:9},
+        {name: 'nine',
+        brand: 'something 3',
+        id:9},
+        {name: 'nine',
+        brand: 'something 4',
+        id:9},
+        {name: 'nine',
+        brand: 'something 5',
         id:9}
       ],
       currPageIndex: 0,
@@ -125,9 +63,11 @@ class SearchResults extends React.Component {
   componentDidMount(){
     document.querySelector('.react-autosuggest__input').focus();
     restClient({method: 'GET', path: '/api/userShoes'}).done(response => {
-			this.setState({shoes: response.entity._embedded.userShoes});
-		});
-    this.sectionResultPages()
+      // this.setState({shoes: response.entity._embedded.userShoes});
+      this.setState({shoes: this.state.testData});
+      this.sectionResultPages(this.state.shoes);
+      
+    });
     }
     
     getSuggestions = value => {
@@ -135,15 +75,15 @@ class SearchResults extends React.Component {
       var inputLength = inputValue.length;
      
       return inputLength === 0 ? [] : this.state.shoes.filter(shoes =>
-        shoes.modelName.toLowerCase().slice(0, inputLength) === inputValue
+        shoes.name.toLowerCase().slice(0, inputLength) === inputValue
       );
     };
 
-    getSuggestionValue = suggestion => suggestion.modelName;
+    getSuggestionValue = suggestion => suggestion.name;
 
     renderSuggestion = suggestion => (
       <div> 
-        {suggestion.modelName}
+        {suggestion.name}
       </div>
     );
 
@@ -151,35 +91,50 @@ class SearchResults extends React.Component {
       this.setState({
         value: newValue
       });
+      
     };
  
-  // Autosuggest will call this function every time you need to update suggestions.
-  // You already implemented this logic above, so just use it.
   onSuggestionsFetchRequested = ({ value }) => {
-    this.setState({
+    let x = this.setState({
       suggestions: this.getSuggestions(value)
     });
+    let s = this.getSuggestions(value);
+    this.sectionResultPages(s);
   };
  
-  // Autosuggest will call this function every time you need to clear suggestions.
+
   onSuggestionsClearRequested = () => {
     this.setState({
       suggestions: []
     });
+    this.sectionResultPages(this.state.shoes)
   };
  
+  sectionResultPages = (suggestions) => {
+    if(suggestions.length == 0){
+      let emptyMessage =
+          (<div>
+          <div style={{margin: '40px'}}/>
+          <Container>
+          <Row>
+            <Col>
+              <h1 style={{color: 'white', textAlign: 'center'}}>Sorry, no shoes found :(</h1>
+            </Col>
+          </Row>
+          </Container>
+        </div>);
 
-  sectionResultPages = () => {
+      this.setState({pages: [emptyMessage]})
+      return;
+    }
     let sections = [];
-    for(var i = 0; i < this.state.testData.length; i=i+4){
-      var section = this.state.testData.slice(i, i+4)
-      console.log("section: ", section);
+    for(var i = 0; i < suggestions.length; i=i+4){
+      var section = suggestions.slice(i, i+4)
       sections.push(section)
     }
 
     let rows = sections.map((section, index) =>{
         let row = section.map((content, i) =>{
-          console.log("section content: ", content)
           return (
             <Col>
               <ResultCard shoeInfo={content}/>
@@ -187,6 +142,15 @@ class SearchResults extends React.Component {
           )
         })
 
+      if(row.length < 4){
+        for(var k = row.length-1; k < 4; k++){
+          row.push(
+            <Col>
+              <div style={{ width: '12rem'}}></div>
+            </Col>
+          )
+        }
+      }
       return(
        <Row>
           {row}
@@ -194,14 +158,11 @@ class SearchResults extends React.Component {
       )
     })
 
-    console.log(rows.length)
     let pageRows = []
     for(var j = 0; j < rows.length; j = j+2){
       var pageRow;
       if(j+2 > rows.length){
-        console.log("in if")
         pageRow = rows.slice(j, j+1)
-        console.log("pagerow: ", pageRow)
       }
       else{
         pageRow = rows.slice(j, j+2)
@@ -209,10 +170,7 @@ class SearchResults extends React.Component {
       pageRows.push(pageRow)
     }
 
-    console.log("pageRows: ", pageRows)
-
     let pages = pageRows.map((content, index) =>{
-      console.log("content: ", content)
       return(
         <div>
           <div style={{margin: '40px'}}/>
@@ -225,7 +183,6 @@ class SearchResults extends React.Component {
       )
     })
     this.setState({pages: pages})
-    // return (pages);
   }
 
   handlePreviousPage() {
@@ -238,16 +195,13 @@ class SearchResults extends React.Component {
 
   render() {
     const { value, suggestions } = this.state;
-    console.log("state pages: ", this.state.pages)
- 
-    // Autosuggest will pass through all these props to the input.
+    
     const inputProps = {
       placeholder: 'Seach for your dream shoes',
       value,
       onChange: this.onChange
     };
  
-    // Finally, render it!
     return (
       <div>
       <Autosuggest
