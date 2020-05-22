@@ -25,7 +25,7 @@ class Home extends React.Component {
 						backgroundColor:'red',
 						marginTop: '50px',
 						width: '100px'}}>
-					Sign In</PillButtonLink> 
+					Sign In</PillButtonLink>
 		    </div>
 		)
 	}
