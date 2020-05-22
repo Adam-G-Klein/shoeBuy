@@ -95,7 +95,7 @@ class SearchResults extends React.Component {
     };
  
   onSuggestionsFetchRequested = ({ value }) => {
-    let x = this.setState({
+    this.setState({
       suggestions: this.getSuggestions(value)
     });
     let s = this.getSuggestions(value);
@@ -133,8 +133,8 @@ class SearchResults extends React.Component {
       sections.push(section)
     }
 
-    let rows = sections.map((section, index) =>{
-        let row = section.map((content, i) =>{
+    let rows = sections.map((sec) =>{
+        let row = sec.map((content) =>{
           return (
             <Col>
               <ResultCard shoeInfo={content}/>

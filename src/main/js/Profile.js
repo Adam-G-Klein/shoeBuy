@@ -6,7 +6,6 @@ import {Card, Button} from 'react-bootstrap';
 import shoeImage from '../resources/static/exampleShoe.jpg';
 import PillButton from '@rakuten-rex/button/PillButton';
 import ShoeCollectionShoe from './ShoeCollectionShoe';
-import { CardBody } from 'react-bootstrap/Card';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 

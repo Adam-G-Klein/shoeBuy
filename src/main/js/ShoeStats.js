@@ -1,6 +1,5 @@
 import React from 'react';
-import {Rectangle } from 'react-shapes';
-import { Button, Row, Container, Col } from 'react-bootstrap';
+import { Row, Container, Col } from 'react-bootstrap';
 
 const HorizLine = ({ color }) => (
     <hr

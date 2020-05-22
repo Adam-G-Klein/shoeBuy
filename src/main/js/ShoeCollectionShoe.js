@@ -1,5 +1,4 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
 import {Card, Button} from 'react-bootstrap';
 import shoeImage from '../resources/static/exampleShoe.jpg';
 import Container from 'react-bootstrap/Container';
@@ -20,7 +19,7 @@ const HorizLine = ({ color }) => (
     />
 );
 
-class ResultCard extends React.Component {
+class ShoeCollectionShoe extends React.Component {
 	handleShowDelete() {
 		this.setState({showDelete:true})
 	}
@@ -171,4 +170,4 @@ class ResultCard extends React.Component {
     }
 }
 
-export default ResultCard;
+export default ShoeCollectionShoe;

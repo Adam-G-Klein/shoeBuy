@@ -5,15 +5,13 @@ import ReactDOM from 'react-dom';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import Home from './Home';
 import Login from './Login';
-import Header from './NavBar';
+import Header from './Header';
 import Profile from './Profile';
 import AllShoeViewer from './AllShoeViewer/AllShoeViewer.js';
 import SizeRecommender from './SizeRecommender';
 import ShoeRecommender from './ShoeRecommender';
 import Search from './Search';
 import SearchResults from './SearchResults';
-import Container from 'react-bootstrap/Container';
-import Image from 'react-bootstrap/Image';
 import '../resources/static/backgroundImage.css';
 //import 'bootstrap/dist/css/bootstrap.min.css';
 
