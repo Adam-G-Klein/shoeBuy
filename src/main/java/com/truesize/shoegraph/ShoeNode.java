@@ -37,7 +37,7 @@ public class ShoeNode {
 
     private ShoeNode() { }
 
-    public ShoeNode(String model, String brand, String sex, double size){
+    public ShoeNode(String model, String brand, String sex){
         this.model = model.toLowerCase();
         this.brand = brand.toLowerCase();
         this.sex = sex.toLowerCase();
@@ -58,6 +58,14 @@ public class ShoeNode {
         if(!endShoe){ shoeConnection.addEdge(this, sizeDifference * -1, true); }
 
         this.edges.add(edge);
+    }
+
+    public List<String> getEdgesAsShoeCodes() {
+        List<String> neighborShoeCodes = new ArrayList();
+        for(DirectedShoeEdge edge : edges) {
+            neighborShoeCodes.add(edge.endShoeNode.uniqueShoeCode);
+        }
+        return neighborShoeCodes;
     }
 
     //returns null if shoe isn't found, otherwise the size difference
