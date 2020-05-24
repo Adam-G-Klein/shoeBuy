@@ -8,6 +8,8 @@ import PillButton from '@rakuten-rex/button/PillButton';
 import ShoeCollectionShoe from './ShoeCollectionShoe';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
+import DropdownButton from 'react-bootstrap/DropdownButton';
+import Dropdown from 'react-bootstrap/Dropdown';
 
 const HorizLine = ({ color }) => (
     <hr
@@ -155,7 +157,7 @@ class Profile extends React.Component {
             centered>
 				<Modal.Header closeButton>
 				<Modal.Title id="contained-modal-title-vcenter">
-					Update you login information
+					Update your login information
 				</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
@@ -212,25 +214,137 @@ class Profile extends React.Component {
                     </Modal.Body>
 			</Modal>
             <Modal show={this.state.showAdd} onHide={() => this.handleCloseAdd()}
-            size="lg"
-            aria-labelledby="contained-modal-title-vcenter"
-            centered>
+			size="lg"
+			aria-labelledby="contained-modal-title-vcenter"
+			centered>
 				<Modal.Header closeButton>
 				<Modal.Title id="contained-modal-title-vcenter">
 					Add a new shoe to your collection
 				</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
-				<h4>Centered Modal</h4>
-				<p>
-					Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-					dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-					consectetur ac, vestibulum at eros.
-				</p>
-				</Modal.Body>
-				<Modal.Footer>
-				<Button onClick={() => this.handleCloseAdd()}>Close</Button>
+					<Col style = {{
+						justifyContent: 'center',
+						alignItems: 'center'
+					}}>
+					<Form>
+					<Form.Group>
+						<Form.Row>
+							<Form.Label column lg={2}>
+							Brand
+							</Form.Label>
+							<Col>
+							<Form.Control type="text" placeholder="Enter Brand Here" />
+							</Col>
+						</Form.Row>
+						<br />
+						<HorizLine color = 'lightGray'/>
+						<br />
+						<Form.Row>
+							<Form.Label column lg={2}>
+							Shoe Name
+							</Form.Label>
+							<Col>
+							<Form.Control type="text" placeholder="Enter Shoe Name Here" />
+							</Col>
+						</Form.Row>	
+						<br />					
+						<HorizLine color = 'lightGray'/>
+						<br />
+						<Form.Row>
+							<Form.Label column lg={2}>
+							Size
+							</Form.Label>
+							<Col>
+							<Form.Control type="text" placeholder="Enter Shoe Size Here" />
+							</Col>
+						</Form.Row> 
+						<br />
+						<HorizLine color = 'lightGray'/>
+						<br />
+						<Form.Row>
+							<Form.Label column lg={2}>
+							Comfort
+							</Form.Label>
+							<Col>
+								<DropdownButton id="dropdown-basic-button" title="Shoe Comfort">
+									<Dropdown.Item>Option 1</Dropdown.Item>
+									<Dropdown.Item>Option 2</Dropdown.Item>
+									<Dropdown.Item>Option 3</Dropdown.Item>
+								</DropdownButton>
+							</Col>
+						</Form.Row>
+						<br />
+						<HorizLine color = 'lightGray'/>
+						<br />
+						<Form.Row>
+							<Form.Label column lg={2}>
+							Width
+							</Form.Label>
+							<Col>
+								<DropdownButton id="dropdown-basic-button" title="Shoe Width">
+										<Dropdown.Item>Option 1</Dropdown.Item>
+										<Dropdown.Item>Option 2</Dropdown.Item>
+										<Dropdown.Item>Option 3</Dropdown.Item>
+								</DropdownButton>
+							</Col>
+						</Form.Row>
+						<br />
+						<HorizLine color = 'lightGray'/>
+						<br />
+						<Form.Row>
+							<Form.Label column lg={2}>
+							Stiffness
+							</Form.Label>
+							<Col>
+								<DropdownButton id="dropdown-basic-button" title="Shoe Stiffness">
+										<Dropdown.Item>Option 1</Dropdown.Item>
+										<Dropdown.Item>Option 2</Dropdown.Item>
+										<Dropdown.Item>Option 3</Dropdown.Item>
+								</DropdownButton>
+							</Col>
+						</Form.Row>
+						<br />
+						<HorizLine color = 'lightGray'/>
+						<br />
+						<Form.Row>
+							<Form.Label column lg={2}>
+							Buy Again
+							</Form.Label>
+							<Col>
+								<DropdownButton id="dropdown-basic-button" title="Would you buy again?">
+										<Dropdown.Item>Option 1</Dropdown.Item>
+										<Dropdown.Item>Option 2</Dropdown.Item>
+										<Dropdown.Item>Option 3</Dropdown.Item>
+								</DropdownButton>
+							</Col>
+						</Form.Row>
+					</Form.Group>
+					</Form>
+				</Col>
+				<Modal.Footer style = {{paddingBottom: '0px'}}>
+					<PillButton style = {{
+										borderColor: 'gray', 
+										backgroundColor:'gray',
+										height: '40px',
+										padding: '2px',
+										fontSize: '20px',
+										width: '100px'                              
+						}} onClick={() => this.handleCloseAdd()}> Cancel
+						</PillButton>
+						<PillButton style = {{
+										borderColor: 'red', 
+										backgroundColor:'red',
+										height: '40px',
+										padding: '2px',
+										fontSize: '20px',
+										width: '100px',
+										marginLeft: '5px',
+										marginRight: ' 12px'                               
+						}} onClick={() => this.handleCloseAdd()}> Add Shoe
+					</PillButton>	
 				</Modal.Footer>
+				</Modal.Body>
 			</Modal>
 			<Row>
 				<Col style = {{
@@ -287,7 +401,7 @@ class Profile extends React.Component {
 									<Col style = {{
 										textAlign: 'center',
 										marginBottom: '10px'}}>
-										jDone@gmail.com
+										jDoe@gmail.com
 									</Col>
 								</Row>
 							</Col>
