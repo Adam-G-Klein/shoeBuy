@@ -18,7 +18,10 @@ package com.truesize;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 /**
  * @author Greg Turnquist
@@ -31,9 +34,9 @@ public class HomeController {
 	private Logger logger;
 
 	@RequestMapping(value = "/{path:?:(^(?!api)).*$}")
-	public String index() {
+	public String index(@PathVariable("path") String variablePath) {
 		logger.info("hit the controller!");
-		System.out.println("contorller");
+		System.out.println("hit path " + variablePath);
 		return "index";
 	}///src/main/etmpaltes
 

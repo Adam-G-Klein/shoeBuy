@@ -13,7 +13,7 @@ class AllShoeViewer extends React.Component {
 	}
 
 	componentDidMount() {
-		restClient({method: 'GET', path: '/api/shoenodes'}).done(response => {
+		restClient({method: 'GET', path: '/api/shoeNodes'}).done(response => {
 			this.setState({shoes: response.entity._embedded.shoeNodes});
 		});
 	}
