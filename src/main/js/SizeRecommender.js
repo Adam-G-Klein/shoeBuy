@@ -34,6 +34,17 @@ class SizeRecommender extends React.Component {
 
 	render() {
 		console.log("props: ", this.props.location)
+		let imageDisplay = [];
+		if(this.props.location.shoeInfo.url === undefined || this.props.location.shoeInfo.url == null){
+			imageDisplay.push(
+				<Card.Img variant="top" src={shoeImage} />
+			)
+		}
+		else{
+			imageDisplay.push(
+				<Card.Img variant="top" src={this.props.location.shoeInfo.url} />
+			)
+		}
 		return (
 		    <div>
 			<div style={{margin: '40px'}} />
@@ -43,12 +54,22 @@ class SizeRecommender extends React.Component {
 					<h1 style={{color: 'white', fontSize: '80px'}}>{"TrueSize: " + (this.state.size).toString()}</h1>
 					<div style={{margin: '20px'}} />
 					<h2 style={{color: 'white', fontSize: '40px'}}>{this.props.location.shoeInfo.brand + " " + this.props.location.shoeInfo.name}</h2>
-					<div style={{margin: '60px'}} />
+					<div style={{margin: '20px'}} />
 					<Row>
-						<Col md={{span: 10, offset: 1}}>
-							<Card>
-								<Card.Img variant="top" src={shoeImage} />
-							</Card>
+						<Col style={{position: 'relative', left: 0, right: 0, top: 0, bottom: 0}} >
+							<Container>
+								<Row>
+								<Col />
+									<Col>
+										<div style={{width: '350px', height: '350px', alignContent: 'center', alignItems: 'center'}}>
+											<Card>
+												{imageDisplay}
+											</Card>
+										</div>
+									</Col>
+									<Col />
+								</Row>
+							</Container>
 						</Col>
 					</Row>
 				</Col>
