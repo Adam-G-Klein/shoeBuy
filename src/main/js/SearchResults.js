@@ -62,7 +62,7 @@ class SearchResults extends React.Component {
 
   componentDidMount(){
     document.querySelector('.react-autosuggest__input').focus();
-    restClient({method: 'GET', path: '/api/userShoes'}).done(response => {
+    restClient({method: 'GET', path: '/api/shoeNodes'}).done(response => {
       // this.setState({shoes: response.entity._embedded.userShoes});
       this.setState({shoes: this.state.testData});
       this.sectionResultPages(this.state.shoes);
