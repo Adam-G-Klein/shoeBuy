@@ -27,4 +27,9 @@ public class ShoeSizeRecommendController {
         String shoeLookingFor = ShoeNode.generateUniqueCode(modelName, brandName, sex);
         return new StringResponse(ShoeSearchFactory.createSearcher("ShoeSizeRecommendSearcherBFS").getSizeRecc(shoeLookingFor, allShoeRepository));
     }
+    //params are the model and brand of shoe the user is searching for
+    @GetMapping(value = "/api/getAllShoes", produces = MediaType.APPLICATION_JSON_VALUE)
+    Iterable<ShoeNode> getAllShoes(){
+        return allShoeRepository.findAll();
+    }
 }

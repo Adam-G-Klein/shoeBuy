@@ -1,11 +1,12 @@
 package com.truesize.shoegraph;
 
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-public class ShoeSizeRecommendSearcherBFS implements ShoeSearcher{
+public class ShoeSizeRecommendSearcherSmartBFS implements ShoeSearcher{
 	class ShoeCodeWithDistance{
 		public String shoeCode;
 		public double sizeDiff;
@@ -38,17 +39,26 @@ public class ShoeSizeRecommendSearcherBFS implements ShoeSearcher{
 			}
 
 			ShoeNode currentNode = allShoeRepository.findByUniqueShoeCode(currentShoeInfo.shoeCode);
-			List<String> edges = currentNode.getEdgesAsShoeCodes();
-			for(String edge : edges) {
-				if(!visitedShoes.contains(edge)){
-					double sizeDiffToEdge = currentNode.getImmediateSizeDiff(edge);
+            List<DirectedShoeEdge> edges = currentNode.getEdges();
+            edges.sort(new ShoeEdgeComparator());
+
+            for(DirectedShoeEdge e : edges) {
+                String edgeAsString = e.endShoeNode.uniqueShoeCode;
+                if(!visitedShoes.contains(edgeAsString)){
+					double sizeDiffToEdge = currentNode.getImmediateSizeDiff(edgeAsString);
 					double sizeDiff = currentShoeInfo.sizeDiff + sizeDiffToEdge; 
-					bfsQueue.add(new ShoeCodeWithDistance(edge, sizeDiff));
+					bfsQueue.add(new ShoeCodeWithDistance(edgeAsString, sizeDiff));
 				}
-			}
+            }
 		}
 
 		return "Shoe_Not_Found";
-	}
+    }
     
+    class ShoeEdgeComparator implements Comparator<DirectedShoeEdge> {
+        @Override
+        public int compare(DirectedShoeEdge a, DirectedShoeEdge b) {
+            return ((Integer) a.connectionMultiplicity).compareTo(((Integer) b.connectionMultiplicity));
+        }
+    }
 }
