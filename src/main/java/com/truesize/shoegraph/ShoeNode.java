@@ -59,15 +59,13 @@ public class ShoeNode {
 
         this.edges.add(edge);
     }
-
-    public List<String> getEdgesAsShoeCodes() {
-        List<String> neighborShoeCodes = new ArrayList();
-        for(DirectedShoeEdge edge : edges) {
-            neighborShoeCodes.add(edge.endShoeNode.uniqueShoeCode);
+    public List<String> getEdgesAsShoeCodes(){
+        List<String> edgesAsCodes = new ArrayList<>();
+        for(DirectedShoeEdge e : edges) {
+            edgesAsCodes.add(e.endShoeNode.uniqueShoeCode);
         }
-        return neighborShoeCodes;
+        return edgesAsCodes;
     }
-
     //returns null if shoe isn't found, otherwise the size difference
     public Double getImmediateSizeDiff(String shoeCode){
 
