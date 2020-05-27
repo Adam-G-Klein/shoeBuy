@@ -3,12 +3,8 @@ package com.truesize;
 import com.truesize.shoegraph.AllShoeRepository;
 import com.truesize.shoegraph.ShoeNode;
 import com.truesize.shoegraph.ShoeSearchFactory;
-<<<<<<< HEAD
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-=======
-
->>>>>>> 98415ee... refactored code, modified factory methods
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
