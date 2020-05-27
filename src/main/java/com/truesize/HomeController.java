@@ -20,6 +20,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import java.util.List;
+import java.util.Arrays;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -30,15 +33,33 @@ import java.util.List;
 @Controller
 public class HomeController {
 
+	//list of Urls that don't require user to be logged in 
+	List<String> preLoginRoutes = Arrays.asList("home", "login", "search", "SearchResults", "main.css", "favicon.ico");
+
 	@Autowired
 	private Logger logger;
 
-	@RequestMapping(value = "/{path:?:(^(?!api)).*$}")
-	public String index(@PathVariable("path") String variablePath) {
-		logger.info("hit the controller!");
-		System.out.println("hit path " + variablePath);
+	@Autowired
+	public AccountService ac;
+
+	//@RequestMapping(value = "/{path:?:(^(?!api)).*$}")
+	//@RequestMapping("/{path:?:(^(?!api)).*$}")
+	@RequestMapping("/{path}")
+	public String index(@PathVariable String path) {
+		//logger.info("hit the controller!");
+		//System.out.println("contorller");
+
+		System.out.println("path: " + path + " loggedIN?: " + ac.loggedIn);
+
+		if (!ac.loggedIn){
+			if (!preLoginRoutes.contains(path)){
+			 	System.out.println(path + " redirected to login");
+			    return "redirect:/login";
+			}	
+		}	
+
 		return "index";
-	}///src/main/etmpaltes
+	}
 
 }
 // end::code[]

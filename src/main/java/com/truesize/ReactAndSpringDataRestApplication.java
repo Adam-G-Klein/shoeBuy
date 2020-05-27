@@ -33,6 +33,11 @@ public class ReactAndSpringDataRestApplication {
 		return LoggerFactory.getLogger(HomeController.class);
 	}
 
+	@Bean
+	public AccountService accountServiceFactory(){
+		return AccountServiceFactory.getInstance();
+	}
+
 	public static void main(String[] args) {
 		SpringApplication.run(ReactAndSpringDataRestApplication.class, args);
 	}
