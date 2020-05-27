@@ -31,8 +31,8 @@ class ResultCard extends React.Component {
                 {this.performRedirect()}
                 <Button onClick={() => this.setRedirect()} variant="light" style={{padding: '0px'}}>
                 <Card style={{ width: '12rem'}}>
-                    <div style={{outlineWidth: '5px', outline: 'solid', outlineColor: 'red', width: '190px', height: '190px', alignContent: 'center', position: 'relative'}}>
-                        <Card.Img  variant="top" src={shoeImage} />
+                    <div style={{outlineWidth: '5px', outline: 'solid', outlineColor: 'red', width: '190px', height: '190px', alignContent: 'center'}}>
+                        <Card.Img style={{objectFit: 'cover', width: '190px', height: '190px'}} variant="top" src={shoeImage} />
                     </div>
                     <Card.Body style={{padding: '10px'}}>
                         <Card.Title>{(this.props.shoeInfo.brand).toUpperCase() }</Card.Title>
@@ -51,7 +51,7 @@ class ResultCard extends React.Component {
                 <Button onClick={() => this.setRedirect()} variant="light" style={{padding: '0px'}}>
                 <Card style={{ width: '12rem'}}>
                     <div style={{outlineWidth: '5px', outline: 'solid', outlineColor: 'red', width: '190px', height: '190px', alignContent: 'center'}}>
-                        <Card.Img variant="top" src={this.props.shoeInfo.url} />
+                        <Card.Img style={{objectFit: 'cover', width: '190px', height: '190px'}} variant="top" src={this.props.shoeInfo.url} />
                     </div>
                     <Card.Body style={{padding: '10px'}}>
                         <Card.Title>{(this.props.shoeInfo.brand).toUpperCase() }</Card.Title>
