@@ -3,7 +3,10 @@ import Autosuggest from 'react-autosuggest';
 import "../resources/static/theme.css";
 import ResultCard from './ResultCard';
 import restClient from './restClient.js';
-import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
+import { Row } from 'react-bootstrap';
+import { Col } from 'react-bootstrap';
 
 
 class SearchResults extends React.Component {
@@ -88,6 +91,9 @@ class SearchResults extends React.Component {
     );
 
     onChange = (event, { newValue }) => {
+      if(newValue === ""){
+        this.sectionResultPages(this.state.shoes)
+      }
       this.setState({
         value: newValue
       });
@@ -107,7 +113,11 @@ class SearchResults extends React.Component {
     this.setState({
       suggestions: []
     });
-    this.sectionResultPages(this.state.shoes)
+
+    if(this.state.value == ""){
+      console.log("empty value")
+      this.sectionResultPages(this.state.shoes)
+    }
   };
 
   sectionResultPages = (suggestions) => {
