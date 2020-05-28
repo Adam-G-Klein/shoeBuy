@@ -57,7 +57,9 @@ public class ShoeNode {
         }
         return null;
     }
-
+    public List<DirectedShoeEdge> getEdges() {
+        return edges;
+    }
     public void addEdge(ShoeNode shoeConnection, double thisShoeSize, double secondShoeSize)
     {
         double sizeDifference = secondShoeSize - thisShoeSize;

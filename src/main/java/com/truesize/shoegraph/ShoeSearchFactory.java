@@ -5,9 +5,9 @@ public class ShoeSearchFactory {
         if(searchType.equals("ShoeSizeRecommendSearcherBFS")){
             return new ShoeSizeRecommendSearcherBFS();
         }
-        /*else if(searchType.equals("Some other way of searching")){
-            
-        }*/
+        else if(searchType.equals("ShoeSizeRecommendSearcherSmartBFS")){
+            return new ShoeSizeRecommendSearcherSmartBFS();
+        }
         return null;
     }
 }
