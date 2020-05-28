@@ -19,7 +19,7 @@ public class ShoeSizeRecommendSearcherBFS implements ShoeSearcher{
 	public String getSizeRecc(String desiredShoeCode, AllShoeRepository allShoeRepository) {
 		//---- the users data, will need to pull this from Ted's database -----
 		double usersSize = 10.0;
-		String usersShoe = ShoeNode.generateUniqueCode("t1b","adidas","f");
+		String usersShoe = ShoeNode.generateUniqueCode("t1c","adidas","f");
 		//---- ---------------------------------------------------------- -----
 
 		Queue<ShoeCodeWithDistance> bfsQueue = new LinkedList<ShoeCodeWithDistance>();

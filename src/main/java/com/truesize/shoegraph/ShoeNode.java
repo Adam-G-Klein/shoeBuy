@@ -49,15 +49,43 @@ public class ShoeNode {
         return model.toLowerCase() + brand.toLowerCase() + sex.toLowerCase();
     }
 
-    //when calling 'addEdge' from anywhere, 'endShoe' should always be false in order to add edge in both directions  
-    public void addEdge(ShoeNode shoeConnection, double sizeDifference, boolean endShoe) {
+    private DirectedShoeEdge findEdgeWithCode(String code){
+        for(DirectedShoeEdge e : edges) {
+            if(e.endShoeNode.uniqueShoeCode.equals(code)) {
+                return e;
+            }
+        }
+        return null;
+    }
 
-        DirectedShoeEdge edge = new DirectedShoeEdge(1, sizeDifference, this, shoeConnection);
+    public void addEdge(ShoeNode shoeConnection, double thisShoeSize, double secondShoeSize)
+    {
+        double sizeDifference = secondShoeSize - thisShoeSize;
 
-        //prevent addEdge from infinitly looping back and forth from start to end Node
-        if(!endShoe){ shoeConnection.addEdge(this, sizeDifference * -1, true); }
+        //the last boolean ensure that this function in run for both shoe nodes and doesn't loop endlessly
+        addEdgeBothWays(shoeConnection, sizeDifference, false);
+    }
+    private void addEdgeBothWays(ShoeNode shoeConnection, double sizeDifference, boolean isEndShoe) {
 
-        this.edges.add(edge);
+        DirectedShoeEdge matchingEdge = findEdgeWithCode(shoeConnection.uniqueShoeCode);
+
+        //if this edge already exists, modify it
+        if(matchingEdge != null){
+            matchingEdge.sizeDifference = (matchingEdge.sizeDifference * matchingEdge.connectionMultiplicity + sizeDifference)/(matchingEdge.connectionMultiplicity + 1);
+            matchingEdge.connectionMultiplicity += 1;
+            
+            //prevent addEdge from infinitly looping back and forth from start to end Node
+            if(!isEndShoe){ shoeConnection.addEdgeBothWays(this, sizeDifference * -1, true); }
+        }
+        //otherwise, add it
+        else{
+            DirectedShoeEdge edge = new DirectedShoeEdge(1, sizeDifference, shoeConnection);
+
+            //prevent addEdge from infinitly looping back and forth from start to end Node
+            if(!isEndShoe){ shoeConnection.addEdgeBothWays(this, sizeDifference * -1, true); }
+    
+            this.edges.add(edge);
+        } 
     }
     public List<String> getEdgesAsShoeCodes(){
         List<String> edgesAsCodes = new ArrayList<>();
