@@ -1,6 +1,7 @@
 import React from 'react';
 import {Button, Form, Card, Container, Row, Col} from 'react-bootstrap';
 import { Redirect } from 'react-router-dom';
+import restClient from './restClient.js';
 
 
 class Register extends React.Component {
@@ -16,15 +17,15 @@ class Register extends React.Component {
 
 	createAccount(){
 		console.log("made request")
-        // restClient({method: "GET",
-        //     path: "/api/login?username=" + this.state.username + "&password=" + this.state.password,
-        //     headers: {'Accept': 'application/json'}
-        //     }
-        //     )
-        //     .done(response => {
-        //         console.log(response);
-        //         this.setState({loginStatus: response.entity.response});
-        // });
+        restClient({method: "GET",
+            path: "/api/newUser?email=" + this.state.username + "&password=" + this.state.password,
+            headers: {'Accept': 'application/json'}
+            }
+            )
+            .done(response => {
+                console.log(response);
+                this.setState({loginStatus: response.entity.response});
+        });
 	}
 
     handleUsernameChange(event){
@@ -66,7 +67,7 @@ class Register extends React.Component {
                                     <Button onClick={(event) => this.handleSubmit(event)}>Submit</Button>
                                 </Col>
                                 <Col>
-                                    <Button onClick={(event) => this.handleSubmit(event)}>Submit</Button>
+                                    <Button >I already have an account</Button>
                                 </Col>
                             </Row>
                             

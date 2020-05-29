@@ -1,6 +1,7 @@
 import React from 'react';
 import {Button, Form, Card, Container, Row, Col} from 'react-bootstrap';
 import { Redirect } from 'react-router-dom';
+import restClient from './restClient.js';
 
 
 class Login extends React.Component {
@@ -17,15 +18,15 @@ class Login extends React.Component {
 
 	verifyLogin(){
 		console.log("made request")
-        // restClient({method: "GET",
-        //     path: "/api/login?username=" + this.state.username + "&password=" + this.state.password,
-        //     headers: {'Accept': 'application/json'}
-        //     }
-        //     )
-        //     .done(response => {
-        //         console.log(response);
-        //         this.setState({loginStatus: response.entity.response});
-        // });
+        restClient({method: "GET",
+            path: "/api/logIn?email=" + this.state.username + "&password=" + this.state.password,
+            headers: {'Accept': 'application/json'}
+            }
+            )
+            .done(response => {
+                console.log(response);
+                this.setState({loginStatus: response.entity.response});
+        });
 	}
 
     handleUsernameChange(event){
@@ -76,7 +77,7 @@ class Login extends React.Component {
                       <Form.Label>Password</Form.Label>
                       <Form.Control type="text" placeholder="Enter your password" onChange = {(e) => this.handlePassChange(e)}/>
                     </Form.Group>
-                    <div style={{alignContent: 'center', alignItems: 'center'}}>
+                    <div style={{alignContent: 'center', alignItems: 'center', justifyContent: 'center'}}>
                       <Button onClick={(event) => this.handleSubmit(event)}>Login</Button>
                     </div>
                     <div>
