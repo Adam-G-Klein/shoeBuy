@@ -12,9 +12,18 @@ class Login extends React.Component {
 			username: "",
 			password: "",
       loginStatus: "",
-      redirectRegister: false
+      redirectRegister: false,
+      redirectSearch: false
 		};
-	}
+  }
+  
+  performRedirectSearch = () => {
+    if(this.state.redirectSearch == true){
+        return (<Redirect to={{
+            pathname: "/search"
+      }}/>)
+    }
+}
 
 	verifyLogin(){
 		console.log("made request")
@@ -24,7 +33,13 @@ class Login extends React.Component {
             }
             )
             .done(response => {
-                console.log(response);
+                console.log(response)
+                if(true){
+                  this.setState({redirectSearch: true});
+                }
+                else{
+                  alert("No account found with this email and password.")
+                }
                 this.setState({loginStatus: response.entity.response});
         });
 	}
@@ -44,7 +59,7 @@ class Login extends React.Component {
     }
 
 
-    performRedirect = () => {
+    performRedirectRegister = () => {
       if(this.state.redirectRegister == true){
           return (<Redirect to={{
               pathname: "/register"
@@ -59,7 +74,8 @@ class Login extends React.Component {
 	render() {
 		return (
 		    <div style={{margin: '40px'}}>
-          {this.performRedirect()}
+          {this.performRedirectRegister()}
+          {this.performRedirectSearch()}
           <Container style={{alignContent: 'center', alignItems: 'center'}}>
             <Row>
               <Col />
