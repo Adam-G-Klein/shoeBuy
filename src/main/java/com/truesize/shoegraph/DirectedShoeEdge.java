@@ -19,27 +19,21 @@ public class DirectedShoeEdge {
     public double sizeDifference;
     
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "start_shoenode_id", referencedColumnName = "id")
-    public ShoeNode startShoeNode;
-    
-    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "end_shoenode_id", referencedColumnName = "id")
     public ShoeNode endShoeNode;
 
     private DirectedShoeEdge() {}
 
     public DirectedShoeEdge(int connectionMultiplicity, double sizeDifference,
-                            ShoeNode startShoeNode, ShoeNode endShoeNode){
+                            ShoeNode endShoeNode){
         this.connectionMultiplicity = connectionMultiplicity;
         this.sizeDifference = sizeDifference;
-        this.startShoeNode = startShoeNode;
         this.endShoeNode = endShoeNode;
     }
 
     @Override
     public int hashCode() {
-
-        return Objects.hash(id, connectionMultiplicity, sizeDifference, startShoeNode, endShoeNode);
+        return Objects.hash(id, connectionMultiplicity, sizeDifference, endShoeNode);
     }   
 
     @Override
@@ -48,7 +42,6 @@ public class DirectedShoeEdge {
                 "id=" + id +
                 ", connectionMultiplicity='" + connectionMultiplicity + '\'' +
                 ", sizeDifference=" + sizeDifference +
-                ", startShoeNode='" + startShoeNode + '\'' +
                 ", endShoeNode='" + endShoeNode + '\'' +
                 '}';
     }
