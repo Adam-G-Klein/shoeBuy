@@ -51,11 +51,7 @@ class ResultCard extends React.Component {
                 <Button onClick={() => this.setRedirect()} variant="light" style={{padding: '0px'}}>
                 <Card style={{ width: '12rem'}}>
                     <div style={{outlineWidth: '5px', outline: 'solid', outlineColor: 'red', width: '190px', height: '190px', alignContent: 'center'}}>
-<<<<<<< HEAD
                         <Card.Img style={{objectFit: 'cover', width: '190px', height: '190px'}} variant="top" src={this.props.shoeInfo.url} />
-=======
-                        <Card.Img variant="top" src={this.props.shoeInfo.url} />
->>>>>>> 33b73a14d31554a513b6d68a4497669b0c238c78
                     </div>
                     <Card.Body style={{padding: '10px'}}>
                         <Card.Title>{(this.props.shoeInfo.brand).toUpperCase() }</Card.Title>
