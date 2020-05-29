@@ -21,19 +21,19 @@ public class UserProfile {
     private String password;
 
 
-    //@OneToMany(cascade = CascadeType.ALL)
-    //@JoinColumn(name = "shoes", referencedColumnName = "id")
-    //private List<OwnedShoe> shoes;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ownedShoes", referencedColumnName = "email")
+    public List<OwnedShoe> ownedShoes;
 
     private UserProfile() {}
 
     public UserProfile(String email, String password){
         this.email = email;
         this.password = password;
-        //this.shoes = new ArrayList<OwnedShoe>();
-        //shoes.add(new OwnedShoe("NikeKD9", 17.5));
-        //shoes.add(new OwnedShoe("NikeKD3000", 17.5));
-        //shoes.add(new OwnedShoe("NikeHotDog", 400.5));
+        this.ownedShoes = new ArrayList();
+        ownedShoes.add(new OwnedShoe("NikeKD9", 17.5));
+        ownedShoes.add(new OwnedShoe("NikeKD3000", 17.5));
+        ownedShoes.add(new OwnedShoe("NikeHotDog", 400.5));
     }
 
     public String getEmail() {
@@ -64,7 +64,7 @@ public class UserProfile {
     public String toString() {
         return "UserProfile{" +
                 "name=" + name +
-                ", email='" + email + '\'' +
+                ", email=" + email +
                 ", password=" + password +'}';
     }
 }

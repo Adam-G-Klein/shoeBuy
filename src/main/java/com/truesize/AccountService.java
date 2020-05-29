@@ -36,4 +36,21 @@ public class AccountService {
 		this.loggedIn = false;
 		this.profile = null;
 	}	
+
+	public boolean createAccount(String email, String password, AllUserRepository allUserRepository){
+		profile = allUserRepository.findByEmail(email);
+
+		if (profile != null){
+			System.out.println("CreateAccount Error: email already in database");
+			return false;
+		}
+
+		allUserRepository.save(new UserProfile(email, password));
+		System.out.println("new user added to database");
+		return true;
+
+	}
 }
+
+
+

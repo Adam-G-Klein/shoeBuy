@@ -33,7 +33,7 @@ import java.util.List;
 @Controller
 public class HomeController {
 
-	//list of Urls that don't require user to be logged in 
+	//list of paths that don't require user to be logged in 
 	List<String> preLoginRoutes = Arrays.asList("home", "login", "search", "SearchResults", "main.css", "favicon.ico");
 
 	@Autowired
@@ -42,12 +42,8 @@ public class HomeController {
 	@Autowired
 	public AccountService ac;
 
-	//@RequestMapping(value = "/{path:?:(^(?!api)).*$}")
-	//@RequestMapping("/{path:?:(^(?!api)).*$}")
 	@RequestMapping("/{path}")
 	public String index(@PathVariable String path) {
-		//logger.info("hit the controller!");
-		//System.out.println("contorller");
 
 		System.out.println("path: " + path + " loggedIN?: " + ac.loggedIn);
 
@@ -60,6 +56,5 @@ public class HomeController {
 
 		return "index";
 	}
-
 }
 // end::code[]

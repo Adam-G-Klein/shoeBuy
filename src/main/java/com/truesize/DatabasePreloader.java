@@ -21,9 +21,9 @@ public class DatabasePreloader implements CommandLineRunner {
 
     @Override
     public void run(String... strings) throws Exception{
-        ShoeNode testNode = new ShoeNode("KD8", "Nike", "m", 7.0);
-        ShoeNode testNode2 = new ShoeNode("KD9", "Nike", "m", 10.0);
-        testNode.addEdge(testNode2, 3.0, false);
+        ShoeNode testNode = new ShoeNode("KD8", "Nike", "m");
+        ShoeNode testNode2 = new ShoeNode("KD9", "Nike", "m");
+        testNode.addEdge(testNode2, 3.0);
         this.allShoeRepository.save(testNode);
         this.allShoeRepository.save(testNode2);
 

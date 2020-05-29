@@ -6,6 +6,7 @@ target/
 src/main/resources/static/built/
 bin/
 .metadata/*
+*.DS_Store
 
 ### STS ###
 .apt_generated

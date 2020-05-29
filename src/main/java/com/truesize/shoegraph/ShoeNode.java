@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.truesize.OwnedShoe;
+
 @Entity
 @Table(name = "shoenodes")
 public class ShoeNode {
@@ -35,18 +37,28 @@ public class ShoeNode {
     @JoinColumn(name = "edges", referencedColumnName = "id")
     private List<DirectedShoeEdge> edges;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ownedShoes", referencedColumnName = "id")
+    public List<OwnedShoe> ownedShoes;
+
     private ShoeNode() { }
 
-    public ShoeNode(String model, String brand, String sex, double size){
+    public ShoeNode(String model, String brand, String sex){
         this.model = model.toLowerCase();
         this.brand = brand.toLowerCase();
         this.sex = sex.toLowerCase();
         this.uniqueShoeCode = generateUniqueCode(this.model, this.brand, this.sex);
         this.edges = new ArrayList();
+        this.ownedShoes = new ArrayList();
     }
 
     public static String generateUniqueCode(String model, String brand, String sex) {
         return model.toLowerCase() + brand.toLowerCase() + sex.toLowerCase();
+    }
+
+    //this overload is here bc java doesn't support default parameters :(
+    public void addEdge(ShoeNode shoeConnection, double sizeDifference){
+        addEdge(shoeConnection, sizeDifference, false);
     }
 
     //when calling 'addEdge' from anywhere, 'endShoe' should always be false in order to add edge in both directions  
