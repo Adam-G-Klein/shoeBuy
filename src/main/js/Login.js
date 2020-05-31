@@ -1,9 +1,8 @@
 import React from 'react';
 import {Button, Form, Card, Container, Row, Col} from 'react-bootstrap';
-//import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-// import AppBar from 'material-ui/AppBar';
-// import RaisedButton from 'material-ui/RaisedButton';
-// import TextField from 'material-ui/TextField';
+import { Redirect } from 'react-router-dom';
+import restClient from './restClient.js';
+
 
 class Login extends React.Component {
 
@@ -12,21 +11,37 @@ class Login extends React.Component {
 		this.state ={
 			username: "",
 			password: "",
-			loginStatus: ""
+      loginStatus: "",
+      redirectRegister: false,
+      redirectSearch: false
 		};
-	}
+  }
+  
+  performRedirectSearch = () => {
+    if(this.state.redirectSearch == true){
+        return (<Redirect to={{
+            pathname: "/search"
+      }}/>)
+    }
+}
 
 	verifyLogin(){
 		console.log("made request")
-        // restClient({method: "GET",
-        //     path: "/api/login?username=" + this.state.username + "&password=" + this.state.password,
-        //     headers: {'Accept': 'application/json'}
-        //     }
-        //     )
-        //     .done(response => {
-        //         console.log(response);
-        //         this.setState({loginStatus: response.entity.response});
-        // });
+        restClient({method: "GET",
+            path: "/api/logIn?email=" + this.state.username + "&password=" + this.state.password,
+            headers: {'Accept': 'application/json'}
+            }
+            )
+            .done(response => {
+                console.log(response)
+                if(true){
+                  this.setState({redirectSearch: true});
+                }
+                else{
+                  alert("No account found with this email and password.")
+                }
+                this.setState({loginStatus: response.entity.response});
+        });
 	}
 
     handleUsernameChange(event){
@@ -43,26 +58,50 @@ class Login extends React.Component {
       this.verifyLogin();
     }
 
+
+    performRedirectRegister = () => {
+      if(this.state.redirectRegister == true){
+          return (<Redirect to={{
+              pathname: "/register"
+        }}/>)
+      }
+  }
+
+    handleCreateAccount(){
+      this.setState({redirectRegister: true})
+    }
+
 	render() {
 		return (
 		    <div style={{margin: '40px'}}>
+          {this.performRedirectRegister()}
+          {this.performRedirectSearch()}
           <Container style={{alignContent: 'center', alignItems: 'center'}}>
             <Row>
               <Col />
               <Col >
               <h1 style={{color: 'white', textAlign: 'center'}}>Welcome to TrueSize</h1>
               <div style={{margin: '40px'}}></div>
-          <Card style={{width:'30rem', alignContent: 'center'}}>
-            <Card.Body>
-              <Form>
-                <Form.Label>Username</Form.Label>
-                <Form.Control type="text" placeholder="Enter your username" onChange = {(e) => this.handleUsernameChange(e)}/>
-                <Form.Label>Password</Form.Label>
-                <Form.Control type="text" placeholder="Enter your password" onChange = {(e) => this.handlePassChange(e)}/>
-                <Button onClick={(event) => this.handleSubmit(event)}>Submit</Button>
-              </Form>
-            </Card.Body>
-         </Card>
+              <Card style={{width:'30rem', alignContent: 'center'}}>
+                <Card.Body>
+                  <Form>
+                    <Form.Group>
+                      <Form.Label>Username</Form.Label>
+                      <Form.Control type="text" placeholder="Enter your username" onChange = {(e) => this.handleUsernameChange(e)}/>
+                    </Form.Group>
+                    <Form.Group>
+                      <Form.Label>Password</Form.Label>
+                      <Form.Control type="text" placeholder="Enter your password" onChange = {(e) => this.handlePassChange(e)}/>
+                    </Form.Group>
+                    <div style={{alignContent: 'center', alignItems: 'center', justifyContent: 'center'}}>
+                      <Button onClick={(event) => this.handleSubmit(event)}>Login</Button>
+                    </div>
+                    <div>
+                      <Button variant="link" onClick={(event) => this.handleCreateAccount(event)}>Create Account</Button>
+                    </div>
+                  </Form>
+                </Card.Body>
+            </Card>
          </Col>
          <Col />
          </Row>

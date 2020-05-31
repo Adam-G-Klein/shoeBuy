@@ -12,6 +12,7 @@ import SizeRecommender from './SizeRecommender';
 import ShoeRecommender from './ShoeRecommender';
 import Search from './Search';
 import SearchResults from './SearchResults';
+import Register from './Register';
 import '../resources/static/backgroundImage.css';
 //import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -44,6 +45,9 @@ const routes  = (
 			</Route>
 			<Route exact path = '/allShoes'>
 				<AllShoeViewer />
+			</Route>
+			<Route exact path = '/register'>
+				<Register />
 			</Route>
 		</Switch>
 	</Router>

@@ -7,10 +7,6 @@ class ResultCard extends React.Component {
 
     state = {
         redirect: false,
-        shoeInfo: 
-            {id: 1,
-            brand: 'Nike',
-            name: 'Shoe One'}
     }
 
     setRedirect() {
@@ -29,20 +25,43 @@ class ResultCard extends React.Component {
     }
 
     render() {
-        return (
-            <div>
-            {this.performRedirect()}
-            <Button onClick={() => this.setRedirect()} variant="light" style={{padding: '0px'}}>
-            <Card style={{ width: '12rem'}}>
-                <Card.Img variant="top" src={shoeImage} />
-                <Card.Body style={{padding: '10px'}}>
-                    <Card.Title>{(this.props.shoeInfo.brand).toUpperCase() }</Card.Title>
-                    <Card.Text>{this.props.shoeInfo.name}</Card.Text>
-                </Card.Body>
-            </Card>
-            </Button>
-            </div>
+        if(this.props.shoeInfo.url === undefined || this.props.shoeInfo.url === null){
+            return (
+                <div>
+                {this.performRedirect()}
+                <Button onClick={() => this.setRedirect()} variant="light" style={{padding: '0px'}}>
+                <Card style={{ width: '12rem'}}>
+                    <div style={{outlineWidth: '5px', outline: 'solid', outlineColor: 'red', width: '190px', height: '190px', alignContent: 'center'}}>
+                        <Card.Img style={{objectFit: 'cover', width: '190px', height: '190px'}} variant="top" src={shoeImage} />
+                    </div>
+                    <Card.Body style={{padding: '10px'}}>
+                        <Card.Title>{(this.props.shoeInfo.brand).toUpperCase() }</Card.Title>
+                        <Card.Text>{this.props.shoeInfo.name}</Card.Text>
+                    </Card.Body>
+                </Card>
+                </Button>
+                </div>
+            )
+        }
+        else{
+        
+            return (
+                <div>
+                {this.performRedirect()}
+                <Button onClick={() => this.setRedirect()} variant="light" style={{padding: '0px'}}>
+                <Card style={{ width: '12rem'}}>
+                    <div style={{outlineWidth: '5px', outline: 'solid', outlineColor: 'red', width: '190px', height: '190px', alignContent: 'center'}}>
+                        <Card.Img style={{objectFit: 'cover', width: '190px', height: '190px'}} variant="top" src={this.props.shoeInfo.url} />
+                    </div>
+                    <Card.Body style={{padding: '10px'}}>
+                        <Card.Title>{(this.props.shoeInfo.brand).toUpperCase() }</Card.Title>
+                        <Card.Text>{this.props.shoeInfo.name}</Card.Text>
+                    </Card.Body>
+                </Card>
+                </Button>
+                </div>
         )
+        }
     }
 }
 
