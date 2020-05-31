@@ -40,6 +40,7 @@ public class UserProfile {
         ownedShoes.add(new OwnedShoe("KD9", 17.5));
         ownedShoes.add(new OwnedShoe("KD3000", 17.5));
         ownedShoes.add(new OwnedShoe("HotDog", 400.5));
+        ownedShoes.add(new OwnedShoe("t1c","adidas", 12.0, "f", "google.com"));
     }
 
     public String getEmail() {

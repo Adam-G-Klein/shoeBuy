@@ -1,7 +1,10 @@
 package com.truesize;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.slf4j.Logger;
 
+@Component
 public class AccountService {
 
 

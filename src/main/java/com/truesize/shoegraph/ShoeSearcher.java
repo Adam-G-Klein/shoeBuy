@@ -1,5 +1,7 @@
 package com.truesize.shoegraph;
 
+import com.truesize.AccountService;
+
 public interface ShoeSearcher {
-    String getSizeRecc(String shoeCode, AllShoeRepository allShoeRepository);
+    String getSizeRecc(String shoeCode, AllShoeRepository allShoeRepository, AccountService ac);
 }

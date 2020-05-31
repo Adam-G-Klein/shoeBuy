@@ -17,6 +17,9 @@ public class ShoeSizeRecommendController {
 
     @Autowired
     private AllShoeRepository allShoeRepository;
+    
+    @Autowired
+    public AccountService ac;
 
     //params are the model and brand of shoe the user is searching for
     @GetMapping(value = "/api/sizeRecommend", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -25,7 +28,7 @@ public class ShoeSizeRecommendController {
                    @RequestParam(name="sex", required = true) String sex){
         
         String shoeLookingFor = ShoeNode.generateUniqueCode(modelName, brandName, sex);
-        return new StringResponse(ShoeSearchFactory.createSearcher("ShoeSizeRecommendSearcherBFS").getSizeRecc(shoeLookingFor, allShoeRepository));
+        return new StringResponse(ShoeSearchFactory.createSearcher("ShoeSizeRecommendSearcherSmartBFS").getSizeRecc(shoeLookingFor, allShoeRepository, ac));
     }
     //params are the model and brand of shoe the user is searching for
     @GetMapping(value = "/api/getAllShoes", produces = MediaType.APPLICATION_JSON_VALUE)
