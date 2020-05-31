@@ -23,10 +23,11 @@ public class ShoeNode {
     @Column(name = "id")
     private Long id;
 
-
     public String sex;
     public String model;
     public String brand;
+
+    public String imgURL;
 
     //the uniqueShoeCode is a string combining the model + brand + sex of the show (lowercase, no spaces)
     public String uniqueShoeCode;
@@ -37,12 +38,22 @@ public class ShoeNode {
 
     private ShoeNode() { }
 
+    public ShoeNode(String model, String brand, String sex, String imgURL){
+        this.model = model.toLowerCase();
+        this.brand = brand.toLowerCase();
+        this.sex = sex.toLowerCase();
+        this.uniqueShoeCode = generateUniqueCode(this.model, this.brand, this.sex);
+        this.edges = new ArrayList();
+        this.imgURL = imgURL;
+    }
+
     public ShoeNode(String model, String brand, String sex){
         this.model = model.toLowerCase();
         this.brand = brand.toLowerCase();
         this.sex = sex.toLowerCase();
         this.uniqueShoeCode = generateUniqueCode(this.model, this.brand, this.sex);
         this.edges = new ArrayList();
+        this.imgURL = "URL";
     }
 
     public static String generateUniqueCode(String model, String brand, String sex) {

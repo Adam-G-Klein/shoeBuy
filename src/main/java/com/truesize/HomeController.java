@@ -26,10 +26,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
-/**
- * @author Greg Turnquist
- */
-// tag::code[]
 @Controller
 public class HomeController {
 
@@ -42,12 +38,8 @@ public class HomeController {
 	@Autowired
 	public AccountService ac;
 
-	//@RequestMapping(value = "/{path:?:(^(?!api)).*$}")
-	//@RequestMapping("/{path:?:(^(?!api)).*$}")
 	@RequestMapping("/{path}")
 	public String index(@PathVariable String path) {
-		//logger.info("hit the controller!");
-		//System.out.println("contorller");
 
 		System.out.println("path: " + path + " loggedIN?: " + ac.loggedIn);
 

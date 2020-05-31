@@ -11,29 +11,35 @@ import java.util.List;
 import java.util.ArrayList;
 import javax.persistence.JoinColumn;
 import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
+import javax.persistence.Column;
 
 @Entity
 @Table(name = "UserProfile")
 public class UserProfile {
 
-    private @Id String email;
+    @Id
+    @GeneratedValue 
+    @Column(name = "id")
+    private long id;
+    private String email;
     private String name;
     private String password;
 
-
-    //@OneToMany(cascade = CascadeType.ALL)
-    //@JoinColumn(name = "shoes", referencedColumnName = "id")
-    //private List<OwnedShoe> shoes;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "ownedShoes", referencedColumnName = "id")
+    //@JoinColumn(name = "ownedShoes", referencedColumnName = "email")
+    public List<OwnedShoe> ownedShoes;
 
     private UserProfile() {}
 
     public UserProfile(String email, String password){
         this.email = email;
         this.password = password;
-        //this.shoes = new ArrayList<OwnedShoe>();
-        //shoes.add(new OwnedShoe("NikeKD9", 17.5));
-        //shoes.add(new OwnedShoe("NikeKD3000", 17.5));
-        //shoes.add(new OwnedShoe("NikeHotDog", 400.5));
+        this.ownedShoes = new ArrayList();
+        ownedShoes.add(new OwnedShoe("KD9", 17.5));
+        ownedShoes.add(new OwnedShoe("KD3000", 17.5));
+        ownedShoes.add(new OwnedShoe("HotDog", 400.5));
     }
 
     public String getEmail() {
@@ -52,24 +58,30 @@ public class UserProfile {
         this.email = email;
     }
 
-    // public String shoesToString(){
-    //     String temp = "";
-    //     for (OwnedShoe shoe: shoes){
-    //         temp += shoe.toString();
-    //     }
-    //     return temp;
-    // }
+    public List<OwnedShoe> getOwnedShoes() {
+        return ownedShoes;
+    }
+
+    public String shoesToString(){
+        String temp = "OwnedShoes{";
+        for (OwnedShoe shoe: ownedShoes){
+            temp += shoe.toString()+ '\n';
+        }
+        temp += "}";
+        return temp;
+    }
 
     @Override
     public String toString() {
         return "UserProfile{" +
                 "name=" + name +
-                ", email='" + email + '\'' +
+                ", email=" + email +
                 ", password=" + password +'}';
     }
 }
 
 
 //+ "shoes=" + shoesToString() +
+
 
 

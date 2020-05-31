@@ -25,6 +25,7 @@ public class DatabasePreloader implements CommandLineRunner {
         this.allUserRepository.save(new UserProfile("testemail2@test.com", "totallysecurepassword"));
 
         addTestGroup4();
+        addTestGroup5();
     }
 
     private void addTestGroup1(){
@@ -38,7 +39,7 @@ public class DatabasePreloader implements CommandLineRunner {
 
     private void addTestGroup2(){
         //---Test Group 2: 3 nodes, no cycles---
-        ShoeNode t1a = new ShoeNode("T1A", "Adidas", "f");
+        ShoeNode t1a = new ShoeNode("T1A", "Adidas", "f", "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/zc5x1xceepbszkhwprvn/joyride-run-flyknit-mens-running-shoe-PjmR5M.jpg");
         ShoeNode t2a = new ShoeNode("T2A", "Adidas", "f");
         ShoeNode t3a = new ShoeNode("T3A", "Adidas", "f");
         ShoeNode t4a = new ShoeNode("T4A", "Adidas", "f");
@@ -96,6 +97,16 @@ public class DatabasePreloader implements CommandLineRunner {
         t1c.addEdge(t2c, 10.0, 9.5);
 
         t2c.addEdge(t3c, 9.0, 8.5);
+        this.allShoeRepository.save(t1c);
+        this.allShoeRepository.save(t2c);
+        this.allShoeRepository.save(t3c);
+    }
+
+    private void addTestGroup5(){
+        ShoeNode t1c = new ShoeNode("KD9", "Nike", "u");
+        ShoeNode t2c = new ShoeNode("KD3000", "Nike", "u");
+        ShoeNode t3c = new ShoeNode("HotDog", "Nike", "u");
+
         this.allShoeRepository.save(t1c);
         this.allShoeRepository.save(t2c);
         this.allShoeRepository.save(t3c);
