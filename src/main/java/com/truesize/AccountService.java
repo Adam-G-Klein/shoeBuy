@@ -1,11 +1,16 @@
 package com.truesize;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
 
 public class AccountService {
 
 
-	public boolean loggedIn;
-	public UserProfile profile;
+
+	private boolean loggedIn;
+	private UserProfile profile;
+
+	@Autowired
+	private Logger logger;
 
 	public AccountService(){
 		this.loggedIn = false;
@@ -19,14 +24,14 @@ public class AccountService {
 		if (profile != null){
 			if (profile.getPassword().equals(password)){
 				loggedIn = true;
-				System.out.println("loggedIn should be set to true");
+				logger.info("loggedIn should be set to true");
 				return true;
 			}
-			System.out.println("Login Error: incorrect password");
+			logger.info("Login Error: incorrect password");
 		}
 
 		else{
-			System.out.println("Login Error: email not found");
+			logger.info("Login Error: email not found");
 		}
         return false;
 
@@ -41,13 +46,30 @@ public class AccountService {
 		profile = allUserRepository.findByEmail(email);
 
 		if (profile != null){
-			System.out.println("CreateAccount Error: email already in database");
+			logger.info("CreateAccount Error: email already in database");
 			return false;
 		}
 
 		allUserRepository.save(new UserProfile(email, password));
-		System.out.println("new user added to database");
+		logger.info("new user added to database");
 		return true;
 
+	}
+
+
+	public boolean isLoggedIn() {
+		return loggedIn;
+	}
+
+	public void setLoggedIn(boolean loggedIn) {
+		this.loggedIn = loggedIn;
+	}
+
+	public UserProfile getProfile() {
+		return profile;
+	}
+
+	public void setProfile(UserProfile profile) {
+		this.profile = profile;
 	}
 }

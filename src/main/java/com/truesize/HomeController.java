@@ -41,9 +41,9 @@ public class HomeController {
 	@RequestMapping("/{path}")
 	public String index(@PathVariable String path) {
 
-		System.out.println("path: " + path + " loggedIN?: " + ac.loggedIn);
+		logger.info("path: " + path + " loggedIN?: " + ac.isLoggedIn());
 
-		if (!ac.loggedIn){
+		if (!ac.isLoggedIn()){
 			if (!preLoginRoutes.contains(path)){
 			 	System.out.println(path + " redirected to login");
 			    return "redirect:/login";

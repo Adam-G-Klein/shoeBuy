@@ -61,12 +61,12 @@ public class UserController {
     // hopefully this returns profile information in a usable JSON format
     @GetMapping(value = "/api/getUserInfo", produces = MediaType.APPLICATION_JSON_VALUE)
     StringResponse getUserInfo(){
-        return new StringResponse(ac.profile.toString());
+        return new StringResponse(ac.getProfile().toString());
     }
 
     @GetMapping(value = "/api/getUserShoes", produces = MediaType.APPLICATION_JSON_VALUE)
     List<OwnedShoe> getUserShoes(){
-        return ac.profile.getOwnedShoes();
+        return ac.getProfile().getOwnedShoes();
     }
 
     @GetMapping("/api/addShoe")
@@ -86,10 +86,10 @@ public class UserController {
         }
 
         //go through all the shoes in the userProfile ownedshoe list and add new edges to the sn
-        this.addEdges(sn, os, ac.profile);
+        this.addEdges(sn, os, ac.getProfile());
 
         // add new owned shoe to list of ownded shoes in profile
-        ac.profile.ownedShoes.add(os);
+        ac.getProfile().ownedShoes.add(os);
 
         // TODO: prevent user from adding the same shoe to their profile more than once?
         // this would be to prevent the creation of useless edges that start and end at the same shoenode
