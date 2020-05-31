@@ -79,11 +79,11 @@ class SizeRecommender extends React.Component {
 					<Card style={{textAlign: 'center'}}>
 					<Card.Body>
 						<Card.Title style={{fontWeight:'bold'}}>What Other's Are Saying About This Shoe</Card.Title>
-						<ShoeStats percentage={"75%"} quality={"stiffness"}/>
-						<ShoeStats percentage={"70%"} quality={"another thing"}/>
-						<ShoeStats percentage={"85%"} quality={"something else"}/>
-						<ShoeStats percentage={"80%"} quality={"one more quality here"}/>
-						<ShoeStats percentage={"73%"} quality={"a last one goes here"}/>
+						<ShoeStats percentage={"75%"} quality={"say this shoe is stiff"}/>
+						<ShoeStats percentage={"70%"} quality={"say this shoe is comfortable"}/>
+						<ShoeStats percentage={"85%"} quality={"say this shoe is lightweight"}/>
+						<ShoeStats percentage={"73%"} quality={"say this shoe is narrow"}/>
+						<ShoeStats percentage={"80%"} quality={"would buy this shoe again"}/>
 						<HorizLineBottom color='lightGray'/>
 					</Card.Body>
 					</Card>
