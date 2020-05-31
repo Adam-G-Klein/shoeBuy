@@ -9,6 +9,8 @@ import org.springframework.http.MediaType;
 import com.truesize.shoegraph.AllShoeRepository;
 import com.truesize.shoegraph.ShoeNode;
 
+import java.util.List;
+
 
 @RestController
 public class UserController {
@@ -63,8 +65,8 @@ public class UserController {
     }
 
     @GetMapping(value = "/api/getUserShoes", produces = MediaType.APPLICATION_JSON_VALUE)
-    StringResponse getUserShoes(){
-        return new StringResponse(ac.profile.shoesToString());
+    List<OwnedShoe> getUserShoes(){
+        return ac.profile.getOwnedShoes();
     }
 
     @GetMapping("/api/addShoe")
