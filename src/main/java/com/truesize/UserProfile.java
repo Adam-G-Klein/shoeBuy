@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.util.Objects;
 import javax.persistence.OneToMany;
 import java.util.List;
 import java.util.ArrayList;
@@ -36,7 +35,7 @@ public class UserProfile {
     public UserProfile(String email, String password){
         this.email = email;
         this.password = password;
-        this.ownedShoes = new ArrayList();
+        this.ownedShoes = new ArrayList<>();
         ownedShoes.add(new OwnedShoe("KD9", 17.5));
         ownedShoes.add(new OwnedShoe("KD3000", 17.5));
         ownedShoes.add(new OwnedShoe("HotDog", 400.5));

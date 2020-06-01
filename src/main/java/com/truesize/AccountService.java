@@ -14,7 +14,6 @@ public class AccountService {
 	private Logger logger;
 
 	public AccountService(){
-		//logger.info("creating new Account Service");
 		loggedIn = false;
 		profile = null;
 	}

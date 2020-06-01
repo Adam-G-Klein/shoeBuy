@@ -2,7 +2,7 @@ import React from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import {Card, Button} from 'react-bootstrap';
+import {Card} from 'react-bootstrap';
 import shoeImage from '../resources/static/exampleShoe.jpg';
 import PillButton from '@rakuten-rex/button/PillButton';
 import ShoeCollectionShoe from './ShoeCollectionShoe';

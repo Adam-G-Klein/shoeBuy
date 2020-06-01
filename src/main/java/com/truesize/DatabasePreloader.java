@@ -18,13 +18,16 @@ public class DatabasePreloader implements CommandLineRunner {
     @Autowired
     private AllUserRepository allUserRepository;
 
-    private List<String> htmlData = new ArrayList<String>();
+    private List<String> htmlData = new ArrayList<>();
 
     @Override
     public void run(String... strings) throws Exception{
         this.allUserRepository.save(new UserProfile("testemail@test.com", "password"));
         this.allUserRepository.save(new UserProfile("testemail2@test.com", "totallysecurepassword"));
 
+        addTestGroup1();
+        addTestGroup2();
+        addTestGroup3();
         addTestGroup4();
         addTestGroup5();
         addHtmlData();
@@ -77,7 +80,6 @@ public class DatabasePreloader implements CommandLineRunner {
         t3b.addEdge(t4b, 13, 19);
 
         t5b.addEdge(t7b, 12.5, 13);
-        //t5b.addEdge(t1b, 0.5, false);
 
         t6b.addEdge(t5b, 10, 9.5);
 

@@ -22,9 +22,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 import java.util.Arrays;
-import org.springframework.web.bind.annotation.PathVariable;
-
-import java.util.List;
 
 @Controller
 public class HomeController {
@@ -43,11 +40,9 @@ public class HomeController {
 
 		logger.info("path: " + path + " loggedIN?: " + ac.isLoggedIn());
 
-		if (!ac.isLoggedIn()){
-			if (!preLoginRoutes.contains(path)){
-			 	System.out.println(path + " redirected to login");
-			    return "redirect:/login";
-			}	
+		if (!ac.isLoggedIn() && !preLoginRoutes.contains(path)){
+		 	logger.info(path + " redirected to login");
+		    return "redirect:/login";
 		}	
 
 		return "index";

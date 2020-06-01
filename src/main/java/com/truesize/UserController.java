@@ -1,13 +1,13 @@
 package com.truesize;
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import com.truesize.shoegraph.AllShoeRepository;
 import com.truesize.shoegraph.ShoeNode;
+import org.slf4j.Logger;
 
 import java.util.List;
 
@@ -16,18 +16,15 @@ import java.util.List;
 public class UserController {
 
     @Autowired
+    private Logger logger;
+
+    @Autowired
     private AllUserRepository allUserRepository;
     @Autowired
     private AllShoeRepository allShoeRepository;
 
     @Autowired
     public AccountService ac;
-
-    //@Autowired
-    // public UserController(AllUserRepository allUserRepository, AllShoeRepository allShoeRepository){
-    //     this.allUserRepository = allUserRepository;
-    //     this.allShoeRepository = allShoeRepository;
-    // }
 
     @GetMapping(value = "/api/createAccount", produces = MediaType.APPLICATION_JSON_VALUE)
     StringResponse createAccount(@RequestParam String email, @RequestParam String password){
@@ -75,7 +72,6 @@ public class UserController {
     void addShoe(@RequestParam String model, @RequestParam String brand, @RequestParam String sex, @RequestParam Double size, @RequestParam String imgURL){
         //create a new owned shoe
 
-        System.out.println("adding shoe");
         OwnedShoe os = new OwnedShoe(model, brand, size, sex, imgURL);
         
         ShoeNode sn = allShoeRepository.findByUniqueShoeCode(ShoeNode.generateUniqueCode(model, brand, sex));
@@ -109,15 +105,12 @@ public class UserController {
             target = allShoeRepository.findByUniqueShoeCode(ShoeNode.generateUniqueCode(shoe.model, shoe.brand, shoe.sex));
 
             if (target == null){
-                System.out.println("Add Edge error: shoe node not found: " + ShoeNode.generateUniqueCode(shoe.model, shoe.brand, shoe.sex));
+                logger.info("Add Edge error: shoe node not found: " + ShoeNode.generateUniqueCode(shoe.model, shoe.brand, shoe.sex));
             }
             else{
                 sn.addEdge(target, os.size, shoe.size);
             }
         }
     }
-
-
-    // TODO: add something to return all the shoes for a the current user 
 
 }
