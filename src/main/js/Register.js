@@ -18,7 +18,7 @@ class Register extends React.Component {
 	createAccount(){
 		console.log("made request")
         restClient({method: "GET",
-            path: "/api/newUser?email=" + this.state.username + "&password=" + this.state.password,
+            path: "/api/createAccount?email=" + this.state.username + "&password=" + this.state.password,
             headers: {'Accept': 'application/json'}
             }
             )
