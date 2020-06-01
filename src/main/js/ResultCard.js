@@ -30,9 +30,11 @@ class ResultCard extends React.Component {
                 <div>
                 {this.performRedirect()}
                 <Button onClick={() => this.setRedirect()} variant="light" style={{padding: '0px'}}>
-                <Card style={{ width: '12rem'}}>
-                    <div style={{outlineWidth: '5px', outline: 'solid', outlineColor: 'red', width: '190px', height: '190px', alignContent: 'center'}}>
-                        <Card.Img style={{objectFit: 'cover', width: '190px', height: '190px'}} variant="top" src={shoeImage} />
+                <Card style={{ width: '204px'}}>
+                    <div style={{outlineWidth: '5px', outline: 'solid', outlineColor: 'red', width: '204px', height: '139px', alignContent: 'center', verticalAlign: 'center'}}>
+                        <div style={{paddingTop: '18px', paddingBottom: '18px', paddingRight: '12px', paddingLeft: '12px', verticalAlign: 'middle'}}>
+                            <Card.Img style={{objectFit: 'cover', width: '180px', height: '103.76px'}} variant="top" src={'https://zycada-amzn.zappos.com/images/I/71rsqtFGsbL._AC_SX510_.jpg'} />
+                        </div>
                     </div>
                     <Card.Body style={{padding: '10px'}}>
                         <Card.Title>{(this.props.shoeInfo.brand).toUpperCase() }</Card.Title>
@@ -49,9 +51,11 @@ class ResultCard extends React.Component {
                 <div>
                 {this.performRedirect()}
                 <Button onClick={() => this.setRedirect()} variant="light" style={{padding: '0px'}}>
-                <Card style={{ width: '12rem'}}>
-                    <div style={{outlineWidth: '5px', outline: 'solid', outlineColor: 'red', width: '190px', height: '190px', alignContent: 'center'}}>
-                        <Card.Img style={{objectFit: 'cover', width: '190px', height: '190px'}} variant="top" src={this.props.shoeInfo.url} />
+                <Card style={{ width: '204px'}}>
+                    <div style={{outlineWidth: '5px', outline: 'solid', outlineColor: 'red', width: '204px', height: '139px', alignContent: 'center', verticalAlign: 'center'}}>
+                        <div style={{paddingTop: '18px', paddingBottom: '18px', paddingRight: '12px', paddingLeft: '12px', verticalAlign: 'middle'}}>
+                            <Card.Img style={{objectFit: 'cover', width: '180px', height: '103.76px'}} variant="top" src={this.props.shoeInfo.url} />
+                        </div>
                     </div>
                     <Card.Body style={{padding: '10px'}}>
                         <Card.Title>{(this.props.shoeInfo.brand).toUpperCase() }</Card.Title>
