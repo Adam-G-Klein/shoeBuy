@@ -63,7 +63,7 @@ public class ShoeSizeRecommendSearcherBFS implements ShoeSearcher{
 
 	private String getSizeReccFromShoe(String desiredShoeCode, AllShoeRepository allShoeRepository, OwnedShoe shoe) {
 
-		String usersShoe = ShoeNode.generateUniqueCode(shoe.model,shoe.brand,shoe.sex);
+		String usersShoe = ShoeNode.generateUniqueCode(shoe.getModel(),shoe.getBrand(),shoe.getSex());
 		
 		Queue<ShoeCodeWithDistance> bfsQueue = new LinkedList<ShoeCodeWithDistance>();
 		HashSet<String> visitedShoes = new HashSet(); 
@@ -77,7 +77,7 @@ public class ShoeSizeRecommendSearcherBFS implements ShoeSearcher{
 
 			if(currentShoeInfo.shoeCode.equals(desiredShoeCode)) {
 				//found shoe
-				return Double.toString(shoe.size + currentShoeInfo.sizeDiff);
+				return Double.toString(shoe.getSize() + currentShoeInfo.sizeDiff);
 			}
 
 			ShoeNode currentNode = allShoeRepository.findByUniqueShoeCode(currentShoeInfo.shoeCode);

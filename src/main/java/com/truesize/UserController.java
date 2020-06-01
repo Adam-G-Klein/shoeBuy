@@ -102,13 +102,13 @@ public class UserController {
 
         for (OwnedShoe shoe: up.ownedShoes){
             //this should never be null bc "shoe" should always be in the database
-            target = allShoeRepository.findByUniqueShoeCode(ShoeNode.generateUniqueCode(shoe.model, shoe.brand, shoe.sex));
+            target = allShoeRepository.findByUniqueShoeCode(ShoeNode.generateUniqueCode(shoe.getModel(), shoe.getBrand(), shoe.getSex()));
 
             if (target == null){
-                logger.info("Add Edge error: shoe node not found: " + ShoeNode.generateUniqueCode(shoe.model, shoe.brand, shoe.sex));
+                logger.info("Add Edge error: shoe node not found: " + ShoeNode.generateUniqueCode(shoe.getModel(), shoe.getBrand(), shoe.getSex()));
             }
             else{
-                sn.addEdge(target, os.size, shoe.size);
+                sn.addEdge(target, os.getSize(), shoe.getSize());
             }
         }
     }

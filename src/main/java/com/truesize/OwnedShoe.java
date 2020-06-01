@@ -16,28 +16,20 @@ public class OwnedShoe {
     @GeneratedValue 
     @Column(name = "id")
     private long id;
-    public String model;
-    public String brand;
-    public Double size;
-    public String sex;
-    public String imgURL;
-    // private Double width;
-    // private Double stiffness;
-    // private String comment;
+    private String model;
+    private String brand;
+    private Double size;
+    private String sex;
+    private String imgURL;
 
     private OwnedShoe() {}
     
-    //public OwnedShoe(String model, String brand, Double size, String sex, Double width, Double stiffness, String comment){
     public OwnedShoe(String model, String brand, Double size, String sex, String imgURL){
         this.model = model.toLowerCase();
         this.brand = brand.toLowerCase();
         this.size = size;
         this.sex = sex.toLowerCase();
         this.imgURL = imgURL;
-        //this.width = width;
-        //this.stiffness = stiffness;
-        //this.comment = comment;
-
     }
 
     public OwnedShoe(String model, Double size){
@@ -46,15 +38,10 @@ public class OwnedShoe {
         this.size = size;
         this.sex = "u";
         this.imgURL = "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/zc5x1xceepbszkhwprvn/joyride-run-flyknit-mens-running-shoe-PjmR5M.jpg";
-        // this.width = 23423.0;
-        // this.stiffness = 42.0;
-        // this.comments = new ArrayList<String>();
-
     }
 
     @Override
     public int hashCode() {
-
         return Objects.hash(id, model, brand, size);
     }
 
@@ -66,12 +53,24 @@ public class OwnedShoe {
         this.size = size;
     }
 
+    public String getSex() {
+        return sex;
+    }
+
     public String getModel() {
         return model;
     }
 
-    public void setModel(String model) {
-        this.model = model;
+    public String getBrand() {
+        return brand;
+    }
+
+    public String getImgURL() {
+        return imgURL;
+    }
+
+    public void setImgURL(String imgURL) {
+        this.imgURL = imgURL;
     }
 
     @Override

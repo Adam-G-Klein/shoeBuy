@@ -1,10 +1,7 @@
 package com.truesize;
 
 public class ShoeStats {
-	public int numComments;
-	public int numWidths;
-
-	public Double avgWidth;
+	private int numComments;
+	private int numWidths;
+	private Double avgWidth;
 }
-
-

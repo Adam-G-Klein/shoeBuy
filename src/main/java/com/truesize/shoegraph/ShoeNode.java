@@ -23,14 +23,13 @@ public class ShoeNode {
     @Column(name = "id")
     private Long id;
 
-    public String sex;
-    public String model;
-    public String brand;
-
-    public String imgURL;
+    private String sex;
+    private String model;
+    private String brand;
+    private String imgURL;
 
     //the uniqueShoeCode is a string combining the model + brand + sex of the show (lowercase, no spaces)
-    public String uniqueShoeCode;
+    private String uniqueShoeCode;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "edges", referencedColumnName = "id")
@@ -43,7 +42,7 @@ public class ShoeNode {
         this.brand = brand.toLowerCase();
         this.sex = sex.toLowerCase();
         this.uniqueShoeCode = generateUniqueCode(this.model, this.brand, this.sex);
-        this.edges = new ArrayList();
+        this.edges = new ArrayList<>();
         this.imgURL = imgURL;
     }
 
@@ -52,8 +51,32 @@ public class ShoeNode {
         this.brand = brand.toLowerCase();
         this.sex = sex.toLowerCase();
         this.uniqueShoeCode = generateUniqueCode(this.model, this.brand, this.sex);
-        this.edges = new ArrayList();
+        this.edges = new ArrayList<>();
         this.imgURL = "URL";
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public String getImgURL() {
+        return imgURL;
+    }
+
+    public void setImgURL(String imgURL) {
+        this.imgURL = imgURL;
+    }
+
+    public String getUniqueShoeCode() {
+        return uniqueShoeCode;
     }
 
     public static String generateUniqueCode(String model, String brand, String sex) {

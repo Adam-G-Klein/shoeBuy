@@ -88,7 +88,7 @@ public class ShoeSizeRecommendSearcherSmartBFS implements ShoeSearcher{
             edges.sort(new ShoeEdgeComparator());
 
             for(DirectedShoeEdge e : edges) {
-                String edgeAsString = e.endShoeNode.uniqueShoeCode;
+                String edgeAsString = e.endShoeNode.getUniqueShoeCode();
                 if(!visitedShoes.contains(edgeAsString)){
 					double sizeDiffToEdge = currentNode.getImmediateSizeDiff(edgeAsString);
 					double sizeDiff = currentShoeInfo.sizeDiff + sizeDiffToEdge; 
