@@ -16,37 +16,42 @@ import Register from './Register';
 import '../resources/static/backgroundImage.css';
 //import 'bootstrap/dist/css/bootstrap.min.css';
 
-var BackgroundImage = require('../resources/static/backgroundImage.jpg')
-
 const routes  = (
 	<Router>
-		<Header />
 		<Switch>
 			<Route exact path = '/'>
+				<Header loggedIn = {false} pathname = {'/'}/>
 				<Home />
 			</Route>
 			<Route exact path = '/login'>
+				<Header loggedIn = {false} pathname = {'/login'}/>
 				<Login />
 			</Route>
 			<Route exact path = '/profile'>
+				<Header loggedIn = {true} pathname = {'/profile'}/>
 				<Profile />
 			</Route>
 			<Route exact path = '/sizeRecommender' render={
-				(props) => <SizeRecommender {...props} />
-			} />
+				(props) => <div> <Header loggedIn = {true} pathname = {'/'}/> <SizeRecommender {...props} /> </div>
+			}/>
 			<Route exact path = '/shoeRecommender'>
+				<Header loggedIn = {true} pathname = {'/shoeRecommender'}/>			
 				<ShoeRecommender />
 			</Route>
 			<Route exact path = '/search'>
+				<Header loggedIn = {true} pathname = {'/search'}/>	
 				<Search />
 			</Route>
 			<Route exact path = '/searchResults'>
+				<Header loggedIn = {true} pathname = {'/search'}/>	
 				<SearchResults />
 			</Route>
 			<Route exact path = '/allShoes'>
+				<Header loggedIn = {true} pathname = {'/'}/>	
 				<AllShoeViewer />
 			</Route>
 			<Route exact path = '/register'>
+				<Header loggedIn = {false} pathname = {'/login'}/>	
 				<Register />
 			</Route>
 		</Switch>

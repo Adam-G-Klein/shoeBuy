@@ -10,8 +10,9 @@ class Register extends React.Component {
 		super(props);
 		this.state ={
 			username: "",
-			password: "",
-			creationStatus: ""
+            password: "",
+            loginStatus: "",
+			redirectSearch: false
 		};
 	}
 
@@ -24,6 +25,15 @@ class Register extends React.Component {
             )
             .done(response => {
                 console.log(response);
+                if(response.entity.response === "LOGIN_SUCCESS"){
+                    this.setState({redirectSearch: true});
+                }                
+                else if(response.entity.response === "CREATEACCOUNT_FAILURE"){
+                    alert("This username already exists")
+                }  
+                else {
+                    alert("Failed to login")
+                }
                 this.setState({loginStatus: response.entity.response});
         });
 	}
@@ -42,9 +52,18 @@ class Register extends React.Component {
       this.createAccount();
     }
 
+    performRedirectSubmit = () => {
+        if(this.state.redirectSearch == true){
+            return (<Redirect to={{
+                pathname: "/Search"
+          }}/>)
+        }
+    }
+
 	render() {
 		return (
 		    <div style={{margin: '40px'}}>
+            {this.performRedirectSubmit()}
           <Container style={{alignContent: 'center', alignItems: 'center'}}>
             <Row>
               <Col />
