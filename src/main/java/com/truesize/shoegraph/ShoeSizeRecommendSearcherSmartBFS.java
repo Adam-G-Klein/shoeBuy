@@ -103,7 +103,7 @@ public class ShoeSizeRecommendSearcherSmartBFS implements ShoeSearcher{
     class ShoeEdgeComparator implements Comparator<DirectedShoeEdge> {
         @Override
         public int compare(DirectedShoeEdge a, DirectedShoeEdge b) {
-            return ((Integer) a.connectionMultiplicity).compareTo(((Integer) b.connectionMultiplicity));
+            return ((Integer) a.getConnectionMultiplicity()).compareTo(((Integer) b.getConnectionMultiplicity()));
         }
     }
 }
