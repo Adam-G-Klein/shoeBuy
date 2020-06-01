@@ -26,7 +26,6 @@ class Login extends React.Component {
 }
 
 	verifyLogin(){
-		console.log("made request")
         restClient({method: "GET",
             path: "/api/logIn?email=" + this.state.username + "&password=" + this.state.password,
             headers: {'Accept': 'application/json'}
@@ -34,7 +33,7 @@ class Login extends React.Component {
             )
             .done(response => {
                 console.log(response)
-                if(true){
+                if(response.entity.response === "LOGIN_SUCCESS"){
                   this.setState({redirectSearch: true});
                 }
                 else{
