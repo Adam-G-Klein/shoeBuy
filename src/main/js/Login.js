@@ -85,19 +85,21 @@ class Login extends React.Component {
                 <Card.Body>
                   <Form>
                     <Form.Group>
-                      <Form.Label>Username</Form.Label>
+                      <Form.Label>Email</Form.Label>
                       <Form.Control type="text" placeholder="Enter your username" onChange = {(e) => this.handleUsernameChange(e)}/>
                     </Form.Group>
                     <Form.Group>
                       <Form.Label>Password</Form.Label>
-                      <Form.Control type="text" placeholder="Enter your password" onChange = {(e) => this.handlePassChange(e)}/>
+                      <Form.Control type="password" placeholder="Enter your password" onChange = {(e) => this.handlePassChange(e)}/>
                     </Form.Group>
-                    <div style={{alignContent: 'center', alignItems: 'center', justifyContent: 'center'}}>
-                      <Button onClick={(event) => this.handleSubmit(event)}>Login</Button>
-                    </div>
-                    <div>
-                      <Button variant="link" onClick={(event) => this.handleCreateAccount(event)}>Create Account</Button>
-                    </div>
+                    <Form.Group>
+                      <div style={{textAlign: 'center'}}>
+                        <Button onClick={(event) => this.handleSubmit(event)}>Login</Button>
+                      </div>
+                      <div style={{textAlign: 'center'}}>
+                        <Button variant="link" onClick={(event) => this.handleCreateAccount(event)}>I don't have an account</Button>
+                      </div>
+                    </Form.Group>
                   </Form>
                 </Card.Body>
             </Card>
