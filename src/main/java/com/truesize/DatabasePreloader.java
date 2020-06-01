@@ -9,15 +9,17 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class DatabasePreloader implements CommandLineRunner {
-
-    private final AllShoeRepository allShoeRepository;
-    private final AllUserRepository allUserRepository;
-
+    
     @Autowired
-    public DatabasePreloader(AllShoeRepository allShoeRepository, AllUserRepository allUserRepository){
-        this.allShoeRepository = allShoeRepository;
-        this.allUserRepository = allUserRepository;
-    }
+    private AllShoeRepository allShoeRepository;
+    @Autowired
+    private AllUserRepository allUserRepository;
+
+    // @Autowired
+    // public DatabasePreloader(AllShoeRepository allShoeRepository, AllUserRepository allUserRepository){
+    //     this.allShoeRepository = allShoeRepository;
+    //     this.allUserRepository = allUserRepository;
+    // }
 
     @Override
     public void run(String... strings) throws Exception{

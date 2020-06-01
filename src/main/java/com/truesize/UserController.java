@@ -15,17 +15,19 @@ import java.util.List;
 @RestController
 public class UserController {
 
-    private final AllUserRepository allUserRepository;
-    private final AllShoeRepository allShoeRepository;
+    @Autowired
+    private AllUserRepository allUserRepository;
+    @Autowired
+    private AllShoeRepository allShoeRepository;
 
     @Autowired
     public AccountService ac;
 
     //@Autowired
-    public UserController(AllUserRepository allUserRepository, AllShoeRepository allShoeRepository){
-        this.allUserRepository = allUserRepository;
-        this.allShoeRepository = allShoeRepository;
-    }
+    // public UserController(AllUserRepository allUserRepository, AllShoeRepository allShoeRepository){
+    //     this.allUserRepository = allUserRepository;
+    //     this.allShoeRepository = allShoeRepository;
+    // }
 
     @GetMapping(value = "/api/createAccount", produces = MediaType.APPLICATION_JSON_VALUE)
     StringResponse createAccount(@RequestParam String email, @RequestParam String password){
@@ -81,7 +83,7 @@ public class UserController {
         //if the shoenode does not exist, create new shoenode
         if (sn == null){
             sn = new ShoeNode(model, brand, sex, imgURL);
-            //sn.ownedShoes.add(os);
+
             allShoeRepository.save(sn);   
         }
 
@@ -90,6 +92,8 @@ public class UserController {
 
         // add new owned shoe to list of ownded shoes in profile
         ac.getProfile().ownedShoes.add(os);
+
+        allUserRepository.save(ac.profile);
 
         // TODO: prevent user from adding the same shoe to their profile more than once?
         // this would be to prevent the creation of useless edges that start and end at the same shoenode

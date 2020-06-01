@@ -7,8 +7,6 @@ import org.slf4j.Logger;
 @Component
 public class AccountService {
 
-
-
 	private boolean loggedIn;
 	private UserProfile profile;
 
@@ -16,6 +14,7 @@ public class AccountService {
 	private Logger logger;
 
 	public AccountService(){
+		logger.info("creating new Account Service");
 		this.loggedIn = false;
 		this.profile = null;
 	}
