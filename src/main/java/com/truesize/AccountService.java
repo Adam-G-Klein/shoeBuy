@@ -14,9 +14,9 @@ public class AccountService {
 	private Logger logger;
 
 	public AccountService(){
-		logger.info("creating new Account Service");
-		this.loggedIn = false;
-		this.profile = null;
+		//logger.info("creating new Account Service");
+		loggedIn = false;
+		profile = null;
 	}
 
 	public boolean logIn(String email, String password, AllUserRepository allUserRepository){
