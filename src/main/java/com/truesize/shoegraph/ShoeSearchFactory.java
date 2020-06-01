@@ -1,6 +1,9 @@
 package com.truesize.shoegraph;
 
 public class ShoeSearchFactory {
+    private ShoeSearchFactory(){
+        
+    }
     public static ShoeSearcher createSearcher(String searchType) {
         if(searchType.equals("ShoeSizeRecommendSearcherBFS")){
             return new ShoeSizeRecommendSearcherBFS();

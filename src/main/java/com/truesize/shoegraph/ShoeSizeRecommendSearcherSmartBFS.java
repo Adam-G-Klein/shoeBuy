@@ -71,7 +71,6 @@ public class ShoeSizeRecommendSearcherSmartBFS implements ShoeSearcher{
 		Queue<ShoeCodeWithDistance> bfsQueue = new LinkedList<ShoeCodeWithDistance>();
 		HashSet<String> visitedShoes = new HashSet(); 
 
-		//TODO find a way to track how size difference is
 		bfsQueue.add(new ShoeCodeWithDistance(usersShoe, 0.0));
 
 		while(!bfsQueue.isEmpty()) {
