@@ -38,7 +38,7 @@ class ResultCard extends React.Component {
                     </div>
                     <Card.Body style={{padding: '10px'}}>
                         <Card.Title>{(this.props.shoeInfo.brand).toUpperCase() }</Card.Title>
-                        <Card.Text>{this.props.shoeInfo.name}</Card.Text>
+                        <Card.Text>{this.props.shoeInfo.model}</Card.Text>
                     </Card.Body>
                 </Card>
                 </Button>
@@ -54,12 +54,12 @@ class ResultCard extends React.Component {
                 <Card style={{ width: '204px'}}>
                     <div style={{outlineWidth: '5px', outline: 'solid', outlineColor: 'red', width: '204px', height: '139px', alignContent: 'center', verticalAlign: 'center'}}>
                         <div style={{paddingTop: '18px', paddingBottom: '18px', paddingRight: '12px', paddingLeft: '12px', verticalAlign: 'middle'}}>
-                            <Card.Img style={{objectFit: 'cover', width: '180px', height: '103.76px'}} variant="top" src={this.props.shoeInfo.url} />
+                            <Card.Img style={{objectFit: 'cover', width: '180px', height: '103.76px'}} variant="top" src={this.props.shoeInfo.imgURL} />
                         </div>
                     </div>
                     <Card.Body style={{padding: '10px'}}>
                         <Card.Title>{(this.props.shoeInfo.brand).toUpperCase() }</Card.Title>
-                        <Card.Text>{this.props.shoeInfo.name}</Card.Text>
+                        <Card.Text>{this.props.shoeInfo.model}</Card.Text>
                     </Card.Body>
                 </Card>
                 </Button>
