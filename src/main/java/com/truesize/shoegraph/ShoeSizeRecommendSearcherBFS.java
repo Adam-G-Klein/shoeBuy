@@ -8,17 +8,21 @@ import java.util.Queue;
 
 import com.truesize.AccountService;
 import com.truesize.OwnedShoe;
-import com.truesize.shoegraph.ShoeSearcher;
-
 
 public class ShoeSizeRecommendSearcherBFS implements ShoeSearcher{
 
 	class ShoeCodeWithDistance{
-		public String shoeCode;
-		public double sizeDiff;
+		private String shoeCode;
+		private double sizeDiff;
 		public ShoeCodeWithDistance(String shoeCode, double sizeDiff){
 			this.shoeCode = shoeCode;
 			this.sizeDiff = sizeDiff;
+		}
+		public String getShoeCode(){
+			return shoeCode;
+		}
+		public double getSizeDiff(){
+			return sizeDiff;
 		}
 	}
 
@@ -46,7 +50,7 @@ public class ShoeSizeRecommendSearcherBFS implements ShoeSearcher{
 		//get a size reccomendation based on each owned shoe
 		for(OwnedShoe shoe : ownedShoes) {
 			String sizeRecc = getSizeReccFromShoe(desiredShoeCode, allShoeRepository, shoe);
-			if(sizeRecc != "Shoe_Not_Found") {
+			if(sizeRecc != noShoeFoundMessage) {
 				Double sizeReccAsNum = Double.parseDouble(sizeRecc);
 				sizeReccs.add(sizeReccAsNum);
 			}
@@ -54,7 +58,7 @@ public class ShoeSizeRecommendSearcherBFS implements ShoeSearcher{
 		
 		//return an average of the found recommendations
 		if(sizeReccs.size() == 0) {
-			return "Shoe_Not_Found";
+			return noShoeFoundMessage;
 		}
 		else {
 			return getDoubleListAverage(sizeReccs).toString();
@@ -76,21 +80,21 @@ public class ShoeSizeRecommendSearcherBFS implements ShoeSearcher{
 
 			if(currentShoeInfo.shoeCode.equals(desiredShoeCode)) {
 				//found shoe
-				return Double.toString(shoe.getSize() + currentShoeInfo.sizeDiff);
+				return Double.toString(shoe.getSize() + currentShoeInfo.getSizeDiff());
 			}
 
-			ShoeNode currentNode = allShoeRepository.findByUniqueShoeCode(currentShoeInfo.shoeCode);
+			ShoeNode currentNode = allShoeRepository.findByUniqueShoeCode(currentShoeInfo.getShoeCode());
 			List<String> edges = currentNode.getEdgesAsShoeCodes();
 			for(String edge : edges) {
 				if(!visitedShoes.contains(edge)){
 					double sizeDiffToEdge = currentNode.getImmediateSizeDiff(edge);
-					double sizeDiff = currentShoeInfo.sizeDiff + sizeDiffToEdge; 
+					double sizeDiff = currentShoeInfo.getSizeDiff() + sizeDiffToEdge; 
 					bfsQueue.add(new ShoeCodeWithDistance(edge, sizeDiff));
 				}
 			}
 		}
 
-		return "Shoe_Not_Found";
+		return noShoeFoundMessage;
 	}
     
 }

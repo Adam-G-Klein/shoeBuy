@@ -47,12 +47,7 @@ public class ShoeNode {
     }
 
     public ShoeNode(String model, String brand, String sex){
-        this.model = model.toLowerCase();
-        this.brand = brand.toLowerCase();
-        this.sex = sex.toLowerCase();
-        this.uniqueShoeCode = generateUniqueCode(this.model, this.brand, this.sex);
-        this.edges = new ArrayList<>();
-        this.imgURL = "URL";
+        this(model, brand, sex, "URL");
     }
 
     public String getSex() {
