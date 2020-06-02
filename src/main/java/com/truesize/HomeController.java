@@ -27,7 +27,7 @@ import java.util.Arrays;
 public class HomeController {
 
 	//list of Urls that don't require user to be logged in 
-	List<String> preLoginRoutes = Arrays.asList("home", "login", "search", "SearchResults", "main.css", "favicon.ico");
+	private static final List<String> preLoginRoutes = Arrays.asList("home", "login", "search", "SearchResults", "main.css", "favicon.ico");
 
 	@Autowired
 	private Logger logger;
@@ -43,7 +43,7 @@ public class HomeController {
 		if (!ac.isLoggedIn() && !preLoginRoutes.contains(path)){
 		 	logger.info(path + " redirected to login");
 		    return "redirect:/login";
-		}	
+		}
 
 		return "index";
 	}
