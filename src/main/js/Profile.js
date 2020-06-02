@@ -10,6 +10,7 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
+import restClient from './restClient.js';
 
 const HorizLine = ({ color }) => (
     <hr
@@ -30,6 +31,8 @@ class Profile extends React.Component {
 		showAdd: false,
 		showLogout:false,
 		showEditProfile: false,
+		userInfo: null,
+		userShoeData: undefined,
 		testData: [
 		  {name: 'one',
 		  brand: 'nike',
@@ -64,7 +67,32 @@ class Profile extends React.Component {
 	}
 
 	componentDidMount(){
-		this.shoeCollectionPage()
+		restClient({method: "GET",
+            path: "/api/getUserInfo",
+            headers: {'Accept': 'application/json'}
+            }).done(response => {
+				console.log("response account: ", response)
+				this.setState({
+					userInfo: {
+						name: 'Kevin',
+						email: response.entity.email,
+						password: response.entity.password
+					}
+				})
+		});
+		
+		restClient({method: "GET",
+            path: "/api/getUserShoes",
+            headers: {'Accept': 'application/json'}
+            }).done(response => {
+				console.log("response shoes: ", response)
+				this.setState({
+					userShoeData: response.entity
+				})
+				console.log("in request: ", this.state.userShoeData)
+				this.shoeCollectionPage()
+		});
+		
 	}
 
 	handleShowAdd() {
@@ -91,113 +119,84 @@ class Profile extends React.Component {
 	}
 
 	shoeCollectionPage = () => {
-		let shoeData = this.state.testData
-        let collection = shoeData.map((content, i) =>{
-			return (
-				<ShoeCollectionShoe shoeInfo={content}/>
-			)
-		})
-		this.setState({shoeCollection: collection})
+		// let shoeData = this.state.testData
+		let shoeData = this.state.userShoeData
+		if(shoeData === null || shoeData === undefined){
+			let collectionDisplay = [
+				<Card style = {{
+					// height: '300px',
+					overflowY: 'scroll',
+					marginTop: '50px'}}>
+					<Card.Body style={{textAlign: 'center'}}>
+						<h3>Looks like you don't have any shoes in your account :(</h3>
+					</Card.Body>
+				</Card>
+				
+			]
+			this.setState({shoeCollection: collectionDisplay})
+			
+		}
+		else{
+			let collection = shoeData.map((content, i) =>{
+				return (
+					<ShoeCollectionShoe shoeInfo={content}/>
+				)
+			})
+			let collectionDisplay = 
+				<Card style = {{
+					height: '600px',
+					overflowY: 'scroll',
+					marginTop: '50px'}}>
+					<Card.Body>
+						{collection}
+					</Card.Body>
+				</Card>
+			
+			this.setState({shoeCollection: collectionDisplay})
+		}
 	}
 
 	render() {
-		return (
-			<Container style = {{		
-				width: '100%',
-				marginRight: '0px',
-				marginLeft: '0px',
-				maxWidth: 'none'
-			}}>
-			<Modal show={this.state.showLogout} onHide={() => this.handleCloseLogout()}
-            size="sm"
-            aria-labelledby="contained-modal-title-vcenter"
-            centered>
-				<Modal.Header closeButton style= {{
-                    paddingTop: '8px',
-                    paddingBottom: '8px'
-                }}>
-				</Modal.Header>
-				<Modal.Body>
-                    <Col style = {{
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        textAlign: 'center'
-                    }}>
-                    <h4>Are you sure you want logout?</h4>
-                    </Col>
-                    <Modal.Footer style = {{
-                        paddingBottom : '8px'
-                    }}>
-                        <PillButton style = {{
-                                        borderColor: 'gray', 
-                                        backgroundColor:'gray',
-                                        height: '40px',
-                                        padding: '2px',
-                                        fontSize: '20px',
-                                        width: '100px'                              
-                        }} onClick={() => this.handleCloseLogout()}> No
-                        </PillButton>
-                        <PillButton style = {{
-                                        borderColor: 'red', 
-                                        backgroundColor:'red',
-                                        height: '40px',
-                                        padding: '2px',
-                                        fontSize: '20px',
-                                        width: '100px',
-                                        marginLeft: '5px',
-                                        marginRight: ' 12px'                               
-                        }} onClick={() => this.handleCloseLogout()}> Yes
-                        </PillButton>
-                    </Modal.Footer>
-                    </Modal.Body>
-			</Modal>
-			<Modal show={this.state.showEditProfile} onHide={() => this.handleCloseEditProfile()}
-            size="lg"
-            aria-labelledby="contained-modal-title-vcenter"
-            centered>
-				<Modal.Header closeButton>
-				<Modal.Title id="contained-modal-title-vcenter">
-					Update your login information
-				</Modal.Title>
-				</Modal.Header>
-				<Modal.Body>
-                    <Col style = {{
-                        justifyContent: 'center',
-                        alignItems: 'center'
-                    }}>
-						<Form>
-						<Form.Group>
-							<Form.Row>
-								<Form.Label column lg={2}>
-								Name
-								</Form.Label>
-								<Col>
-								<Form.Control type="text" placeholder="JaneDoe" />
-								</Col>
-							</Form.Row>
-							<br />
-							<HorizLine color = 'lightGray'/>
-							<br />
-							<Form.Row>
-								<Form.Label column lg={2}>
-								Email
-								</Form.Label>
-								<Col>
-								<Form.Control type="text" placeholder="jDoe@gmail.com" />
-								</Col>
-							</Form.Row>
-						</Form.Group>
-						</Form>
-                    </Col>
-                    <Modal.Footer style = {{paddingBottom: '0px'}}>
-						<PillButton style = {{
+		console.log("render u info: ", this.state.userInfo)
+		if(this.state.userInfo === null){
+			return null
+		}
+		else{
+			return (
+				<Container style = {{		
+					width: '100%',
+					marginRight: '0px',
+					marginLeft: '0px',
+					maxWidth: 'none'
+				}}>
+				<Modal show={this.state.showLogout} onHide={() => this.handleCloseLogout()}
+				size="sm"
+				aria-labelledby="contained-modal-title-vcenter"
+				centered>
+					<Modal.Header closeButton style= {{
+						paddingTop: '8px',
+						paddingBottom: '8px'
+					}}>
+					</Modal.Header>
+					<Modal.Body>
+						<Col style = {{
+							justifyContent: 'center',
+							alignItems: 'center',
+							textAlign: 'center'
+						}}>
+						<h4>Are you sure you want logout?</h4>
+						</Col>
+						<Modal.Footer style = {{
+							paddingBottom : '8px'
+						}}>
+							<PillButton style = {{
 											borderColor: 'gray', 
 											backgroundColor:'gray',
 											height: '40px',
 											padding: '2px',
 											fontSize: '20px',
 											width: '100px'                              
-							}} onClick={() => this.handleCloseEditProfile()}> Cancel
+							}} onClick={() => this.handleCloseLogout()}> No
 							</PillButton>
 							<PillButton style = {{
 											borderColor: 'red', 
@@ -208,249 +207,307 @@ class Profile extends React.Component {
 											width: '100px',
 											marginLeft: '5px',
 											marginRight: ' 12px'                               
-							}} onClick={() => this.handleCloseEditProfile()}> Submit
-						</PillButton>	
-                    </Modal.Footer>
-                    </Modal.Body>
-			</Modal>
-            <Modal show={this.state.showAdd} onHide={() => this.handleCloseAdd()}
-			size="lg"
-			aria-labelledby="contained-modal-title-vcenter"
-			centered>
-				<Modal.Header closeButton>
-				<Modal.Title id="contained-modal-title-vcenter">
-					Add a new shoe to your collection
-				</Modal.Title>
-				</Modal.Header>
-				<Modal.Body>
-					<Col style = {{
-						justifyContent: 'center',
-						alignItems: 'center'
-					}}>
-					<Form>
-					<Form.Group>
-						<Form.Row>
-							<Form.Label column lg={2}>
-							Brand
-							</Form.Label>
-							<Col>
-							<Form.Control type="text" placeholder="Enter Brand Here" />
-							</Col>
-						</Form.Row>
-						<br />
-						<HorizLine color = 'lightGray'/>
-						<br />
-						<Form.Row>
-							<Form.Label column lg={2}>
-							Shoe Name
-							</Form.Label>
-							<Col>
-							<Form.Control type="text" placeholder="Enter Shoe Name Here" />
-							</Col>
-						</Form.Row>	
-						<br />					
-						<HorizLine color = 'lightGray'/>
-						<br />
-						<Form.Row>
-							<Form.Label column lg={2}>
-							Size
-							</Form.Label>
-							<Col>
-							<Form.Control type="text" placeholder="Enter Shoe Size Here" />
-							</Col>
-						</Form.Row> 
-						<br />
-						<HorizLine color = 'lightGray'/>
-						<br />
-						<Form.Row>
-							<Form.Label column lg={2}>
-							Comfort
-							</Form.Label>
-							<Col>
-								<DropdownButton id="dropdown-basic-button" title="Shoe Comfort">
-									<Dropdown.Item>Option 1</Dropdown.Item>
-									<Dropdown.Item>Option 2</Dropdown.Item>
-									<Dropdown.Item>Option 3</Dropdown.Item>
-								</DropdownButton>
-							</Col>
-						</Form.Row>
-						<br />
-						<HorizLine color = 'lightGray'/>
-						<br />
-						<Form.Row>
-							<Form.Label column lg={2}>
-							Width
-							</Form.Label>
-							<Col>
-								<DropdownButton id="dropdown-basic-button" title="Shoe Width">
-										<Dropdown.Item>Option 1</Dropdown.Item>
-										<Dropdown.Item>Option 2</Dropdown.Item>
-										<Dropdown.Item>Option 3</Dropdown.Item>
-								</DropdownButton>
-							</Col>
-						</Form.Row>
-						<br />
-						<HorizLine color = 'lightGray'/>
-						<br />
-						<Form.Row>
-							<Form.Label column lg={2}>
-							Stiffness
-							</Form.Label>
-							<Col>
-								<DropdownButton id="dropdown-basic-button" title="Shoe Stiffness">
-										<Dropdown.Item>Option 1</Dropdown.Item>
-										<Dropdown.Item>Option 2</Dropdown.Item>
-										<Dropdown.Item>Option 3</Dropdown.Item>
-								</DropdownButton>
-							</Col>
-						</Form.Row>
-						<br />
-						<HorizLine color = 'lightGray'/>
-						<br />
-						<Form.Row>
-							<Form.Label column lg={2}>
-							Buy Again
-							</Form.Label>
-							<Col>
-								<DropdownButton id="dropdown-basic-button" title="Would you buy again?">
-										<Dropdown.Item>Option 1</Dropdown.Item>
-										<Dropdown.Item>Option 2</Dropdown.Item>
-										<Dropdown.Item>Option 3</Dropdown.Item>
-								</DropdownButton>
-							</Col>
-						</Form.Row>
-					</Form.Group>
-					</Form>
-				</Col>
-				<Modal.Footer style = {{paddingBottom: '0px'}}>
-					<PillButton style = {{
-										borderColor: 'gray', 
-										backgroundColor:'gray',
-										height: '40px',
-										padding: '2px',
-										fontSize: '20px',
-										width: '100px'                              
-						}} onClick={() => this.handleCloseAdd()}> Cancel
-						</PillButton>
-						<PillButton style = {{
-										borderColor: 'red', 
-										backgroundColor:'red',
-										height: '40px',
-										padding: '2px',
-										fontSize: '20px',
-										width: '100px',
-										marginLeft: '5px',
-										marginRight: ' 12px'                               
-						}} onClick={() => this.handleCloseAdd()}> Add Shoe
-					</PillButton>	
-				</Modal.Footer>
-				</Modal.Body>
-			</Modal>
-			<Row>
-				<Col style = {{
-					display: 'flex',
-					flexDirection: 'column',
-					justifyContent: 'center',
-					alignItems: 'center',
-					marginTop: '10vh'
-				}}>
-					<Card style={{ 
-						margin: '0 auto',
-						width: '25rem'}}>
-						<Card.Img variant="top" src={shoeImage} />
-					</Card>
-					<div style = {{
-						backgroundColor: 'white',
-						textAlign: 'center',
-						width: '20rem',
-						marginTop: '20px'
-					}}>
+							}} onClick={() => this.handleCloseLogout()}> Yes
+							</PillButton>
+						</Modal.Footer>
+						</Modal.Body>
+				</Modal>
+				<Modal show={this.state.showEditProfile} onHide={() => this.handleCloseEditProfile()}
+				size="lg"
+				aria-labelledby="contained-modal-title-vcenter"
+				centered>
+					<Modal.Header closeButton>
+					<Modal.Title id="contained-modal-title-vcenter">
+						Update your login information
+					</Modal.Title>
+					</Modal.Header>
+					<Modal.Body>
 						<Col style = {{
-							textAlign: 'center',
-							marginTop: '10px',
-							fontWeight:'bold'}}>
-							Account Info
+							justifyContent: 'center',
+							alignItems: 'center'
+						}}>
+							<Form>
+							<Form.Group>
+								<Form.Row>
+									<Form.Label column lg={2}>
+									Name
+									</Form.Label>
+									<Col>
+									<Form.Control type="text" placeholder={this.state.userInfo.name} />
+									</Col>
+								</Form.Row>
+								<br />
+								<HorizLine color = 'lightGray'/>
+								<br />
+								<Form.Row>
+									<Form.Label column lg={2}>
+									Email
+									</Form.Label>
+									<Col>
+									<Form.Control type="text" placeholder={this.state.userInfo.email} />
+									</Col>
+								</Form.Row>
+							</Form.Group>
+							</Form>
 						</Col>
-						<Row style={{
-							marginLeft: '0px',
-							marginRight: '0px'
-							}}>
-							<Col sm = {4}>
-								<Row>
-									<Col style = {{
-										textAlign: 'center',
-										fontWeight: 'bold'}}>
-										Username
-									</Col>
-								</Row>
-								<Row>
-									<Col style = {{
-										textAlign: 'center',
-										fontWeight: 'bold'}}>
-										Email
-									</Col>
-								</Row>
-							</Col>
-							<Col md = {8}>
-								<Row>
-									<Col style = {{textAlign: 'center'}}>
-										JaneDoe
-									</Col>
-								</Row>
-								<Row>
-									<Col style = {{
-										textAlign: 'center',
-										marginBottom: '10px'}}>
-										jDoe@gmail.com
-									</Col>
-								</Row>
-							</Col>
-						</Row>
-					</div>
-					<PillButton style={{
-						borderColor: 'red', 
-						backgroundColor:'red',
-						marginTop: '20px',
-						width: '200px'}}onClick={() => this.handleShowEditProfile()}>
-					Edit Login Information</PillButton> 
-					<PillButton style={{
-						borderColor: 'red', 
-						backgroundColor:'red',
-						marginTop: '20px',
-						width: '200px'}} onClick={() => this.handleShowLogout()}>
-					Logout</PillButton> 
-				</Col>
-				<Col sm={{ span: 7, offset: 0 }}>
-					<Row style = {{
-						display: 'table',
-						margin: '0 auto',
-						marginTop: '10vh',
-						marginLeft: '0px',
-						color: 'white',
-						fontSize: '2.5rem'
+						<Modal.Footer style = {{paddingBottom: '0px'}}>
+							<PillButton style = {{
+												borderColor: 'gray', 
+												backgroundColor:'gray',
+												height: '40px',
+												padding: '2px',
+												fontSize: '20px',
+												width: '100px'                              
+								}} onClick={() => this.handleCloseEditProfile()}> Cancel
+								</PillButton>
+								<PillButton style = {{
+												borderColor: 'red', 
+												backgroundColor:'red',
+												height: '40px',
+												padding: '2px',
+												fontSize: '20px',
+												width: '100px',
+												marginLeft: '5px',
+												marginRight: ' 12px'                               
+								}} onClick={() => this.handleCloseEditProfile()}> Submit
+							</PillButton>	
+						</Modal.Footer>
+						</Modal.Body>
+				</Modal>
+				<Modal show={this.state.showAdd} onHide={() => this.handleCloseAdd()}
+				size="lg"
+				aria-labelledby="contained-modal-title-vcenter"
+				centered>
+					<Modal.Header closeButton>
+					<Modal.Title id="contained-modal-title-vcenter">
+						Add a new shoe to your collection
+					</Modal.Title>
+					</Modal.Header>
+					<Modal.Body>
+						<Col style = {{
+							justifyContent: 'center',
+							alignItems: 'center'
+						}}>
+						<Form>
+						<Form.Group>
+							<Form.Row>
+								<Form.Label column lg={2}>
+									Brand
+								</Form.Label>
+								<Col>
+									<Form.Control type="text" placeholder="Enter Brand Here" />
+								</Col>
+							</Form.Row>
+							<br />
+							<HorizLine color = 'lightGray'/>
+							<br />
+							<Form.Row>
+								<Form.Label column lg={2}>
+								Shoe Name
+								</Form.Label>
+								<Col>
+								<Form.Control type="text" placeholder="Enter Shoe Name Here" />
+								</Col>
+							</Form.Row>	
+							<br />					
+							<HorizLine color = 'lightGray'/>
+							<br />
+							<Form.Row>
+								<Form.Label column lg={2}>
+								Size
+								</Form.Label>
+								<Col>
+								<Form.Control type="text" placeholder="Enter Shoe Size Here" />
+								</Col>
+							</Form.Row> 
+							<br />
+							<HorizLine color = 'lightGray'/>
+							<br />
+							<Form.Row>
+								<Form.Label column lg={2}>
+								Comfort
+								</Form.Label>
+								<Col>
+									<DropdownButton id="dropdown-basic-button" title="Shoe Comfort">
+										<Dropdown.Item>Option 1</Dropdown.Item>
+										<Dropdown.Item>Option 2</Dropdown.Item>
+										<Dropdown.Item>Option 3</Dropdown.Item>
+									</DropdownButton>
+								</Col>
+							</Form.Row>
+							<br />
+							<HorizLine color = 'lightGray'/>
+							<br />
+							<Form.Row>
+								<Form.Label column lg={2}>
+								Width
+								</Form.Label>
+								<Col>
+									<DropdownButton id="dropdown-basic-button" title="Shoe Width">
+											<Dropdown.Item>Option 1</Dropdown.Item>
+											<Dropdown.Item>Option 2</Dropdown.Item>
+											<Dropdown.Item>Option 3</Dropdown.Item>
+									</DropdownButton>
+								</Col>
+							</Form.Row>
+							<br />
+							<HorizLine color = 'lightGray'/>
+							<br />
+							<Form.Row>
+								<Form.Label column lg={2}>
+								Stiffness
+								</Form.Label>
+								<Col>
+									<DropdownButton id="dropdown-basic-button" title="Shoe Stiffness">
+											<Dropdown.Item>Option 1</Dropdown.Item>
+											<Dropdown.Item>Option 2</Dropdown.Item>
+											<Dropdown.Item>Option 3</Dropdown.Item>
+									</DropdownButton>
+								</Col>
+							</Form.Row>
+							<br />
+							<HorizLine color = 'lightGray'/>
+							<br />
+							<Form.Row>
+								<Form.Label column lg={2}>
+								Buy Again
+								</Form.Label>
+								<Col>
+									<DropdownButton id="dropdown-basic-button" title="Would you buy again?">
+											<Dropdown.Item>Option 1</Dropdown.Item>
+											<Dropdown.Item>Option 2</Dropdown.Item>
+											<Dropdown.Item>Option 3</Dropdown.Item>
+									</DropdownButton>
+								</Col>
+							</Form.Row>
+						</Form.Group>
+						</Form>
+					</Col>
+					<Modal.Footer style = {{paddingBottom: '0px'}}>
+						<PillButton style = {{
+											borderColor: 'gray', 
+											backgroundColor:'gray',
+											height: '40px',
+											padding: '2px',
+											fontSize: '20px',
+											width: '100px'                              
+							}} onClick={() => this.handleCloseAdd()}> Cancel
+							</PillButton>
+							<PillButton style = {{
+											borderColor: 'red', 
+											backgroundColor:'red',
+											height: '40px',
+											padding: '2px',
+											fontSize: '20px',
+											width: '100px',
+											marginLeft: '5px',
+											marginRight: ' 12px'                               
+							}} onClick={() => this.handleCloseAdd()}> Add Shoe
+						</PillButton>	
+					</Modal.Footer>
+					</Modal.Body>
+				</Modal>
+				<Row>
+					<Col style = {{
+						display: 'flex',
+						flexDirection: 'column',
+						justifyContent: 'center',
+						alignItems: 'center',
+						marginTop: '10vh'
 					}}>
-						Welcome, JaneDoe
+						<Card style={{ 
+							margin: '0 auto',
+							width: '25rem'}}>
+							<Card.Img variant="top" src={shoeImage} />
+						</Card>
+						<div style = {{
+							backgroundColor: 'white',
+							textAlign: 'center',
+							width: '20rem',
+							marginTop: '20px'
+						}}>
+							<Col style = {{
+								textAlign: 'center',
+								marginTop: '10px',
+								fontWeight:'bold'}}>
+								Account Info
+							</Col>
+							<Row style={{
+								marginLeft: '0px',
+								marginRight: '0px'
+								}}>
+								<Col sm = {4}>
+									<Row>
+										<Col style = {{
+											textAlign: 'center',
+											fontWeight: 'bold'}}>
+											Username
+										</Col>
+									</Row>
+									<Row>
+										<Col style = {{
+											textAlign: 'center',
+											fontWeight: 'bold'}}>
+											Email
+										</Col>
+									</Row>
+								</Col>
+								<Col md = {8}>
+									<Row>
+										<Col style = {{textAlign: 'center'}}>
+											{this.state.userInfo.name}
+										</Col>
+									</Row>
+									<Row>
+										<Col style = {{
+											textAlign: 'center',
+											marginBottom: '10px'}}>
+											{this.state.userInfo.email}
+										</Col>
+									</Row>
+								</Col>
+							</Row>
+						</div>
 						<PillButton style={{
 							borderColor: 'red', 
 							backgroundColor:'red',
-							marginLeft:'28vw',
-							width: '200px'}} onClick={() => this.handleShowAdd()}>
-						Add Shoe</PillButton>
-					</Row>
-					<Card style = {{
-						height: '600px',
-						overflowY: 'scroll',
-						marginTop: '50px'}}>
-						<Card.Body>
-							{this.state.shoeCollection}
-						</Card.Body>
-					</Card>
-				</Col>
-				<Col sm={{ span: 1 }}>
-				</Col>
-			</Row>
-			</Container>
+							marginTop: '20px',
+							width: '200px'}}onClick={() => this.handleShowEditProfile()}>
+						Edit Login Information</PillButton> 
+						<PillButton style={{
+							borderColor: 'red', 
+							backgroundColor:'red',
+							marginTop: '20px',
+							width: '200px'}} onClick={() => this.handleShowLogout()}>
+						Logout</PillButton> 
+					</Col>
+					<Col sm={{ span: 7, offset: 0 }}>
+						<Row style = {{
+							display: 'table',
+							margin: '0 auto',
+							marginTop: '10vh',
+							marginLeft: '0px',
+							color: 'white',
+							fontSize: '2.5rem'
+						}}>
+							Welcome, {this.state.userInfo.name}
+							<PillButton style={{
+								borderColor: 'red', 
+								backgroundColor:'red',
+								marginLeft:'28vw',
+								width: '200px'}} onClick={() => this.handleShowAdd()}>
+							Add Shoe</PillButton>
+						</Row>
+						
+						{this.state.shoeCollection}
+					</Col>
+					<Col sm={{ span: 1 }}>
+					</Col>
+				</Row>
+				</Container>
+		
 		)
+						}
 	}
 }
 

@@ -59,8 +59,8 @@ public class UserController {
 
     // hopefully this returns profile information in a usable JSON format
     @GetMapping(value = "/api/getUserInfo", produces = MediaType.APPLICATION_JSON_VALUE)
-    StringResponse getUserInfo(){
-        return new StringResponse(ac.getProfile().toString());
+    UserProfile getUserInfo(){
+        return ac.getProfile();
     }
 
     @GetMapping(value = "/api/getUserShoes", produces = MediaType.APPLICATION_JSON_VALUE)

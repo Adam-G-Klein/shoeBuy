@@ -123,7 +123,7 @@ class ShoeCollectionShoe extends React.Component {
                         <Card style={{ 
                             margin: '0 auto',
                             width: '12rem'}}>
-                            <Card.Img variant="top" src={shoeImage} />
+                            <Card.Img variant="top" src={this.props.shoeInfo.imgURL} />
                         </Card>
                     </Col>
                     <Col style={{padding: '18px'}} md={{span: 8, offset: 1}}>
@@ -131,10 +131,10 @@ class ShoeCollectionShoe extends React.Component {
                             {this.props.shoeInfo.brand}
                         </Row>
                         <Row style = {{fontSize: '20px'}}>
-                            {this.props.shoeInfo.name}
+                            {this.props.shoeInfo.model}
                         </Row>
                         <Row style = {{fontSize: '20px'}}>
-                            size: {this.props.shoeInfo.id}
+                            size: {this.props.shoeInfo.size}
                         </Row>
                         <Row style= {{justifyContent: 'right', textAlign: 'right'}}>
                             <PillButton style = {{

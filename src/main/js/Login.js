@@ -29,9 +29,7 @@ class Login extends React.Component {
         restClient({method: "GET",
             path: "/api/logIn?email=" + this.state.username + "&password=" + this.state.password,
             headers: {'Accept': 'application/json'}
-            }
-            )
-            .done(response => {
+            }).done(response => {
                 console.log(response)
                 if(response.entity.response === "LOGIN_SUCCESS"){
                   this.setState({redirectSearch: true});
