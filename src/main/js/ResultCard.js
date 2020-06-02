@@ -25,7 +25,7 @@ class ResultCard extends React.Component {
     }
 
     render() {
-        if(this.props.shoeInfo.url === undefined || this.props.shoeInfo.url === null){
+        if(this.props.shoeInfo.imgURL === undefined || this.props.shoeInfo.imgURL === null){
             return (
                 <div>
                 {this.performRedirect()}

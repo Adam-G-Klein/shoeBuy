@@ -124,6 +124,7 @@ class ShoeCollectionShoe extends React.Component {
                             margin: '0 auto',
                             width: '12rem'}}>
                             <Card.Img variant="top" src={this.props.shoeInfo.imgURL} />
+                            {/* <Card.Img variant="top" src={'https://zycada-amzn.zappos.com/images/I/71rsqtFGsbL._AC_SX510_.jpg'} /> */}
                         </Card>
                     </Col>
                     <Col style={{padding: '18px'}} md={{span: 8, offset: 1}}>

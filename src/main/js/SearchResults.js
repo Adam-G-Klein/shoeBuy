@@ -66,8 +66,9 @@ class SearchResults extends React.Component {
   componentDidMount(){
     document.querySelector('.react-autosuggest__input').focus();
     restClient({method: 'GET', path: '/api/shoeNodes'}).done(response => {
-      // this.setState({shoes: response.entity._embedded.userShoes});
-      this.setState({shoes: this.state.testData});
+      console.log("response!: ", response.entity._embedded)
+      this.setState({shoes: response.entity._embedded.shoeNodes});
+      //this.setState({shoes: this.state.testData});
       this.sectionResultPages(this.state.shoes);
 
     });
@@ -156,7 +157,7 @@ class SearchResults extends React.Component {
         for(var k = row.length-1; k < 4; k++){
           row.push(
             <Col>
-              <div style={{ width: '12rem'}}></div>
+              <div style={{ width: '204px'}}></div>
             </Col>
           )
         }
