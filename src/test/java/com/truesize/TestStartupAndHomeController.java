@@ -5,7 +5,7 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({ TestHomeController.class , TestWebApplicationStartup.class})
-public abstract class TestStartupAndHomeController{
+public class TestStartupAndHomeController{
 
 
 }

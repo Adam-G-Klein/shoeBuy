@@ -19,10 +19,12 @@ public class TestWebApplicationStartup {
 
     @Test
     public void contextLoads() {
+        //test that the spring context is able to load, if this test fails there
+        // is a dependency issue
     }
 
     @Test
-    public void controllerRegisteredWithSpring() throws Exception {
+    public void controllerRegisteredWithSpring() {
         assertThat(controller).isNotNull();
     }
 
