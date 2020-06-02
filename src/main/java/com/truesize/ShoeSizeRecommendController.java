@@ -1,5 +1,9 @@
 package com.truesize;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import com.truesize.shoegraph.AllShoeRepository;
 import com.truesize.shoegraph.ShoeNode;
 import com.truesize.shoegraph.ShoeSearchFactory;
@@ -27,9 +31,22 @@ public class ShoeSizeRecommendController {
         String shoeLookingFor = ShoeNode.generateUniqueCode(modelName, brandName, sex);
         return new StringResponse(ShoeSearchFactory.createSearcher("ShoeSizeRecommendSearcherSmartBFS").getSizeRecc(shoeLookingFor, allShoeRepository, ac));
     }
-    //params are the model and brand of shoe the user is searching for
-    @GetMapping(value = "/api/getAllShoes", produces = MediaType.APPLICATION_JSON_VALUE)
-    Iterable<ShoeNode> getAllShoes(){
-        return allShoeRepository.findAll();
+
+    @GetMapping(value = "/api/getAllShoes")
+    List<List<String>> getAllShoes(){
+        Iterator<ShoeNode> shoeIterator = allShoeRepository.findAll().iterator();
+        List<List<String>> shoes = new ArrayList<>();
+
+        while(shoeIterator.hasNext()) {
+            ShoeNode shoe = shoeIterator.next();
+            List<String> shoeInfo = new ArrayList();
+            shoeInfo.add(shoe.getBrand());
+            shoeInfo.add(shoe.getModel());
+            shoeInfo.add(shoe.getSex());
+            shoeInfo.add(shoe.getImgURL());
+            shoes.add(shoeInfo);
+        }
+        return shoes;
     }
+
 }
