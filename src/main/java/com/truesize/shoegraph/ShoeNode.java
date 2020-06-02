@@ -107,7 +107,7 @@ public class ShoeNode {
 
         //if this edge already exists, modify it
         if(matchingEdge != null){
-            matchingEdge.setSizeDifference(matchingEdge.getSizeDifference() * matchingEdge.getConnectionMultiplicity() + sizeDifference)/(matchingEdge.getConnectionMultiplicity() + 1);
+            matchingEdge.setSizeDifference((matchingEdge.getSizeDifference() * matchingEdge.getConnectionMultiplicity() + sizeDifference)/(matchingEdge.getConnectionMultiplicity() + 1));
             matchingEdge.setConnectionMultiplicity(matchingEdge.getConnectionMultiplicity() + 1);
             
             //prevent addEdge from infinitly looping back and forth from start to end Node
@@ -136,7 +136,7 @@ public class ShoeNode {
         for(DirectedShoeEdge e : this.edges) {
             String endShoeCode = e.endShoeNode.uniqueShoeCode;
             if(endShoeCode.equals(shoeCode)){
-                return e.sizeDifference;
+                return e.getSizeDifference();
             }
         }
         return null;
