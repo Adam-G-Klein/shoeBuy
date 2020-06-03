@@ -8,14 +8,14 @@ const headerStyle = { 'marginLeft': 20 }
 
 const linkToTextLoggedOut = {
     "/shoeRecommender" : "Find a Shoe",
-    "/search" : "Search",
+    "/search" : "Find a Size",
     "/profile" : "Profile",
     "/login" : "Login"
 };
 
 const linkToTextLoggedIn = {
     "/shoeRecommender" : "Find a Shoe",
-    "/search" : "Search",
+    "/search" : "Find a Size",
     "/profile" : "Profile",
     "/login" : "Logout"
 };
