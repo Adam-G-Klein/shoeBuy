@@ -14,49 +14,49 @@ public class OwnedShoe {
     @GeneratedValue 
     @Column(name = "id")
     private long id;
-    private String model;
-    private String brand;
-    private Double size;
-    private String sex;
-    private String imgURL;
+    private String shoeModel;
+    private String shoeBrand;
+    private Double shoeSize;
+    private String shoeSex;
+    private String shoeImgURL;
 
     private OwnedShoe() {}
     
     public OwnedShoe(String model, String brand, Double size, String sex, String imgURL){
-        this.model = model.toLowerCase();
-        this.brand = brand.toLowerCase();
-        this.size = size;
-        this.sex = sex.toLowerCase();
-        this.imgURL = imgURL;
+        this.shoeModel = model.toLowerCase();
+        this.shoeBrand = brand.toLowerCase();
+        this.shoeSize = size;
+        this.shoeSex = sex.toLowerCase();
+        this.shoeImgURL = imgURL;
     }
 
     public OwnedShoe(String model, Double size){
         this(model, "nike", size, "u", "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/zc5x1xceepbszkhwprvn/joyride-run-flyknit-mens-running-shoe-PjmR5M.jpg");
     }
 
-    public Double getSize() {return size;}
+    public Double getShoeSize() {return shoeSize;}
 
-    public void setSize(Double size) {this.size = size;}
+    public void setShoeSize(Double size) {this.shoeSize = size;}
 
-    public String getSex() {return sex;}
+    public String getShoeSex() {return shoeSex;}
 
-    public String getModel() {return model;}
+    public String getShoeModel() {return shoeModel;}
 
-    public String getBrand() {return brand;}
+    public String getShoeBrand() {return shoeBrand;}
 
-    public String getImgURL() {return imgURL;}
+    public String getShoeImgURL() {return shoeImgURL;}
 
-    public void setImgURL(String imgURL) {this.imgURL = imgURL;}
+    public void setShoeImgURL(String imgURL) {this.shoeImgURL = imgURL;}
 
     @Override
     public String toString() {
         return "OwnedShoe{" +
                 "id=" + id +
-                ", model=" + model +
-                ", brand=" + brand +
-                ", size=" + size +
-                ", sex=" + sex +
-                ", imgURL=" + imgURL +
+                ", model=" + shoeModel +
+                ", brand=" + shoeBrand +
+                ", size=" + shoeSize +
+                ", sex=" + shoeSex +
+                ", imgURL=" + shoeImgURL +
                 '}';
     }
 }
