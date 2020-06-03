@@ -29,7 +29,7 @@ class ResultCard extends React.Component {
                 <div>
                 {this.performRedirect()}
                 <Button onClick={() => this.setRedirect()} variant="light" style={{padding: '0px'}}>
-                <Card style={{ width: '204px'}}>
+                <Card style={{ width: '204px', height: '245px'}}>
                     <div style={{outlineWidth: '5px', outline: 'solid', outlineColor: 'red', width: '204px', height: '139px', alignContent: 'center', verticalAlign: 'center'}}>
                         <div style={{paddingTop: '18px', paddingBottom: '18px', paddingRight: '12px', paddingLeft: '12px', verticalAlign: 'middle'}}>
                             <Card.Img style={{objectFit: 'cover', width: '180px', height: '103.76px'}} variant="top" src={'https://zycada-amzn.zappos.com/images/I/71rsqtFGsbL._AC_SX510_.jpg'} />
@@ -50,7 +50,7 @@ class ResultCard extends React.Component {
                 <div>
                 {this.performRedirect()}
                 <Button onClick={() => this.setRedirect()} variant="light" style={{padding: '0px'}}>
-                <Card style={{ width: '204px'}}>
+                <Card style={{ width: '204px', height: '245px'}}>
                     <div style={{outlineWidth: '5px', outline: 'solid', outlineColor: 'red', width: '204px', height: '139px', alignContent: 'center', verticalAlign: 'center'}}>
                         <div style={{paddingTop: '18px', paddingBottom: '18px', paddingRight: '12px', paddingLeft: '12px', verticalAlign: 'middle'}}>
                             <Card.Img style={{objectFit: 'cover', width: '180px', height: '103.76px'}} variant="top" src={this.props.shoeInfo.imgURL} />
