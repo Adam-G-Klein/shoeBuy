@@ -59,7 +59,7 @@ public class ShoeSizeRecommendSearcherBFS implements ShoeSearcher{
 		//get a size reccomendation based on each owned shoe
 		for(OwnedShoe shoe : ownedShoes) {
 			String sizeRecc = getSizeReccFromShoe(desiredShoeCode, allShoeRepository, shoe);
-			if(sizeRecc != getNoShoeError()) {
+			if(!sizeRecc.equals(getNoShoeError())) {
 				Double sizeReccAsNum = Double.parseDouble(sizeRecc);
 				sizeReccs.add(sizeReccAsNum);
 			}
