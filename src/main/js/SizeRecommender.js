@@ -39,6 +39,33 @@ class SizeRecommender extends React.Component {
 		return percentages[index];
 	}
 
+	getRandomComments(){
+		let index = Math.floor((Math.random() * 3))
+		let comments =[
+			<div>
+				<Card.Text>"This shoe is the best!"</Card.Text>
+				<Card.Text>"This shoe is super flexible."</Card.Text>
+				<Card.Text>"I've had these for years and they still fit great!"</Card.Text>
+				<Card.Text>"I love these shoes but they're not worth the money."</Card.Text>
+			</div>,
+			<div>
+				<Card.Text>"These are not comfortable and they got worn down super fast."</Card.Text>
+				<Card.Text>"My size recommendation for these was spot on!"</Card.Text>
+				<Card.Text>"These shoes have lasted way longer than I expected but they aren't super comfortable."</Card.Text>
+				<Card.Text>"I hate this shoe so much."</Card.Text>
+			</div>,
+			<div>
+				<Card.Text>"Super cool shoes but not worth the money."</Card.Text>
+				<Card.Text>"I wear these every day and I really like them."</Card.Text>
+				<Card.Text>"My size recommendation was not correct for these at all."</Card.Text>
+				<Card.Text>"These are great but they get dirty super quickly."</Card.Text>
+			</div>
+		]
+
+		return comments[index];
+		
+	}
+
 	componentDidMount() {
 		restClient({method: "GET",
 			path: "/api/sizeRecommend?model=" + this.props.location.shoeInfo.model + "&brand=" + this.props.location.shoeInfo.brand +
@@ -144,10 +171,7 @@ class SizeRecommender extends React.Component {
 							<Card.Body>
 								<Card.Title style={{fontWeight:'bold'}}>Comments</Card.Title>
 								<HorizLineTop color='lightGray'/>
-								<Card.Text>"One user said they really like this shoe a lot"</Card.Text>
-								<Card.Text>"this shoe is horrible don't buy it"</Card.Text>
-								<Card.Text>"this shoe is great but your website sucks"</Card.Text>
-								<Card.Text>"i am a user"</Card.Text>
+								{this.getRandomComments()}
 							</Card.Body>
 						</Card>
 						<div style={{ margin: '20px'}} />
