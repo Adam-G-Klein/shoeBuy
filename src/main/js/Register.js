@@ -2,7 +2,7 @@ import React from 'react';
 import {Button, Form, Card, Container, Row, Col} from 'react-bootstrap';
 import { Redirect } from 'react-router-dom';
 import restClient from './restClient.js';
-
+import PillButton from '@rakuten-rex/button/PillButton';
 
 class Register extends React.Component {
 
@@ -73,6 +73,12 @@ class Register extends React.Component {
                     <Card style={{width:'30rem', alignContent: 'center'}}>
                         <Card.Body>
                         <Form>
+                            <Form.Group style = {{marginBottom: '8px'}}>
+                                <Button size = 'sm' href = "/login" style = {{
+                                    backgroundColor : '#777777',
+                                    borderColor: '#777777'
+                                }}>&lt;</Button>
+                            </Form.Group>
                             <Form.Group>
                                 <Form.Label>Create a Username</Form.Label>
                                 <Form.Control type="text" placeholder="Enter a username" onChange = {(e) => this.handleUsernameChange(e)}/>
@@ -81,12 +87,17 @@ class Register extends React.Component {
                                 <Form.Label>Create a Password</Form.Label>
                                 <Form.Control type="text" placeholder="Enter a password" onChange = {(e) => this.handlePassChange(e)}/>
                             </Form.Group>
-                            <Row>
-                                <Col>
-                                    <Button onClick={(event) => this.handleSubmit(event)}>Submit</Button>
-                                </Col>
-                                <Col>
-                                    <Button >I already have an account</Button>
+                            <Row style={{textAlign: 'center'}} >
+                                <Col style={{textAlign: 'center'}}>
+                                    <PillButton style = {{
+                                            borderColor: 'red', 
+                                            backgroundColor:'red',
+                                            height: '35px',
+                                            padding: '2px',
+                                            fontSize: '18px',
+                                            width: '150px',                              
+                                    }} onClick={(event) => this.handleSubmit(event)}> Create Account
+                                    </PillButton>
                                 </Col>
                             </Row>
                             
