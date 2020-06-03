@@ -32,7 +32,7 @@ public class ShoeSizeRecommendController {
         return new StringResponse(ShoeSearchFactory.createSearcher("ShoeSizeRecommendSearcherSmartBFS").getSizeRecc(shoeLookingFor, allShoeRepository, ac));
     }
 
-    @GetMapping(value = "/api/getAllShoes")
+    @GetMapping(value = "/api/getAllShoes", produces = MediaType.APPLICATION_JSON_VALUE)
     List<List<String>> getAllShoes(){
         Iterator<ShoeNode> shoeIterator = allShoeRepository.findAll().iterator();
         List<List<String>> shoes = new ArrayList<>();
