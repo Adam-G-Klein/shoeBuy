@@ -32,7 +32,7 @@ const routes  = (
 				<Profile />
 			</Route>
 			<Route exact path = '/sizeRecommender' render={
-				(props) => <div> <Header loggedIn = {true} pathname = {'/'}/> <SizeRecommender {...props} /> </div>
+				(props) => <div> <Header loggedIn = {true} pathname = {'/search'}/> <SizeRecommender {...props} /> </div>
 			}/>
 			<Route exact path = '/shoeRecommender'>
 				<Header loggedIn = {true} pathname = {'/shoeRecommender'}/>			

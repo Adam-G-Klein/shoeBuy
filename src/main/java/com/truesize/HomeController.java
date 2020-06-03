@@ -27,7 +27,7 @@ import java.util.Arrays;
 public class HomeController {
 
 	//list of Urls that don't require user to be logged in 
-	private static final List<String> preLoginRoutes = Arrays.asList("home", "login", "search", "SearchResults", "main.css", "favicon.ico");
+	private static final List<String> preLoginRoutes = Arrays.asList("home", "login", "main.css", "favicon.ico");
 
 	@Autowired
 	private Logger logger;

@@ -2,6 +2,7 @@ import React from 'react';
 import {Button, Form, Card, Container, Row, Col} from 'react-bootstrap';
 import { Redirect } from 'react-router-dom';
 import restClient from './restClient.js';
+import PillButton from '@rakuten-rex/button/PillButton';
 
 
 class Login extends React.Component {
@@ -90,9 +91,17 @@ class Login extends React.Component {
                       <Form.Label>Password</Form.Label>
                       <Form.Control type="password" placeholder="Enter your password" onChange = {(e) => this.handlePassChange(e)}/>
                     </Form.Group>
-                    <Form.Group>
+                    <Form.Group style= {{marginBottom : '0px'}}>
                       <div style={{textAlign: 'center'}}>
-                        <Button onClick={(event) => this.handleSubmit(event)}>Login</Button>
+                        <PillButton style = {{
+                                borderColor: 'red', 
+                                backgroundColor:'red',
+                                height: '35px',
+                                padding: '2px',
+                                fontSize: '18px',
+                                width: '90px',                              
+                        }} onClick={(event) => this.handleCreateAccount(event)}> Login
+                        </PillButton>
                       </div>
                       <div style={{textAlign: 'center'}}>
                         <Button variant="link" onClick={(event) => this.handleCreateAccount(event)}>I don't have an account</Button>
