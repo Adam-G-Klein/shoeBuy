@@ -41,6 +41,7 @@ public class DirectedShoeEdge {
     public void setConnectionMultiplicity(int num) {
         this.connectionMultiplicity = num;
     }
+    public ShoeNode getEndShoeNode(){return this.endShoeNode;}
 
     @Override
     public String toString() {

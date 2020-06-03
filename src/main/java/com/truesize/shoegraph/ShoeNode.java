@@ -4,6 +4,7 @@ import javax.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "shoenodes")
@@ -126,6 +127,23 @@ public class ShoeNode {
             }
         }
         return null;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ShoeNode shoeNode = (ShoeNode) o;
+        return Objects.equals(sex, shoeNode.sex) &&
+                Objects.equals(model, shoeNode.model) &&
+                Objects.equals(brand, shoeNode.brand) &&
+                Objects.equals(imgURL, shoeNode.imgURL) &&
+                Objects.equals(uniqueShoeCode, shoeNode.uniqueShoeCode);
     }
 
     @Override

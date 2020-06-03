@@ -30,7 +30,6 @@ public class DatabasePreloader implements CommandLineRunner {
 
         addTestGroup1();
         addTestGroup2();
-        addTestGroup4();
         addTestGroup5();
         addHtmlData();
     }
@@ -62,20 +61,7 @@ public class DatabasePreloader implements CommandLineRunner {
         this.allShoeRepository.save(t4a);
     }
 
-    private void addTestGroup4(){
-        //---Test Group 4: testing edge changes when add multiple shoe nodes that increase edge's multiplicity---
-        ShoeNode t1c = new ShoeNode("T1c",ADIDAS, F);
-        ShoeNode t2c = new ShoeNode("T2c",ADIDAS, F);
-        ShoeNode t3c = new ShoeNode("T3c",ADIDAS, F);
-        
-        t1c.addEdge(t2c, 10.0, 9.0);
-        t1c.addEdge(t2c, 10.0, 9.5);
 
-        t2c.addEdge(t3c, 9.0, 8.5);
-        this.allShoeRepository.save(t1c);
-        this.allShoeRepository.save(t2c);
-        this.allShoeRepository.save(t3c);
-    }
 
     private void addTestGroup5(){
         ShoeNode t1c = new ShoeNode("KD9", "Nike", "u");
