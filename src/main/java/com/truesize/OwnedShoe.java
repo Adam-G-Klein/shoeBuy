@@ -32,11 +32,7 @@ public class OwnedShoe {
     }
 
     public OwnedShoe(String model, Double size){
-        this.model = model;
-        this.brand = "nike";
-        this.size = size;
-        this.sex = "u";
-        this.imgURL = "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/zc5x1xceepbszkhwprvn/joyride-run-flyknit-mens-running-shoe-PjmR5M.jpg";
+        this(model, "nike", size, "u", "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/zc5x1xceepbszkhwprvn/joyride-run-flyknit-mens-running-shoe-PjmR5M.jpg");
     }
 
     @Override

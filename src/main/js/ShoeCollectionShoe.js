@@ -1,6 +1,5 @@
 import React from 'react';
 import {Card, Button} from 'react-bootstrap';
-import shoeImage from '../resources/static/exampleShoe.jpg';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';

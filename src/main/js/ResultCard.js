@@ -1,7 +1,6 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import {Card, Button} from 'react-bootstrap';
-import shoeImage from '../resources/static/exampleShoe.jpg';
 
 class ResultCard extends React.Component {
 
