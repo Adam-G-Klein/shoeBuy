@@ -327,7 +327,12 @@ class Profile extends React.Component {
 									Brand
 								</Form.Label>
 								<Col>
-									<Form.Control type="text" placeholder="Enter Brand Here" />
+								<Form.Control as="select" defaultValue="Choose a brand">
+									<option>Choose a brand</option>
+									<option>Adidas</option>
+									<option>Nike</option>
+									<option>Vans</option>
+								</Form.Control>
 								</Col>
 							</Form.Row>
 							<br />
@@ -338,7 +343,9 @@ class Profile extends React.Component {
 								Shoe Name
 								</Form.Label>
 								<Col>
-								<Form.Control type="text" placeholder="Enter Shoe Name Here" />
+									<Form.Control as="select" defaultValue="Choose a model">
+										<option>Choose a model</option>
+									</Form.Control>
 								</Col>
 							</Form.Row>	
 							<br />					
@@ -349,7 +356,21 @@ class Profile extends React.Component {
 								Size
 								</Form.Label>
 								<Col>
-								<Form.Control type="text" placeholder="Enter Shoe Size Here" />
+									<Form.Control as="select" defaultValue="Choose a size">
+										<option>Choose a size</option>
+										<option>1</option>
+										<option>2</option>
+										<option>3</option>
+										<option>4</option>
+										<option>5</option>
+										<option>6</option>
+										<option>7</option>
+										<option>8</option>
+										<option>9</option>
+										<option>10</option>
+										<option>11</option>
+										<option>12</option>
+									</Form.Control>
 								</Col>
 							</Form.Row> 
 							<br />
@@ -360,11 +381,12 @@ class Profile extends React.Component {
 								Comfort
 								</Form.Label>
 								<Col>
-									<DropdownButton id="dropdown-basic-button" title="Shoe Comfort">
-										<Dropdown.Item>Option 1</Dropdown.Item>
-										<Dropdown.Item>Option 2</Dropdown.Item>
-										<Dropdown.Item>Option 3</Dropdown.Item>
-									</DropdownButton>
+								<Form.Control as="select" defaultValue="Choose a comfort">
+									<option>Choose a comfort</option>
+									<option>Not comfortable</option>
+									<option>Moderately comfortable</option>
+									<option>Very comfortable</option>
+								</Form.Control>
 								</Col>
 							</Form.Row>
 							<br />
@@ -375,11 +397,12 @@ class Profile extends React.Component {
 								Width
 								</Form.Label>
 								<Col>
-									<DropdownButton id="dropdown-basic-button" title="Shoe Width">
-											<Dropdown.Item>Option 1</Dropdown.Item>
-											<Dropdown.Item>Option 2</Dropdown.Item>
-											<Dropdown.Item>Option 3</Dropdown.Item>
-									</DropdownButton>
+									<Form.Control as="select" defaultValue="Choose a width">
+										<option>Choose a width</option>
+										<option>Narrow</option>
+										<option>Neither</option>
+										<option>Wide</option>
+									</Form.Control>
 								</Col>
 							</Form.Row>
 							<br />
@@ -390,11 +413,12 @@ class Profile extends React.Component {
 								Stiffness
 								</Form.Label>
 								<Col>
-									<DropdownButton id="dropdown-basic-button" title="Shoe Stiffness">
-											<Dropdown.Item>Option 1</Dropdown.Item>
-											<Dropdown.Item>Option 2</Dropdown.Item>
-											<Dropdown.Item>Option 3</Dropdown.Item>
-									</DropdownButton>
+									<Form.Control as="select" defaultValue="Choose a stiffness">
+										<option>Choose a stiffness</option>
+										<option>Loose</option>
+										<option>In between</option>
+										<option>Sitff</option>
+									</Form.Control>
 								</Col>
 							</Form.Row>
 							<br />
@@ -405,11 +429,12 @@ class Profile extends React.Component {
 								Buy Again
 								</Form.Label>
 								<Col>
-									<DropdownButton id="dropdown-basic-button" title="Would you buy again?">
-											<Dropdown.Item>Option 1</Dropdown.Item>
-											<Dropdown.Item>Option 2</Dropdown.Item>
-											<Dropdown.Item>Option 3</Dropdown.Item>
-									</DropdownButton>
+									<Form.Control as="select" defaultValue="Choose an option">
+										<option>Choose an option</option>
+										<option>Yes</option>
+										<option>No</option>
+										<option>Maybe so</option>
+									</Form.Control>
 								</Col>
 							</Form.Row>
 						</Form.Group>
