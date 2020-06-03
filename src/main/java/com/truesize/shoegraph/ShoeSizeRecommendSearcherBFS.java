@@ -42,21 +42,23 @@ public class ShoeSizeRecommendSearcherBFS implements ShoeSearcher{
 		return total/nums.size();
 	}
 
-	public String getSizeRecc(String desiredShoeCode, AllShoeRepository allShoeRepository, AccountService ac){
-		List<Double> sizeReccs = new ArrayList<>();
-		if(ac == null) {
-			return "account service is null";
-		}
-		if(ac.getProfile() == null) {
-			return "Not_Logged_In";
+	//returns null on error
+	public List<OwnedShoe> getOwnedShoes (AccountService ac) {
+		if(ac == null || ac.getProfile() == null) {
+			return null;
 		}
 		List<OwnedShoe> ownedShoes = ac.getProfile().getOwnedShoes();
 
+		//if there are no shoes, this is an error
 		if(ownedShoes.isEmpty()) {
-			return "No_Owned_Shoes";
+			return null;
 		}
-		
-		//get a size reccomendation based on each owned shoe
+
+		return ownedShoes;
+	}
+
+	public List<Double> getListOfSizeReccs(List<OwnedShoe> ownedShoes, String desiredShoeCode, AllShoeRepository allShoeRepository) {
+		List<Double> sizeReccs = new ArrayList<>();
 		for(OwnedShoe shoe : ownedShoes) {
 			String sizeRecc = getSizeReccFromShoe(desiredShoeCode, allShoeRepository, shoe);
 			if(!sizeRecc.equals(getNoShoeError())) {
@@ -64,6 +66,19 @@ public class ShoeSizeRecommendSearcherBFS implements ShoeSearcher{
 				sizeReccs.add(sizeReccAsNum);
 			}
 		}
+		return sizeReccs;
+	}
+	public String getSizeRecc(String desiredShoeCode, AllShoeRepository allShoeRepository, AccountService ac){
+		List<Double> sizeReccs = new ArrayList<>();
+
+		List<OwnedShoe> ownedShoes = getOwnedShoes(ac);
+
+		if(ownedShoes == null) {
+			return "ERROR";
+		}
+		
+		//get a size reccomendation based on each owned shoe
+		sizeReccs = getListOfSizeReccs(ownedShoes, desiredShoeCode, allShoeRepository);
 		
 		//return an average of the found recommendations
 		if(sizeReccs.isEmpty()) {
@@ -74,7 +89,7 @@ public class ShoeSizeRecommendSearcherBFS implements ShoeSearcher{
 		}
 	}
 
-	private String getSizeReccFromShoe(String desiredShoeCode, AllShoeRepository allShoeRepository, OwnedShoe shoe) {
+	public String getSizeReccFromShoe(String desiredShoeCode, AllShoeRepository allShoeRepository, OwnedShoe shoe) {
 
 		String usersShoe = ShoeNode.generateUniqueCode(shoe.getShoeModel(),shoe.getShoeBrand(),shoe.getShoeSex());
 		
@@ -87,23 +102,30 @@ public class ShoeSizeRecommendSearcherBFS implements ShoeSearcher{
 			ShoeCodeWithDistance currentShoeInfo = bfsQueue.remove();
 			visitedShoes.add(currentShoeInfo.shoeCode);
 
+			//shoe is found
 			if(currentShoeInfo.shoeCode.equals(desiredShoeCode)) {
-				//found shoe
 				return Double.toString(shoe.getShoeSize() + currentShoeInfo.getSizeDiff());
 			}
-
-			ShoeNode currentNode = allShoeRepository.findByUniqueShoeCode(currentShoeInfo.getShoeCode());
-			List<String> edges = currentNode.getEdgesAsShoeCodes();
-			for(String edge : edges) {
-				if(!visitedShoes.contains(edge)){
-					double sizeDiffToEdge = currentNode.getImmediateSizeDiff(edge);
-					double sizeDiff = currentShoeInfo.getSizeDiff() + sizeDiffToEdge; 
-					bfsQueue.add(new ShoeCodeWithDistance(edge, sizeDiff));
-				}
-			}
+			addToBfsQueue(bfsQueue, currentShoeInfo, visitedShoes, allShoeRepository);
 		}
 
 		return getNoShoeError();
+	}
+
+	public void addToBfsQueue(Queue<ShoeCodeWithDistance> bfsQueue, ShoeCodeWithDistance currentShoeInfo, 
+							  HashSet<String> visitedShoes, AllShoeRepository allShoeRepository){
+
+		ShoeNode currentNode = allShoeRepository.findByUniqueShoeCode(currentShoeInfo.getShoeCode());
+		List<String> edges = currentNode.getEdgesAsShoeCodes();
+
+		//Add edges to the bfs
+		for(String edge : edges) {
+			if(!visitedShoes.contains(edge)){
+				double sizeDiffToEdge = currentNode.getImmediateSizeDiff(edge);
+				double sizeDiff = currentShoeInfo.getSizeDiff() + sizeDiffToEdge; 
+				bfsQueue.add(new ShoeCodeWithDistance(edge, sizeDiff));
+			}
+		}
 	}
     
 }
