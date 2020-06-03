@@ -9,27 +9,9 @@ import java.util.Queue;
 
 import com.truesize.AccountService;
 import com.truesize.OwnedShoe;
-import com.truesize.shoegraph.DirectedShoeEdge;
-import com.truesize.shoegraph.ShoeSearcher;
 
-public class ShoeSizeRecommendSearcherSmartBFS implements ShoeSearcher{
+public class ShoeSizeRecommendSearcherSmartBFS extends ShoeSizeRecommendSearcherBFS{
 
-	
-	class ShoeCodeWithDistance{
-		public String shoeCode;
-		public double sizeDiff;
-		public ShoeCodeWithDistance(String shoeCode, double sizeDiff){
-			this.shoeCode = shoeCode;
-			this.sizeDiff = sizeDiff;
-		}
-	}
-	private Double getDoubleListAverage(List<Double> nums) {
-		Double total = 0.0;
-		for(Double num : nums) {
-			total += num;
-		}
-		return total/nums.size();
-	}
 	public String getSizeRecc(String desiredShoeCode, AllShoeRepository allShoeRepository, AccountService ac){
 		List<Double> sizeReccs = new ArrayList<>();
 		if(ac == null) {
@@ -47,7 +29,7 @@ public class ShoeSizeRecommendSearcherSmartBFS implements ShoeSearcher{
 		//get a size reccomendation based on each owned shoe
 		for(OwnedShoe shoe : ownedShoes) {
 			String sizeRecc = getSizeReccFromShoe(desiredShoeCode, allShoeRepository, shoe);
-			if(sizeRecc != "Shoe_Not_Found") {
+			if(sizeRecc != noShoeFoundMessage) {
 				Double sizeReccAsNum = Double.parseDouble(sizeRecc);
 				sizeReccs.add(sizeReccAsNum);
 			}
@@ -55,7 +37,7 @@ public class ShoeSizeRecommendSearcherSmartBFS implements ShoeSearcher{
 		
 		//return an average of the found recommendations
 		if(sizeReccs.size() == 0) {
-			return "Shoe_Not_Found";
+			return noShoeFoundMessage;
 		}
 		else {
 			return getDoubleListAverage(sizeReccs).toString();
@@ -63,26 +45,25 @@ public class ShoeSizeRecommendSearcherSmartBFS implements ShoeSearcher{
 	}
 	
 	private String getSizeReccFromShoe(String desiredShoeCode, AllShoeRepository allShoeRepository, OwnedShoe shoe) {
-		//---- the users data, will need to pull this from Ted's database -----
-		double usersSize = 10.0;
-		String usersShoe = ShoeNode.generateUniqueCode("t1c","adidas","f");
-		//---- ---------------------------------------------------------- -----
+
+		
+		String usersShoe = ShoeNode.generateUniqueCode(shoe.getModel(),shoe.getBrand(),shoe.getSex());
 
 		Queue<ShoeCodeWithDistance> bfsQueue = new LinkedList<ShoeCodeWithDistance>();
-		HashSet<String> visitedShoes = new HashSet(); 
+		HashSet<String> visitedShoes = new HashSet<String>(); 
 
 		bfsQueue.add(new ShoeCodeWithDistance(usersShoe, 0.0));
 
 		while(!bfsQueue.isEmpty()) {
 			ShoeCodeWithDistance currentShoeInfo = bfsQueue.remove();
-			visitedShoes.add(currentShoeInfo.shoeCode);
+			visitedShoes.add(currentShoeInfo.getShoeCode());
 
-			if(currentShoeInfo.shoeCode.equals(desiredShoeCode)) {
+			if(currentShoeInfo.getShoeCode().equals(desiredShoeCode)) {
 				//found shoe
-				return Double.toString(usersSize + currentShoeInfo.sizeDiff);
+				return Double.toString(shoe.getSize() + currentShoeInfo.getSizeDiff());
 			}
 
-			ShoeNode currentNode = allShoeRepository.findByUniqueShoeCode(currentShoeInfo.shoeCode);
+			ShoeNode currentNode = allShoeRepository.findByUniqueShoeCode(currentShoeInfo.getShoeCode());
             List<DirectedShoeEdge> edges = currentNode.getEdges();
             edges.sort(new ShoeEdgeComparator());
 
@@ -90,13 +71,13 @@ public class ShoeSizeRecommendSearcherSmartBFS implements ShoeSearcher{
                 String edgeAsString = e.endShoeNode.getUniqueShoeCode();
                 if(!visitedShoes.contains(edgeAsString)){
 					double sizeDiffToEdge = currentNode.getImmediateSizeDiff(edgeAsString);
-					double sizeDiff = currentShoeInfo.sizeDiff + sizeDiffToEdge; 
+					double sizeDiff = currentShoeInfo.getSizeDiff() + sizeDiffToEdge; 
 					bfsQueue.add(new ShoeCodeWithDistance(edgeAsString, sizeDiff));
 				}
             }
 		}
 
-		return "Shoe_Not_Found";
+		return noShoeFoundMessage;
     }
     
     class ShoeEdgeComparator implements Comparator<DirectedShoeEdge> {

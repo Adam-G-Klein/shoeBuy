@@ -26,13 +26,14 @@ public class ShoeSizeRecommendSearcherBFS implements ShoeSearcher{
 		}
 	}
 
-	private Double getDoubleListAverage(List<Double> nums) {
+	public Double getDoubleListAverage(List<Double> nums) {
 		Double total = 0.0;
 		for(Double num : nums) {
 			total += num;
 		}
 		return total/nums.size();
 	}
+
 	public String getSizeRecc(String desiredShoeCode, AllShoeRepository allShoeRepository, AccountService ac){
 		List<Double> sizeReccs = new ArrayList<>();
 		if(ac == null) {
@@ -70,7 +71,7 @@ public class ShoeSizeRecommendSearcherBFS implements ShoeSearcher{
 		String usersShoe = ShoeNode.generateUniqueCode(shoe.getModel(),shoe.getBrand(),shoe.getSex());
 		
 		Queue<ShoeCodeWithDistance> bfsQueue = new LinkedList<ShoeCodeWithDistance>();
-		HashSet<String> visitedShoes = new HashSet(); 
+		HashSet<String> visitedShoes = new HashSet<String>(); 
 
 		bfsQueue.add(new ShoeCodeWithDistance(usersShoe, 0.0));
 
