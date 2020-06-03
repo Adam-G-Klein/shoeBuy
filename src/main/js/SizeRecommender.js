@@ -33,6 +33,12 @@ class SizeRecommender extends React.Component {
 		}
 	}
 
+	getRandomPercentage(){
+		let index = Math.floor((Math.random() * 18))
+		let percentages=['70%', '85%', '72%', '51%', '64%', '98%', '56%', '89%', '67%', '83%', '82%', '74%', '54%', '63%', '77%', '79%', '93%', '99%']
+		return percentages[index];
+	}
+
 	componentDidMount() {
 		restClient({method: "GET",
 			path: "/api/sizeRecommend?model=" + this.props.location.shoeInfo.model + "&brand=" + this.props.location.shoeInfo.brand +
@@ -41,7 +47,8 @@ class SizeRecommender extends React.Component {
             }).done(response => {
 				console.log("response size: ", response.entity.response)
 				this.setState({
-					size: response.entity.response
+					// size: response.entity.response
+					size: 10.5
 				})
 		});
 	}
@@ -65,6 +72,7 @@ class SizeRecommender extends React.Component {
 		}
 
 		console.log("state size: ", this.state.size)
+		
 		if(this.state.size === null || this.state.size === undefined){
 			return null
 		}
@@ -119,11 +127,11 @@ class SizeRecommender extends React.Component {
 						<Card style={{textAlign: 'center'}}>
 						<Card.Body>
 							<Card.Title style={{fontWeight:'bold'}}>What Other's Are Saying About This Shoe</Card.Title>
-							<ShoeStats percentage={"75%"} quality={"say this shoe is stiff"}/>
-							<ShoeStats percentage={"70%"} quality={"say this shoe is comfortable"}/>
-							<ShoeStats percentage={"85%"} quality={"say this shoe is lightweight"}/>
-							<ShoeStats percentage={"73%"} quality={"say this shoe is narrow"}/>
-							<ShoeStats percentage={"80%"} quality={"would buy this shoe again"}/>
+							<ShoeStats percentage={this.getRandomPercentage()} quality={"say this shoe is stiff"}/>
+							<ShoeStats percentage={this.getRandomPercentage()} quality={"say this shoe is comfortable"}/>
+							<ShoeStats percentage={this.getRandomPercentage()} quality={"say this shoe is lightweight"}/>
+							<ShoeStats percentage={this.getRandomPercentage()} quality={"say this shoe is narrow"}/>
+							<ShoeStats percentage={this.getRandomPercentage()} quality={"would buy this shoe again"}/>
 							<HorizLineBottom color='lightGray'/>
 						</Card.Body>
 						</Card>
