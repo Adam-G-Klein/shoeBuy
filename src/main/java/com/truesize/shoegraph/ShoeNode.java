@@ -4,7 +4,6 @@ import javax.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Table(name = "shoenodes")
@@ -127,11 +126,6 @@ public class ShoeNode {
             }
         }
         return null;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
     }
 
     @Override

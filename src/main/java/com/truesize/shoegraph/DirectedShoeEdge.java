@@ -7,8 +7,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import java.util.Objects;
-
 @Entity
 public class DirectedShoeEdge {
     
@@ -30,11 +28,7 @@ public class DirectedShoeEdge {
         this.sizeDifference = sizeDifference;
         this.endShoeNode = endShoeNode;
     }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, connectionMultiplicity, sizeDifference, endShoeNode);
-    }   
+  
     public double getSizeDifference() {
         return sizeDifference;
     }

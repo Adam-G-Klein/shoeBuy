@@ -3,7 +3,6 @@ package com.truesize;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.util.Objects;
 import javax.persistence.Table;
 import javax.persistence.Column;
 
@@ -33,11 +32,6 @@ public class OwnedShoe {
 
     public OwnedShoe(String model, Double size){
         this(model, "nike", size, "u", "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/zc5x1xceepbszkhwprvn/joyride-run-flyknit-mens-running-shoe-PjmR5M.jpg");
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, model, brand, size);
     }
 
     public Double getSize() {
