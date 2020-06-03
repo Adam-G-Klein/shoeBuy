@@ -1,5 +1,6 @@
-package com.truesize;
+package com.truesize.Tests1;
 
+import com.truesize.HomeController;
 import org.junit.Test;
 
 import org.junit.runner.RunWith;

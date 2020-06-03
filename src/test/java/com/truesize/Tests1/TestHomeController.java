@@ -1,5 +1,7 @@
-package com.truesize;
+package com.truesize.Tests1;
 
+import com.truesize.AccountService;
+import com.truesize.HomeController;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
