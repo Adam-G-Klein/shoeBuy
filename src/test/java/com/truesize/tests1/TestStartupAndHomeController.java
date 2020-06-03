@@ -1,10 +1,10 @@
-package com.truesize.Tests2;
+package com.truesize.tests1;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({ TestShoeSearchFactory.class , TestShoeRecommendLoops.class})
+@SuiteClasses({ TestHomeController.class , TestWebApplicationStartup.class})
 public class TestStartupAndHomeController{
 
 

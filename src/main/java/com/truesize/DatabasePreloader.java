@@ -12,7 +12,10 @@ import java.util.List;
 
 @Component
 public class DatabasePreloader implements CommandLineRunner {
-    
+
+    private static final String ADIDAS = "ADIDAS";
+    private static final String F = "f";
+
     @Autowired
     private AllShoeRepository allShoeRepository;
     @Autowired
@@ -27,7 +30,6 @@ public class DatabasePreloader implements CommandLineRunner {
 
         addTestGroup1();
         addTestGroup2();
-        addTestGroup3();
         addTestGroup4();
         addTestGroup5();
         addHtmlData();
@@ -44,10 +46,10 @@ public class DatabasePreloader implements CommandLineRunner {
 
     private void addTestGroup2(){
         //---Test Group 2: 3 nodes, no cycles---
-        ShoeNode t1a = new ShoeNode("T1A", "Adidas", "f", "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/zc5x1xceepbszkhwprvn/joyride-run-flyknit-mens-running-shoe-PjmR5M.jpg");
-        ShoeNode t2a = new ShoeNode("T2A", "Adidas", "f");
-        ShoeNode t3a = new ShoeNode("T3A", "Adidas", "f");
-        ShoeNode t4a = new ShoeNode("T4A", "Adidas", "f");
+        ShoeNode t1a = new ShoeNode("T1A", ADIDAS, F, "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/zc5x1xceepbszkhwprvn/joyride-run-flyknit-mens-running-shoe-PjmR5M.jpg");
+        ShoeNode t2a = new ShoeNode("T2A", ADIDAS, F);
+        ShoeNode t3a = new ShoeNode("T3A", ADIDAS, F);
+        ShoeNode t4a = new ShoeNode("T4A", ADIDAS, F);
 
         t1a.addEdge(t2a, 10, 11);
         t1a.addEdge(t4a, 10, 11.5);
@@ -60,44 +62,11 @@ public class DatabasePreloader implements CommandLineRunner {
         this.allShoeRepository.save(t4a);
     }
 
-    private void addTestGroup3(){
-        //---Test Group 3: 7 nodes, several cycles, size differences may not be consistent bc for test purposes---
-        ShoeNode t1b = new ShoeNode("T1b", "Adidas", "f");
-        ShoeNode t2b = new ShoeNode("T2b", "Adidas", "f");
-        ShoeNode t3b = new ShoeNode("T3b", "Adidas", "f");
-        ShoeNode t4b = new ShoeNode("T4b", "Adidas", "f");
-        ShoeNode t5b = new ShoeNode("T5b", "Adidas", "f");
-        ShoeNode t6b = new ShoeNode("T6b", "Adidas", "f");
-        ShoeNode t7b = new ShoeNode("T7b", "Adidas", "f");
-        ShoeNode t8b = new ShoeNode("T8b", "Nike", "f");
-
-        t1b.addEdge(t2b, 10, 11);
-        t1b.addEdge(t3b, 10, 10);
-        t1b.addEdge(t4b, 11, 11.5);
-
-        t2b.addEdge(t6b, 8.5, 9);
-
-        t3b.addEdge(t5b, 12, 13);
-        t3b.addEdge(t4b, 13, 19);
-
-        t5b.addEdge(t7b, 12.5, 13);
-
-        t6b.addEdge(t5b, 10, 9.5);
-
-        this.allShoeRepository.save(t1b);
-        this.allShoeRepository.save(t2b);
-        this.allShoeRepository.save(t3b);
-        this.allShoeRepository.save(t4b);
-        this.allShoeRepository.save(t5b);
-        this.allShoeRepository.save(t6b);
-        this.allShoeRepository.save(t7b);
-        this.allShoeRepository.save(t8b);
-    }
     private void addTestGroup4(){
         //---Test Group 4: testing edge changes when add multiple shoe nodes that increase edge's multiplicity---
-        ShoeNode t1c = new ShoeNode("T1c", "Adidas", "f");
-        ShoeNode t2c = new ShoeNode("T2c", "Adidas", "f");
-        ShoeNode t3c = new ShoeNode("T3c", "Adidas", "f");
+        ShoeNode t1c = new ShoeNode("T1c",ADIDAS, F);
+        ShoeNode t2c = new ShoeNode("T2c",ADIDAS, F);
+        ShoeNode t3c = new ShoeNode("T3c",ADIDAS, F);
         
         t1c.addEdge(t2c, 10.0, 9.0);
         t1c.addEdge(t2c, 10.0, 9.5);

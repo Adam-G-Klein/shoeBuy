@@ -32,7 +32,7 @@ public class ShoeSizeRecommendSearcherBFS implements ShoeSearcher{
 		return noShoeErrorMessage;
 	}
 	public Double getDoubleListAverage(List<Double> nums) {
-		if(nums.size() == 0) {
+		if(nums.isEmpty()) {
 			return null;
 		}
 		Double total = 0.0;
@@ -66,7 +66,7 @@ public class ShoeSizeRecommendSearcherBFS implements ShoeSearcher{
 		}
 		
 		//return an average of the found recommendations
-		if(sizeReccs.size() == 0) {
+		if(sizeReccs.isEmpty()) {
 			return getNoShoeError();
 		}
 		else {

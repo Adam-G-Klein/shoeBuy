@@ -1,4 +1,4 @@
-package com.truesize.Tests1;
+package com.truesize.tests1;
 
 import com.truesize.HomeController;
 import org.junit.Test;
