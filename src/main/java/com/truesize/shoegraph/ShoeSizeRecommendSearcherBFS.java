@@ -11,6 +11,8 @@ import com.truesize.OwnedShoe;
 
 public class ShoeSizeRecommendSearcherBFS implements ShoeSearcher{
 
+	private String noShoeErrorMessage = "Shoe_Not_Found";
+	
 	class ShoeCodeWithDistance{
 		private String shoeCode;
 		private double sizeDiff;
@@ -26,6 +28,9 @@ public class ShoeSizeRecommendSearcherBFS implements ShoeSearcher{
 		}
 	}
 
+	public String getNoShoeError(){
+		return noShoeErrorMessage;
+	}
 	public Double getDoubleListAverage(List<Double> nums) {
 		Double total = 0.0;
 		for(Double num : nums) {
@@ -44,14 +49,14 @@ public class ShoeSizeRecommendSearcherBFS implements ShoeSearcher{
 		}
 		List<OwnedShoe> ownedShoes = ac.getProfile().getOwnedShoes();
 
-		if(ownedShoes.size() == 0) {
+		if(ownedShoes.isEmpty()) {
 			return "No_Owned_Shoes";
 		}
 		
 		//get a size reccomendation based on each owned shoe
 		for(OwnedShoe shoe : ownedShoes) {
 			String sizeRecc = getSizeReccFromShoe(desiredShoeCode, allShoeRepository, shoe);
-			if(sizeRecc != noShoeFoundMessage) {
+			if(sizeRecc != getNoShoeError()) {
 				Double sizeReccAsNum = Double.parseDouble(sizeRecc);
 				sizeReccs.add(sizeReccAsNum);
 			}
@@ -59,7 +64,7 @@ public class ShoeSizeRecommendSearcherBFS implements ShoeSearcher{
 		
 		//return an average of the found recommendations
 		if(sizeReccs.size() == 0) {
-			return noShoeFoundMessage;
+			return getNoShoeError();
 		}
 		else {
 			return getDoubleListAverage(sizeReccs).toString();
@@ -70,8 +75,8 @@ public class ShoeSizeRecommendSearcherBFS implements ShoeSearcher{
 
 		String usersShoe = ShoeNode.generateUniqueCode(shoe.getModel(),shoe.getBrand(),shoe.getSex());
 		
-		Queue<ShoeCodeWithDistance> bfsQueue = new LinkedList<ShoeCodeWithDistance>();
-		HashSet<String> visitedShoes = new HashSet<String>(); 
+		Queue<ShoeCodeWithDistance> bfsQueue = new LinkedList<>();
+		HashSet<String> visitedShoes = new HashSet<>(); 
 
 		bfsQueue.add(new ShoeCodeWithDistance(usersShoe, 0.0));
 
@@ -95,7 +100,7 @@ public class ShoeSizeRecommendSearcherBFS implements ShoeSearcher{
 			}
 		}
 
-		return noShoeFoundMessage;
+		return getNoShoeError();
 	}
     
 }
