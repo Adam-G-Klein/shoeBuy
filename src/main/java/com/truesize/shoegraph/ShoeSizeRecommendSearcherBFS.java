@@ -49,9 +49,7 @@ public class ShoeSizeRecommendSearcherBFS implements ShoeSearcher{
 		if(ac == null || ac.getProfile() == null) {
 			return Collections.emptyList();
 		}
-		List<OwnedShoe> ownedShoes = ac.getProfile().getOwnedShoes();
-
-		return ownedShoes;
+		return ac.getProfile().getOwnedShoes();
 	}
 
 	public List<Double> getListOfSizeReccs(List<OwnedShoe> ownedShoes, String desiredShoeCode, AllShoeRepository allShoeRepository) {
