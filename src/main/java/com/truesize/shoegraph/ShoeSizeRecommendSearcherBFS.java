@@ -1,10 +1,12 @@
 package com.truesize.shoegraph;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.Set;
 
 import com.truesize.AccountService;
 import com.truesize.OwnedShoe;
@@ -45,14 +47,9 @@ public class ShoeSizeRecommendSearcherBFS implements ShoeSearcher{
 	//returns null on error
 	public List<OwnedShoe> getOwnedShoes (AccountService ac) {
 		if(ac == null || ac.getProfile() == null) {
-			return null;
+			return Collections.emptyList();
 		}
 		List<OwnedShoe> ownedShoes = ac.getProfile().getOwnedShoes();
-
-		//if there are no shoes, this is an error
-		if(ownedShoes.isEmpty()) {
-			return null;
-		}
 
 		return ownedShoes;
 	}
@@ -69,16 +66,15 @@ public class ShoeSizeRecommendSearcherBFS implements ShoeSearcher{
 		return sizeReccs;
 	}
 	public String getSizeRecc(String desiredShoeCode, AllShoeRepository allShoeRepository, AccountService ac){
-		List<Double> sizeReccs = new ArrayList<>();
 
 		List<OwnedShoe> ownedShoes = getOwnedShoes(ac);
 
-		if(ownedShoes == null) {
+		if(ownedShoes.isEmpty()) {
 			return "ERROR";
 		}
 		
 		//get a size reccomendation based on each owned shoe
-		sizeReccs = getListOfSizeReccs(ownedShoes, desiredShoeCode, allShoeRepository);
+		List<Double> sizeReccs = getListOfSizeReccs(ownedShoes, desiredShoeCode, allShoeRepository);
 		
 		//return an average of the found recommendations
 		if(sizeReccs.isEmpty()) {
@@ -113,7 +109,7 @@ public class ShoeSizeRecommendSearcherBFS implements ShoeSearcher{
 	}
 
 	public void addToBfsQueue(Queue<ShoeCodeWithDistance> bfsQueue, ShoeCodeWithDistance currentShoeInfo, 
-							  HashSet<String> visitedShoes, AllShoeRepository allShoeRepository){
+							  Set<String> visitedShoes, AllShoeRepository allShoeRepository){
 
 		ShoeNode currentNode = allShoeRepository.findByUniqueShoeCode(currentShoeInfo.getShoeCode());
 		List<String> edges = currentNode.getEdgesAsShoeCodes();

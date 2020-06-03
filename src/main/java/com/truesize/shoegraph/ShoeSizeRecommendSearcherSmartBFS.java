@@ -4,12 +4,13 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Queue;
+import java.util.Set;
 
 
 public class ShoeSizeRecommendSearcherSmartBFS extends ShoeSizeRecommendSearcherBFS{
 
 	public void addToBfsQueue(Queue<ShoeCodeWithDistance> bfsQueue, ShoeCodeWithDistance currentShoeInfo, 
-							  HashSet<String> visitedShoes, AllShoeRepository allShoeRepository){
+							  Set<String> visitedShoes, AllShoeRepository allShoeRepository){
 
 		ShoeNode currentNode = allShoeRepository.findByUniqueShoeCode(currentShoeInfo.getShoeCode());
 
