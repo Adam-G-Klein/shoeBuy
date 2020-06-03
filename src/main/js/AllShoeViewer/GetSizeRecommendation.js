@@ -1,5 +1,4 @@
 import React from 'react';
-import ShoeList from './ShoeList.js';
 import restClient from '../restClient.js';
 
 class GetSizeRecommendation extends React.Component {

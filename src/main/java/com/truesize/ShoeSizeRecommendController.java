@@ -39,7 +39,7 @@ public class ShoeSizeRecommendController {
 
         while(shoeIterator.hasNext()) {
             ShoeNode shoe = shoeIterator.next();
-            List<String> shoeInfo = new ArrayList<String>();
+            List<String> shoeInfo = new ArrayList<>();
             shoeInfo.add(shoe.getBrand());
             shoeInfo.add(shoe.getModel());
             shoeInfo.add(shoe.getSex());

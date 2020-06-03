@@ -1,6 +1,5 @@
 import React from 'react';
 import ShoeList from './ShoeList.js';
-import Shoe from './Shoe.js';
 import AddShoe from './AddShoe.js';
 import GetSizeRecommendation from './GetSizeRecommendation.js';
 import restClient from '../restClient.js';

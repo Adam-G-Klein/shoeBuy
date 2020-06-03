@@ -1,9 +1,7 @@
 import React from 'react';
-import Autosuggest from 'react-autosuggest';
 import "../resources/static/theme.css";
 import ResultCard from './ResultCard';
-import restClient from './restClient.js';
-import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 
  
 class ShoeRecommender extends React.Component {

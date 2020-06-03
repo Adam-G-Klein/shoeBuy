@@ -89,11 +89,7 @@ public class UserController {
         // add new owned shoe to list of ownded shoes in profile
         ac.getProfile().ownedShoes.add(os);
 
-        allUserRepository.save(ac.getProfile());
-
-        // TODO: prevent user from adding the same shoe to their profile more than once?
-        // this would be to prevent the creation of useless edges that start and end at the same shoenode
-    
+        allUserRepository.save(ac.getProfile());    
     }
 
     public void addEdges(ShoeNode sn, OwnedShoe os, UserProfile up){

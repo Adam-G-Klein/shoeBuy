@@ -36,7 +36,7 @@ public class ShoeSizeRecommendSearcherSmartBFS extends ShoeSizeRecommendSearcher
 		}
 		
 		//return an average of the found recommendations
-		if(sizeReccs.size() == 0) {
+		if(sizeReccs.isEmpty()) {
 			return getNoShoeError();
 		}
 		else {
@@ -46,7 +46,6 @@ public class ShoeSizeRecommendSearcherSmartBFS extends ShoeSizeRecommendSearcher
 	
 	private String getSizeReccFromShoe(String desiredShoeCode, AllShoeRepository allShoeRepository, OwnedShoe shoe) {
 
-		
 		String usersShoe = ShoeNode.generateUniqueCode(shoe.getModel(),shoe.getBrand(),shoe.getSex());
 
 		Queue<ShoeCodeWithDistance> bfsQueue = new LinkedList<>();
