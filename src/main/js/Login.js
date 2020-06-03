@@ -100,7 +100,7 @@ class Login extends React.Component {
                                 padding: '2px',
                                 fontSize: '18px',
                                 width: '90px',                              
-                        }} onClick={(event) => this.handleCreateAccount(event)}> Login
+                        }} onClick={(event) => this.handleSubmit(event)}> Login
                         </PillButton>
                       </div>
                       <div style={{textAlign: 'center'}}>
