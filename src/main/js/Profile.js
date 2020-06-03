@@ -11,6 +11,7 @@ import Form from 'react-bootstrap/Form';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
 import restClient from './restClient.js';
+import { Redirect } from 'react-router-dom';
 
 const HorizLine = ({ color }) => (
     <hr
@@ -28,6 +29,7 @@ class Profile extends React.Component {
 	constructor() {
 		super();
 	this.state = {
+		redirectLogout: false,
 		showAdd: false,
 		showLogout:false,
 		showEditProfile: false,
@@ -118,6 +120,23 @@ class Profile extends React.Component {
 		this.setState({showEditProfile:false})
 	}
 
+	handleLogout(){
+		this.setState({redirectLogout: true})
+	}
+
+	redirectLogout() {
+		if(this.state.redirectLogout === true){
+			return(
+				<Redirect to={{
+					pathname: "/login"
+			}}/>
+			)
+		}
+		else {
+			return []
+		}
+	}
+
 	shoeCollectionPage = () => {
 		// let shoeData = this.state.testData
 		let shoeData = this.state.userShoeData
@@ -169,6 +188,7 @@ class Profile extends React.Component {
 					marginLeft: '0px',
 					maxWidth: 'none'
 				}}>
+					{this.redirectLogout()}
 				<Modal show={this.state.showLogout} onHide={() => this.handleCloseLogout()}
 				size="sm"
 				aria-labelledby="contained-modal-title-vcenter"
@@ -207,7 +227,7 @@ class Profile extends React.Component {
 											width: '100px',
 											marginLeft: '5px',
 											marginRight: ' 12px'                               
-							}} onClick={() => this.handleCloseLogout()}> Yes
+							}} onClick={() => this.handleLogout()}> Yes
 							</PillButton>
 						</Modal.Footer>
 						</Modal.Body>
@@ -230,10 +250,10 @@ class Profile extends React.Component {
 							<Form.Group>
 								<Form.Row>
 									<Form.Label column lg={2}>
-									Name
+									Email
 									</Form.Label>
 									<Col>
-									<Form.Control type="text" placeholder={this.state.userInfo.name} />
+									<Form.Control type="text" placeholder={this.state.userInfo.email} />
 									</Col>
 								</Form.Row>
 								<br />
@@ -241,12 +261,24 @@ class Profile extends React.Component {
 								<br />
 								<Form.Row>
 									<Form.Label column lg={2}>
-									Email
+									Current Password
 									</Form.Label>
 									<Col>
-									<Form.Control type="text" placeholder={this.state.userInfo.email} />
+									<Form.Control type="text"  />
 									</Col>
 								</Form.Row>
+								<br />
+								<HorizLine color = 'lightGray'/>
+								<br />
+								<Form.Row>
+									<Form.Label column lg={2}>
+									New Password
+									</Form.Label>
+									<Col>
+									<Form.Control type="text" />
+									</Col>
+								</Form.Row>
+								
 							</Form.Group>
 							</Form>
 						</Col>
@@ -437,13 +469,13 @@ class Profile extends React.Component {
 								marginRight: '0px'
 								}}>
 								<Col sm = {4}>
-									<Row>
+									{/* <Row>
 										<Col style = {{
 											textAlign: 'center',
 											fontWeight: 'bold'}}>
 											Username
 										</Col>
-									</Row>
+									</Row> */}
 									<Row>
 										<Col style = {{
 											textAlign: 'center',
@@ -453,11 +485,11 @@ class Profile extends React.Component {
 									</Row>
 								</Col>
 								<Col md = {8}>
-									<Row>
+									{/* <Row>
 										<Col style = {{textAlign: 'center'}}>
 											{this.state.userInfo.name}
 										</Col>
-									</Row>
+									</Row> */}
 									<Row>
 										<Col style = {{
 											textAlign: 'center',
@@ -490,7 +522,7 @@ class Profile extends React.Component {
 							color: 'white',
 							fontSize: '2.5rem'
 						}}>
-							Welcome, {this.state.userInfo.name}
+							Welcome!
 							<PillButton style={{
 								borderColor: 'red', 
 								backgroundColor:'red',
