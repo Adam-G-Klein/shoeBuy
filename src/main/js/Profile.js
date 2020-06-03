@@ -29,6 +29,12 @@ class Profile extends React.Component {
 	constructor() {
 		super();
 	this.state = {
+		selectedSize: null,
+		modelOptions: [],
+		filteredShoes: [],
+		allShoes: [],
+		selectedBrand: 'Choose a brand',
+		selectedModel: 'Choose a model',
 		redirectLogout: false,
 		showAdd: false,
 		showLogout:false,
@@ -73,7 +79,6 @@ class Profile extends React.Component {
             path: "/api/getUserInfo",
             headers: {'Accept': 'application/json'}
             }).done(response => {
-				console.log("response account: ", response)
 				this.setState({
 					userInfo: {
 						name: 'Kevin',
@@ -87,14 +92,138 @@ class Profile extends React.Component {
             path: "/api/getUserShoes",
             headers: {'Accept': 'application/json'}
             }).done(response => {
-				console.log("response shoes: ", response)
 				this.setState({
 					userShoeData: response.entity
 				})
-				console.log("in request: ", this.state.userShoeData)
 				this.shoeCollectionPage()
 		});
+
+		restClient({method: "GET",
+				path: "/api/shoeNodes",
+				headers: {'Accept': 'application/json'}
+				}).done(response => {
+					console.log("ALL SHOES: ", response)
+					this.setState({allShoes: response.entity._embedded.shoeNodes})
+			});
 		
+	}
+
+	addShoe(e) {
+		let pathString = encodeURI("/api/addShoe?model=" + this.state.selectedModel.model + "&brand=" + this.state.selectedBrand + "&sex="+ this.state.selectedModel.sex + "&size=" + this.state.selectedSize + "&imgURL=" + this.state.selectedModel.imgURL)
+		console.log(this.state.selectedModel)
+		restClient({method: "GET",
+		//model brand sex size imgURL
+				path: pathString,
+				headers: {'Accept': 'application/json'}
+				}).done(response => {
+					this.setState({
+						selectedBrand: '',
+						selectedModel: {},
+						selectedSex: '',
+						selectedSize: 0,
+						filteredModels: [],
+						modelOptions: []
+					})
+					this.handleCloseAdd()
+
+					restClient({method: "GET",
+						path: "/api/getUserShoes",
+						headers: {'Accept': 'application/json'}
+						}).done(response => {
+							this.setState({
+								userShoeData: response.entity
+							})
+							this.shoeCollectionPage()
+					});
+		});
+				
+	}
+
+	handleBrandChange(e) {
+
+		console.log('target value: ', e.target.value)
+		console.log('shoes in state: ', this.state.allShoes)
+		if(e.target.value === 'Choose a brand'){
+			this.setState({
+				selectedBrand: e.target.value,
+				modelOptions: []})
+		}
+		else{
+			let filteredModels = []
+			let filteredNewShoes = []
+
+			for(var index in this.state.allShoes){
+				console.log(this.state.allShoes[index].brand)
+				if(this.state.allShoes[index].brand === (e.target.value).toLowerCase()){
+					filteredModels.push(
+						<option>{this.state.allShoes[index].model}</option>
+					)
+					filteredNewShoes.push(this.state.allShoes[index])
+				}
+			}
+
+			console.log("in brand: ", filteredNewShoes)
+
+			this.setState({
+				selectedBrand: e.target.value,
+				filteredShoes: filteredNewShoes,
+				modelOptions: filteredModels});
+
+			console.log("in brand: ", this.state.filteredShoes)
+
+		}
+		
+	}
+
+	handleSexChange(e) {
+		console.log("target value: ", e.target.value)
+		let selected = ''
+		if(e.target.value === 'Male'){
+			selected = 'm'
+		}
+		else if(e.target.value === 'Female'){
+			selected = 'f'
+		}
+			let filtered = []
+			let filteredNewShoes = []
+			console.log("in sex change filteredShoes: ", this.state.filteredShoes)
+
+			for(var index in this.state.filteredShoes){
+				console.log(this.state.filteredShoes[index].sex)
+				if(this.state.filteredShoes[index].sex === (selected)){
+					// filtered.push(
+					// 	<option value={index}>{this.state.filteredShoes[index].model}</option>
+					// )
+					filteredNewShoes.push(this.state.filteredShoes[index]);
+				}
+			}
+
+			for(var index in filteredNewShoes){
+				console.log(filteredNewShoes[index].sex)
+				if(filteredNewShoes[index].sex === (selected)){
+					filtered.push(
+						<option value={index}>{filteredNewShoes[index].model}</option>
+					)
+					filteredNewShoes.push(this.state.filteredShoes[index]);
+				}
+			}
+
+			this.setState({
+				selectedSex: e.target.value,
+				modelOptions: filtered,
+				filteredShoes: filteredNewShoes
+			})
+		// }
+	}
+
+	handleModelChange(e) {
+		
+		console.log("filtered shoes at index: ", this.state.filteredShoes[e.target.value])
+		this.setState({selectedModel: this.state.filteredShoes[e.target.value]})
+	}
+
+	handleSizeChange(e) {
+		this.setState({selectedSize: e.target.value})
 	}
 
 	handleShowAdd() {
@@ -176,7 +305,6 @@ class Profile extends React.Component {
 	}
 
 	render() {
-		console.log("render u info: ", this.state.userInfo)
 		if(this.state.userInfo === null){
 			return null
 		}
@@ -327,7 +455,7 @@ class Profile extends React.Component {
 									Brand
 								</Form.Label>
 								<Col>
-								<Form.Control as="select" defaultValue="Choose a brand">
+								<Form.Control onChange={(e) => this.handleBrandChange(e)} as="select" defaultValue="Choose a brand">
 									<option>Choose a brand</option>
 									<option>Adidas</option>
 									<option>Nike</option>
@@ -340,11 +468,27 @@ class Profile extends React.Component {
 							<br />
 							<Form.Row>
 								<Form.Label column lg={2}>
+								Shoe Sex
+								</Form.Label>
+								<Col>
+									<Form.Control onChange={(e) => this.handleSexChange(e)} as="select" defaultValue="Choose...">
+										<option>Choose...</option>
+										<option>Male</option>
+										<option>Female</option>
+									</Form.Control>
+								</Col>
+							</Form.Row>	
+							<br />					
+							<HorizLine color = 'lightGray'/>
+							<br />
+							<Form.Row>
+								<Form.Label column lg={2}>
 								Shoe Name
 								</Form.Label>
 								<Col>
-									<Form.Control as="select" defaultValue="Choose a model">
+									<Form.Control onChange={(e) => this.handleModelChange(e)} as="select" defaultValue="Choose a model">
 										<option>Choose a model</option>
+										{this.state.modelOptions}
 									</Form.Control>
 								</Col>
 							</Form.Row>	
@@ -356,20 +500,32 @@ class Profile extends React.Component {
 								Size
 								</Form.Label>
 								<Col>
-									<Form.Control as="select" defaultValue="Choose a size">
+									<Form.Control onChange={(e) => this.handleSizeChange(e)} as="select" defaultValue="Choose a size">
 										<option>Choose a size</option>
-										<option>1</option>
-										<option>2</option>
-										<option>3</option>
 										<option>4</option>
+										<option>4.5</option>
 										<option>5</option>
+										<option>5.5</option>
 										<option>6</option>
+										<option>6.5</option>
 										<option>7</option>
+										<option>7.5</option>
 										<option>8</option>
+										<option>8.5</option>
 										<option>9</option>
+										<option>9.5</option>
 										<option>10</option>
+										<option>10.5</option>
 										<option>11</option>
+										<option>11.5</option>
 										<option>12</option>
+										<option>12.5</option>
+										<option>13</option>
+										<option>13.5</option>
+										<option>14</option>
+										<option>14.5</option>
+										<option>15</option>
+										<option>15.5</option>
 									</Form.Control>
 								</Col>
 							</Form.Row> 
@@ -459,7 +615,7 @@ class Profile extends React.Component {
 											width: '100px',
 											marginLeft: '5px',
 											marginRight: ' 12px'                               
-							}} onClick={() => this.handleCloseAdd()}> Add Shoe
+							}} onClick={(e) => this.addShoe(e)}> Add Shoe
 						</PillButton>	
 					</Modal.Footer>
 					</Modal.Body>
