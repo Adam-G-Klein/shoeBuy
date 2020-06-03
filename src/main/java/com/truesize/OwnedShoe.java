@@ -34,33 +34,19 @@ public class OwnedShoe {
         this(model, "nike", size, "u", "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/zc5x1xceepbszkhwprvn/joyride-run-flyknit-mens-running-shoe-PjmR5M.jpg");
     }
 
-    public Double getSize() {
-        return size;
-    }
+    public Double getSize() {return size;}
 
-    public void setSize(Double size) {
-        this.size = size;
-    }
+    public void setSize(Double size) {this.size = size;}
 
-    public String getSex() {
-        return sex;
-    }
+    public String getSex() {return sex;}
 
-    public String getModel() {
-        return model;
-    }
+    public String getModel() {return model;}
 
-    public String getBrand() {
-        return brand;
-    }
+    public String getBrand() {return brand;}
 
-    public String getImgURL() {
-        return imgURL;
-    }
+    public String getImgURL() {return imgURL;}
 
-    public void setImgURL(String imgURL) {
-        this.imgURL = imgURL;
-    }
+    public void setImgURL(String imgURL) {this.imgURL = imgURL;}
 
     @Override
     public String toString() {
