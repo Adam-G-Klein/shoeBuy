@@ -1,7 +1,6 @@
 import React from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
-import { grey200 } from 'material-ui/styles/colors';
 
 
 const headerStyle = { 'marginLeft': 20 }

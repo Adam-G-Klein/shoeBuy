@@ -8,8 +8,6 @@ import PillButton from '@rakuten-rex/button/PillButton';
 import ShoeCollectionShoe from './ShoeCollectionShoe';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
-import DropdownButton from 'react-bootstrap/DropdownButton';
-import Dropdown from 'react-bootstrap/Dropdown';
 import restClient from './restClient.js';
 import { Redirect } from 'react-router-dom';
 
@@ -129,9 +127,9 @@ class Profile extends React.Component {
 					restClient({method: "GET",
 						path: "/api/getUserShoes",
 						headers: {'Accept': 'application/json'}
-						}).done(response => {
+						}).done(resp => {
 							this.setState({
-								userShoeData: response.entity
+								userShoeData: resp.entity
 							})
 							this.shoeCollectionPage()
 					});
@@ -198,13 +196,13 @@ class Profile extends React.Component {
 				}
 			}
 
-			for(var index in filteredNewShoes){
-				console.log(filteredNewShoes[index].sex)
-				if(filteredNewShoes[index].sex === (selected)){
+			for(var i in filteredNewShoes){
+				console.log(filteredNewShoes[i].sex)
+				if(filteredNewShoes[i].sex === (selected)){
 					filtered.push(
-						<option value={index}>{filteredNewShoes[index].model}</option>
+						<option value={i}>{filteredNewShoes[i].model}</option>
 					)
-					filteredNewShoes.push(this.state.filteredShoes[index]);
+					filteredNewShoes.push(this.state.filteredShoes[i]);
 				}
 			}
 
