@@ -85,7 +85,7 @@ class Register extends React.Component {
                             </Form.Group>
                             <Form.Group>
                                 <Form.Label>Create a Password</Form.Label>
-                                <Form.Control type="text" placeholder="Enter a password" onChange = {(e) => this.handlePassChange(e)}/>
+                                <Form.Control type="password" placeholder="Enter a password" onChange = {(e) => this.handlePassChange(e)}/>
                             </Form.Group>
                             <Row style={{textAlign: 'center'}} >
                                 <Col style={{textAlign: 'center'}}>
