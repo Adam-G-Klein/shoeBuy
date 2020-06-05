@@ -90,6 +90,7 @@ class Profile extends React.Component {
             path: "/api/getUserShoes",
             headers: {'Accept': 'application/json'}
             }).done(response => {
+				console.log(response)
 				this.setState({
 					userShoeData: response.entity
 				})
@@ -268,7 +269,8 @@ class Profile extends React.Component {
 	shoeCollectionPage = () => {
 		// let shoeData = this.state.testData
 		let shoeData = this.state.userShoeData
-		if(shoeData === null || shoeData === undefined){
+		console.log("shoeData: ", shoeData)
+		if(shoeData === null || shoeData === undefined || shoeData.length === 0){
 			let collectionDisplay = [
 				<Card style = {{
 					// height: '300px',
