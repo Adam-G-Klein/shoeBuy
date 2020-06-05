@@ -29,19 +29,27 @@ public class TestAddShoe {
     @Autowired
     private UserController controller;
 
+    String adidas = "adidas";
+    String nike = "nike";
+    String gucci = "gucci";
+    String newshoe = "newshoe";
+    String testshoe1 = "testshoe1";
+    String testshoe2 = "testshoe2";
+
+
     @Test
     public void addEdges() {
     	asr.deleteAll();
     	aur.deleteAll();
         UserProfile profile = new UserProfile("6test@email.com", "123456");
-        profile.ownedShoes.add(new OwnedShoe("testshoe1","adidas", 12.0, "f", "URL"));
-        profile.ownedShoes.add(new OwnedShoe("testshoe2","nike", 13.0, "m", "URL"));
+        profile.ownedShoes.add(new OwnedShoe(testshoe1,adidas, 12.0, "f", "URL"));
+        profile.ownedShoes.add(new OwnedShoe(testshoe2,nike, 13.0, "m", "URL"));
         aur.save(profile);
-        asr.save(new ShoeNode("testshoe2","nike", "m"));
-        asr.save(new ShoeNode("testshoe1","adidas", "f"));
+        asr.save(new ShoeNode(testshoe2,nike, "m"));
+        asr.save(new ShoeNode(testshoe1,adidas, "f"));
 
-        OwnedShoe os = new OwnedShoe("newshoe","gucci", 12.0, "f", "URL");
-        ShoeNode sn = new ShoeNode("newshoe", "gucci", "f");
+        OwnedShoe os = new OwnedShoe(newshoe,gucci, 12.0, "f", "URL");
+        ShoeNode sn = new ShoeNode(newshoe, gucci, "f");
         
         asr.save(sn);
         
@@ -49,14 +57,14 @@ public class TestAddShoe {
         asr.save(sn);
 
         //assert that the new sn is in the repository
-        String uniqueShoeCode = ShoeNode.generateUniqueCode("newshoe", "gucci", "f");
+        String uniqueShoeCode = ShoeNode.generateUniqueCode(newshoe, gucci, "f");
         sn = asr.findByUniqueShoeCode(uniqueShoeCode);
         assert(sn != null);
         //assert that new sn has two edges
 
         assert(sn.getEdges().size() == 2);
         //assert that other sn has one edge
-        uniqueShoeCode = ShoeNode.generateUniqueCode("testshoe1", "adidas", "f");
+        uniqueShoeCode = ShoeNode.generateUniqueCode(testshoe1, "adidas", "f");
         sn = asr.findByUniqueShoeCode(uniqueShoeCode);
         assert(sn.getEdges().size() == 1);
     }
@@ -68,16 +76,16 @@ public class TestAddShoe {
         UserProfile profile = new UserProfile("6test@email.com", "123456");
         ac.setProfile(profile);
         ac.setLoggedIn(true);
-        profile.ownedShoes.add(new OwnedShoe("testshoe1","adidas", 12.0, "f", "URL"));
-        profile.ownedShoes.add(new OwnedShoe("testshoe2","nike", 13.0, "m", "URL"));
-        asr.save(new ShoeNode("testshoe2","nike", "m"));
-        asr.save(new ShoeNode("testshoe1","adidas", "f"));
+        profile.ownedShoes.add(new OwnedShoe(testshoe1,"adidas", 12.0, "f", "URL"));
+        profile.ownedShoes.add(new OwnedShoe(testshoe2,"nike", 13.0, "m", "URL"));
+        asr.save(new ShoeNode(testshoe2,"nike", "m"));
+        asr.save(new ShoeNode(testshoe1,"adidas", "f"));
     	  aur.save(profile);
 
-        controller.addShoe("newshoe2","gucci","m",13.5, "imgURL");
+        controller.addShoe("newshoe2",gucci,"m",13.5, "imgURL");
 
         //assert that a new shoe node has been added to the repository
-        String uniqueShoeCode = ShoeNode.generateUniqueCode("newshoe2", "gucci", "m");
+        String uniqueShoeCode = ShoeNode.generateUniqueCode("newshoe2", gucci, "m");
         ShoeNode sn = asr.findByUniqueShoeCode(uniqueShoeCode);
         assert(sn != null);
         //assert that the new shoe node has 2 edges

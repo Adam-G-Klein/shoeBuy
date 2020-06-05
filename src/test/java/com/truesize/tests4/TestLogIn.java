@@ -27,6 +27,8 @@ public class TestLogIn {
     @InjectMocks
     private AccountService ac;
 
+    String testPassword = "123456";
+
     @Test
     public void emailNotFound(){
     	aur.deleteAll();
@@ -35,34 +37,36 @@ public class TestLogIn {
         assert(up == null);
 
         //assert that createAccount returns false
-        assert(ac.logIn("test@email.com", "123456", aur) == false);
+        assert(!ac.logIn("test@email.com", testPassword, aur));
     }
 
     @Test
     public void incorrectPassword(){
+        String testEmail = "2test@email.com";
     	aur.deleteAll();
         //assert that the user account is in the repo
-        aur.save(new UserProfile("2test@email.com", "correctpassword"));
-        UserProfile up = aur.findByEmail("2test@email.com");
+        aur.save(new UserProfile(testEmail, "correctpassword"));
+        UserProfile up = aur.findByEmail(testEmail);
         assert(up != null);
 
         //assert that createAccount returns false
-        assert(ac.logIn("2test@email.com", "incorrectpassword", aur) == false);
+        assert(!ac.logIn(testEmail, "incorrectpassword", aur));
     }
 
     @Test
     public void logInSuccess(){
+        String testEmail = "3test@email.com";
     	aur.deleteAll();
         //assert that the user account is in the repo
-        aur.save(new UserProfile("3test@email.com", "123456"));
-        UserProfile up = aur.findByEmail("3test@email.com");
+        aur.save(new UserProfile(testEmail, testPassword));
+        UserProfile up = aur.findByEmail(testEmail);
         assert(up != null);
 
         //assert that createAccount returns true
-        assert(ac.logIn("3test@email.com", "123456", aur) == true);
+        assert(ac.logIn(testEmail, testPassword, aur));
 
         //assert that loggedIn is now true
-        assert(ac.isLoggedIn() == true);
+        assert(ac.isLoggedIn());
     }
 
 }

@@ -29,9 +29,12 @@ public class TestGetUserInfo {
     @InjectMocks
     private UserController controller;
 
+    String testEmail = "test@email.com";
+    String testPassword = "123456";
+
     @Test
     public void getUserInfo() {
-    	UserProfile profile = new UserProfile("test@email.com", "123456");
+    	UserProfile profile = new UserProfile(testEmail, testPassword);
         profile.ownedShoes.add(new OwnedShoe("testshoe1","adidas", 12.0, "f", "URL"));
         profile.ownedShoes.add(new OwnedShoe("testshoe2","nike", 13.0, "m", "URL"));
         when(ac.getProfile()).thenReturn(profile);
@@ -39,13 +42,13 @@ public class TestGetUserInfo {
         UserProfile up = controller.getUserInfo();
 
         //assert that the information returned in the user profile is correct
-        assert(up.getEmail() == "test@email.com");
-        assert(up.getPassword() == "123456");
+        assert(up.getEmail() == testEmail);
+        assert(up.getPassword() == testPassword);
     }
 
     @Test
     public void getUserShoes() {
-    	UserProfile profile = new UserProfile("test@email.com", "123456");
+    	UserProfile profile = new UserProfile(testEmail, testPassword);
         profile.ownedShoes.add(new OwnedShoe("testshoe1","adidas", 12.0, "f", "URL"));
         profile.ownedShoes.add(new OwnedShoe("testshoe2","nike", 13.0, "m", "URL"));
         when(ac.getProfile()).thenReturn(profile);

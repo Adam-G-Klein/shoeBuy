@@ -29,14 +29,15 @@ public class TestCreateAccount {
 
     @Test
     public void emailTaken(){
+        String email = "4test@email.com";
     	aur.deleteAll();
         //assert that the user account is in the repo
-        aur.save(new UserProfile("4test@email.com", "123456"));
-        UserProfile up = aur.findByEmail("4test@email.com");
+        aur.save(new UserProfile(email, "123456"));
+        UserProfile up = aur.findByEmail(email);
         assert(up != null);
 
         //assert that createAccount returns false
-        assert(ac.createAccount("4test@email.com", "password", aur) == false);
+        assert(!ac.createAccount(email, "password", aur));
     }
 
     @Test
@@ -47,7 +48,7 @@ public class TestCreateAccount {
         assert(up == null);
 
         //assert that createAccount returns true
-        assert(ac.createAccount("5test@email.com", "123456", aur) == true);
+        assert(ac.createAccount("5test@email.com", "123456", aur));
     }
         
 }
