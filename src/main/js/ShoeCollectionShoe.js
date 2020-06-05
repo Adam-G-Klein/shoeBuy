@@ -122,19 +122,19 @@ class ShoeCollectionShoe extends React.Component {
                         <Card style={{ 
                             margin: '0 auto',
                             width: '12rem'}}>
-                            <Card.Img variant="top" src={this.props.shoeInfo.imgURL} />
+                            <Card.Img variant="top" src={this.props.shoeInfo.shoeImgURL} />
                             {/* <Card.Img variant="top" src={'https://zycada-amzn.zappos.com/images/I/71rsqtFGsbL._AC_SX510_.jpg'} /> */}
                         </Card>
                     </Col>
                     <Col style={{padding: '18px'}} md={{span: 8, offset: 1}}>
                         <Row style = {{fontWeight: 'bold', fontSize: '30px'}}>
-                            {this.props.shoeInfo.brand}
+                            {this.props.shoeInfo.shoeBrand}
                         </Row>
                         <Row style = {{fontSize: '20px'}}>
-                            {this.props.shoeInfo.model}
+                            {this.props.shoeInfo.shoeModel}
                         </Row>
                         <Row style = {{fontSize: '20px'}}>
-                            size: {this.props.shoeInfo.size}
+                            size: {this.props.shoeInfo.shoeSize}
                         </Row>
                         <Row style= {{justifyContent: 'right', textAlign: 'right'}}>
                             <PillButton style = {{
