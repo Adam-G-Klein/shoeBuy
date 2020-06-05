@@ -36,14 +36,14 @@ public class UserProfile {
         this.email = email;
         this.password = password;
         this.ownedShoes = new ArrayList<>();
-        ownedShoes.add(new OwnedShoe("KD9", 17.5));
-        ownedShoes.add(new OwnedShoe("KD3000", 17.5));
-        ownedShoes.add(new OwnedShoe("HotDog", 400.5));
-        ownedShoes.add(new OwnedShoe("t1c","adidas", 12.0, "f", "google.com"));
     }
 
     public String getEmail() {
         return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public void setPassword(String password) {
@@ -52,10 +52,6 @@ public class UserProfile {
 
     public String getPassword() {
         return password;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public List<OwnedShoe> getOwnedShoes() {
@@ -80,8 +76,6 @@ public class UserProfile {
     }
 }
 
-
-//+ "shoes=" + shoesToString() +
 
 
 

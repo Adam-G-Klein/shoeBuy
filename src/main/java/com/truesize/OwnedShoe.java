@@ -38,11 +38,13 @@ public class OwnedShoe {
 
     public void setShoeSize(Double size) {this.shoeSize = size;}
 
+
     public String getShoeSex() {return shoeSex;}
 
     public String getShoeModel() {return shoeModel;}
 
     public String getShoeBrand() {return shoeBrand;}
+
 
     public String getShoeImgURL() {return shoeImgURL;}
 

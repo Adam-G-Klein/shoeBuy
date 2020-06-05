@@ -57,7 +57,6 @@ public class UserController {
         ac.logOut();
     }
 
-    // hopefully this returns profile information in a usable JSON format
     @GetMapping(value = "/api/getUserInfo", produces = MediaType.APPLICATION_JSON_VALUE)
     UserProfile getUserInfo(){
         return ac.getProfile();
@@ -85,11 +84,17 @@ public class UserController {
 
         //go through all the shoes in the userProfile ownedshoe list and add new edges to the sn
         this.addEdges(sn, os, ac.getProfile());
+        allShoeRepository.save(sn);
 
-        // add new owned shoe to list of ownded shoes in profile
+        // add new owned shoe to list of owned shoes in profile
         ac.getProfile().ownedShoes.add(os);
 
-        allUserRepository.save(ac.getProfile());    
+
+        allUserRepository.save(ac.getProfile());
+
+        // maybe add a way to prevent user from adding the same shoe to their profile more than once?
+        // this would be to avoid the creation of useless edges that start and end at the same shoenode
+    
     }
 
     public void addEdges(ShoeNode sn, OwnedShoe os, UserProfile up){
@@ -104,9 +109,12 @@ public class UserController {
                 logger.info("Add Edge error: shoe node not found: " + ShoeNode.generateUniqueCode(shoe.getShoeModel(), shoe.getShoeBrand(), shoe.getShoeSex()));
             }
             else{
+
                 sn.addEdge(target, os.getShoeSize(), shoe.getShoeSize());
+
             }
         }
+      //allShoeRepository.save(sn);
     }
 
 }

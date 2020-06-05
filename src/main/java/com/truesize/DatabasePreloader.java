@@ -26,9 +26,12 @@ public class DatabasePreloader implements CommandLineRunner {
         this.allUserRepository.save(new UserProfile("testemail2@test.com", "totallysecurepassword"));
 
         addHtmlData();
+        addHotDog();
     }
 
-
+    private void addHotDog(){
+        allShoeRepository.save(new ShoeNode("HotDog", "Nike", "n/a", "https://upload.wikimedia.org/wikipedia/commons/f/fb/Hotdog_-_Evan_Swigart.jpg"));
+    }
 
     private void addHtmlData(){
 

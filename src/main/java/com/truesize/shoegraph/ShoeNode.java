@@ -104,10 +104,11 @@ public class ShoeNode {
         else{
             DirectedShoeEdge edge = new DirectedShoeEdge(1, sizeDifference, shoeConnection);
 
-            //prevent addEdge from infinitly looping back and forth from start to end Node
+            //prevent addEdge from infinitely looping back and forth from start to end Node
             if(!isEndShoe){ shoeConnection.addEdgeBothWays(this, sizeDifference * -1, true); }
-    
+   
             this.edges.add(edge);
+         
         } 
     }
     public List<String> getEdgesAsShoeCodes(){
