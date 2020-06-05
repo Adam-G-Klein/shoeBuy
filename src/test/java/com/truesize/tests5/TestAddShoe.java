@@ -64,7 +64,7 @@ public class TestAddShoe {
 
         assert(sn.getEdges().size() == 2);
         //assert that other sn has one edge
-        uniqueShoeCode = ShoeNode.generateUniqueCode(testshoe1, "adidas", "f");
+        uniqueShoeCode = ShoeNode.generateUniqueCode(testshoe1, adidas, "f");
         sn = asr.findByUniqueShoeCode(uniqueShoeCode);
         assert(sn.getEdges().size() == 1);
     }
@@ -76,10 +76,10 @@ public class TestAddShoe {
         UserProfile profile = new UserProfile("6test@email.com", "123456");
         ac.setProfile(profile);
         ac.setLoggedIn(true);
-        profile.ownedShoes.add(new OwnedShoe(testshoe1,"adidas", 12.0, "f", "URL"));
-        profile.ownedShoes.add(new OwnedShoe(testshoe2,"nike", 13.0, "m", "URL"));
-        asr.save(new ShoeNode(testshoe2,"nike", "m"));
-        asr.save(new ShoeNode(testshoe1,"adidas", "f"));
+        profile.ownedShoes.add(new OwnedShoe(testshoe1,adidas, 12.0, "f", "URL"));
+        profile.ownedShoes.add(new OwnedShoe(testshoe2,nike, 13.0, "m", "URL"));
+        asr.save(new ShoeNode(testshoe2,nike, "m"));
+        asr.save(new ShoeNode(testshoe1,adidas, "f"));
     	  aur.save(profile);
 
         controller.addShoe("newshoe2",gucci,"m",13.5, "imgURL");
