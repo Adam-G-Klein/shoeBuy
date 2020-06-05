@@ -74,8 +74,8 @@ class SizeRecommender extends React.Component {
             }).done(response => {
 				console.log("response size: ", response.entity.response)
 				this.setState({
-					// size: response.entity.response
-					size: 10.5
+					size: response.entity.response
+					//size: 10.5
 				})
 		});
 	}

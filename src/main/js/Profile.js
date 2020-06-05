@@ -128,10 +128,10 @@ class Profile extends React.Component {
 					restClient({method: "GET",
 						path: "/api/getUserShoes",
 						headers: {'Accept': 'application/json'}
-						}).done(response => {
-							console.log("response.entity: ", response.entity)
+						}).done(response2 => {
+							console.log("response.entity: ", response2.entity)
 							this.setState({
-								userShoeData: resp.entity
+								userShoeData: response2.entity
 							})
 							this.shoeCollectionPage()
 					});
