@@ -130,6 +130,7 @@ class Profile extends React.Component {
 						path: "/api/getUserShoes",
 						headers: {'Accept': 'application/json'}
 						}).done(response => {
+							console.log("response.entity: ", response.entity)
 							this.setState({
 								userShoeData: response.entity
 							})
