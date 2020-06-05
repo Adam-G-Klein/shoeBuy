@@ -79,7 +79,9 @@ class SearchResults extends React.Component {
       var inputLength = inputValue.length;
 
       return inputLength === 0 ? [] : this.state.shoes.filter(shoes =>
-        shoes.model.toLowerCase().slice(0, inputLength) === inputValue
+        shoes.model.toLowerCase().slice(0, inputLength) === inputValue ||
+        shoes.brand.toLowerCase().slice(0, inputLength) === inputValue ||
+        (shoes.brand.toLowerCase() + ' ' + shoes.model.toLowerCase()).slice(0, inputLength) === inputValue
       );
     };
 
