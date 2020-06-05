@@ -58,17 +58,17 @@ public class UserController {
     }
 
     @GetMapping(value = "/api/getUserInfo", produces = MediaType.APPLICATION_JSON_VALUE)
-    UserProfile getUserInfo(){
+	public UserProfile getUserInfo(){
         return ac.getProfile();
     }
 
     @GetMapping(value = "/api/getUserShoes", produces = MediaType.APPLICATION_JSON_VALUE)
-    List<OwnedShoe> getUserShoes(){
+	public List<OwnedShoe> getUserShoes(){
         return ac.getProfile().getOwnedShoes();
     }
 
     @GetMapping("/api/addShoe")
-    void addShoe(@RequestParam String model, @RequestParam String brand, @RequestParam String sex, @RequestParam Double size, @RequestParam String imgURL){
+	public void addShoe(@RequestParam String model, @RequestParam String brand, @RequestParam String sex, @RequestParam Double size, @RequestParam String imgURL){
         //create a new owned shoe
 
         OwnedShoe os = new OwnedShoe(model, brand, size, sex, imgURL);
